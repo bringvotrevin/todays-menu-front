@@ -5,7 +5,7 @@ const Location = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate('/random-menu');
+    navigate('/loading');
   };
 
   return (
