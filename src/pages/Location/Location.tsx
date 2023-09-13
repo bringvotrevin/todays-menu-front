@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode';
-import styled from 'styled-components';
+import BottomSheet from '../../components/common/modal/BottomSheet';
+import * as S from './Location.styled';
 
 const Location: React.FC = () => {
+  const navigate = useNavigate();
   const [modalOn, setModalOn] = useState<boolean>(false);
   const [address, setAddress] = useState<string>('');
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
+  const addressInput = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (addressInput.current) {
+      addressInput.current.value = address;
+    }
+  }, [address]);
+
   const handlePostcodeModal = () => {
     setModalOn(true);
   };
@@ -49,46 +60,46 @@ const Location: React.FC = () => {
     }
   };
 
+  const handleSubmit = () => {
+    navigate('/random-menu/1');
+  };
+
+  const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    setModalOn(false);
+  };
+
   return (
-    <div>
-      <Header>
-        입력하신 위치 기반으로
-        <br /> 오늘의 메뉴를 추천해드려요
-      </Header>
-      <AddressInput placeholder="회사명, 근처 역 출구, 상세 주소 검색" readOnly />
-      <div>현재 주소: {address}</div>
-      <button onClick={handlePostcodeModal}>주소 검색</button>
-      <button onClick={getCurrentLocation}>현재 위치 조회</button>
+    <>
+      <S.Layout>
+        <S.GetCurrentLocationButton onClick={getCurrentLocation}>현재 위치로 설정하기</S.GetCurrentLocationButton>
+        <S.Title>입력하신 위치 기반으로 오늘의 메뉴를 추천해드려요</S.Title>
+        <S.Form>
+          <S.AddressInput placeholder="회사명, 근처 역 출구, 상세 주소 검색" readOnly onClick={handlePostcodeModal} ref={addressInput} />
+          {/* 아래 버튼은 임시로 넣어놓은거라 공통 컴포넌트로 교체 예정입니다! */}
+          <button
+            style={{
+              height: '70px',
+              borderRadius: '20px',
+              backgroundColor: 'var(--color-main-orange)',
+              color: 'white',
+              fontSize: 'var(--lg)',
+            }}
+            onClick={handleSubmit}
+          >
+            점심메뉴 같이 고르기
+          </button>
+        </S.Form>
+      </S.Layout>
+      {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}
       {modalOn && (
-        <PostcodeModal>
-          <DaumPostcodeEmbed onComplete={handleComplete} autoClose />
-        </PostcodeModal>
+        <BottomSheet handleModalClose={handleModalClose}>
+          <DaumPostcodeEmbed onComplete={handleComplete} autoClose style={{ width: '100%', height: 500 }} />
+        </BottomSheet>
       )}
-    </div>
+    </>
   );
 };
 
 export default Location;
-
-const PostcodeModal = styled.div`
-  width: 500px;
-  height: 800px;
-`;
-
-const Header = styled.h1`
-  font-size: 25px;
-  margin: 107px 0 0 18px;
-  line-height: 40px;
-`;
-
-const AddressInput = styled.input`
-  width: 90%;
-  margin: 67px auto;
-  padding: 21px 0 22px 25px;
-  border-radius: 5px;
-  display: block;
-
-  &::placeholder {
-    color: var(--light-gray);
-  }
-`;
