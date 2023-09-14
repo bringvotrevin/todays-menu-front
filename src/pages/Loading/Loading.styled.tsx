@@ -8,39 +8,43 @@ type LoadingImgProps = {
 };
 
 const foodFadeInOut = keyframes`
-  0% {
+  0%, 10%, 70% {
     opacity: 0;
   }
-  20% {
-    opacity: 0;
-  }
-  21% {
+
+  20%, 60% {
     opacity: 1;
-  }
-  60% {
-    opacity: 1;
-  }
-  61% {
-    opacity: 0;
   }
 `;
 
 const dotsFadeInOut = keyframes`
-  0% {
+  0%, 9%, 61%, 100% {
     opacity: 1;
   }
-  18% {
-    opacity: 1;
-  }
-  21% {
+
+  18%, 59% {
     opacity: 0;
   }
-  60% {
-    opacity: 0;
-  }
-  61% {
+
+`;
+
+const hideFoodIcons = keyframes`
+  0%, 60% {
     opacity: 1;
   }
+  61%, 100% {
+    opacity: 0;
+  }
+`;
+
+const showDotIcons = keyframes`
+  0%, 60% {
+    opacity: 1;
+  } 
+  61%, 100% {
+    opacity: 1;
+  }
+  
 `;
 
 export const Wrapper = styled.div`
@@ -75,6 +79,11 @@ export const ImgWrapper = styled.div`
   position: relative;
 `;
 
+export const DotsIconsWrapper = styled.div`
+  opacity: 1;
+  animation: ${showDotIcons} 7s infinite;
+`;
+
 export const DotsIcons = styled.img<LoadingImgProps>`
   position: absolute;
   opacity: 1;
@@ -83,6 +92,9 @@ export const DotsIcons = styled.img<LoadingImgProps>`
   animation-delay: ${(props) => props.delay || '0s'};
 `;
 
+export const FoodsIconsWrapper = styled.div`
+  animation: ${hideFoodIcons} 7s infinite;
+`;
 export const FoodsIcons = styled.img<LoadingImgProps>`
   position: absolute;
   top: -5px;
