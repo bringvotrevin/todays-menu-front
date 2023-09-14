@@ -61,7 +61,8 @@ const Location: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    navigate('/random-menu/1');
+    navigate('/loading');
+
   };
 
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {

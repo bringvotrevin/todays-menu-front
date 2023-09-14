@@ -34,6 +34,9 @@ export const GlobalStyle = createGlobalStyle`
   
   body {
     font-family: 'Noto Sans KR', sans-serif;
+    min-width: 320px;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   a {
