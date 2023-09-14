@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
   ${reset}
 
   :root {
+    --vh: 100%;
     /* color */
     --color-main-orange: #EF5A39;
     --color-sub-gray: #7B7B7B;
@@ -18,6 +19,13 @@ export const GlobalStyle = createGlobalStyle`
     --font-bold: 700;
     --font-semi-bold: 600;
     --font-medium: 500;
+
+    --xs: 12px;
+    --sm: 15px;
+    --md: 17px;
+    --lg: 20px;
+    --xl: 25px;
+    --xxl: 27px;
   }
   
   * {
@@ -46,9 +54,20 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     border: 0;
+    padding: 0;
     background: transparent;
     cursor: pointer;
   }
 
+  input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
 `;
