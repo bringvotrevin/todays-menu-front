@@ -13,13 +13,6 @@ const Vote = (props: Props) => {
     navigate('/random-menu/1/result');
   };
 
-  // return (
-  //   <div>
-  //     Vote
-  //     <button onClick={handleSubmit}>투표</button>
-  //   </div>
-  // );
-
   return (
     <S.Layout>
       <button style={{ position: 'absolute' }} onClick={handleSubmit}>

@@ -8,10 +8,10 @@ export default function MenuCard() {
       <div>
         <S.RestaurantName>오제제 강남점</S.RestaurantName>
         <S.RestaurantTagsUl>
-          <S.RestaurantTag>양식</S.RestaurantTag>
-          <S.RestaurantTag>스테이크, 립</S.RestaurantTag>
+          <S.RestaurantTag># 양식</S.RestaurantTag>
+          <S.RestaurantTag># 스테이크, 립</S.RestaurantTag>
         </S.RestaurantTagsUl>
-        <S.RestaurantDistance>120m</S.RestaurantDistance>
+        <S.RestaurantDistance>120m | 서울 강남대로 385</S.RestaurantDistance>
       </div>
       <S.ButtonsDiv>
         <button>

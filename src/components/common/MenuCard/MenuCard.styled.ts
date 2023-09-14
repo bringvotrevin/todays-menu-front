@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 const MenuList = styled.li`
-  padding: 15px 14px 9px 17px;
+  padding: 16px 17px 17px;
   background-color: #fff;
   border: 1px var(--color-sub-gray) solid;
   border-radius: 10px;
@@ -18,29 +18,29 @@ const ButtonsDiv = styled.div`
 
 const RestaurantName = styled.strong`
   font-weight: var(--font-semi-bold);
-  font-size: 15px;
+  font-size: var(--sm);
 `;
 
 const RestaurantTagsUl = styled.ul`
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin: 10px 0 26px;
+  margin: 5px 0 17px;
 `;
 
 const RestaurantTag = styled.p`
   padding: 3px 5px;
   border-radius: 5px;
-  background-color: rgba(217, 217, 217, 0.24);
   color: var(--color-sub-gray);
-  font-size: 12px;
+  font-size: var(--xs);
   display: inline-block;
   vertical-align: bottom;
   line-height: normal;
+  color: var(--color-main-orange);
 `;
 
 const RestaurantDistance = styled.p`
   color: var(--color-sub-gray);
+  font-size: var(--xs);
 `;
 
 const RestaurantDetail = styled.button`
