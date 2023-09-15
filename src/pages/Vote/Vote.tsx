@@ -49,7 +49,7 @@ const Vote = (props: Props) => {
           </S.BtnGroup>
         </S.Wrapper>
       </S.Layout>
-      // TODO: 추후 포탈로 변경 예정
+      {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}
       {modalOn && (
         <S.VoteBottomSheet handleModalClose={handleModalClose}>
           <ul>
