@@ -62,7 +62,6 @@ const Location: React.FC = () => {
 
   const handleSubmit = () => {
     navigate('/loading');
-
   };
 
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
