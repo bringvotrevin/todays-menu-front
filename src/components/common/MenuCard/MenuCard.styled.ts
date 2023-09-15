@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-const MenuList = styled.li`
+export const MenuList = styled.li`
   padding: 16px 17px 17px;
   background-color: #fff;
   border: 1px var(--color-sub-gray) solid;
@@ -9,26 +9,28 @@ const MenuList = styled.li`
   justify-content: space-between;
 `;
 
-const ButtonsDiv = styled.div`
+export const ButtonsDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: end;
 `;
 
-const RestaurantName = styled.strong`
+export const RestaurantName = styled.strong`
   font-weight: var(--font-semi-bold);
   font-size: var(--sm);
 `;
 
-const RestaurantTagsUl = styled.ul`
+export const RestaurantTagsUl = styled.ul`
   display: flex;
+  gap: 10px;
   align-items: center;
   margin: 5px 0 17px;
 `;
 
-const RestaurantTag = styled.p`
-  padding: 3px 5px;
+export const RestaurantTag = styled.p`
+  padding: 3px 0;
+  margin-left: 2px;
   border-radius: 5px;
   color: var(--color-sub-gray);
   font-size: var(--xs);
@@ -38,16 +40,16 @@ const RestaurantTag = styled.p`
   color: var(--color-main-orange);
 `;
 
-const RestaurantDistance = styled.p`
+export const RestaurantDistance = styled.p`
   color: var(--color-sub-gray);
   font-size: var(--xs);
 `;
 
-const RestaurantDetail = styled.button`
+export const RestaurantDetail = styled.button`
   color: var(--color-sub-gray);
-  font-weight: var(--font-bold);
-  text-decoration: underline;
-  text-underline-position: under;
+  font-weight: var(--font-medium);
+  font-weight: var(--font-regular);
+  border: 1px #dbdbdb solid;
+  padding: 4px 5px 3px;
+  border-radius: 5px;
 `;
-
-export { MenuList, ButtonsDiv, RestaurantName, RestaurantTagsUl, RestaurantTag, RestaurantDistance, RestaurantDetail };

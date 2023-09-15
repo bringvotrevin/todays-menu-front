@@ -9,9 +9,7 @@ export const Layout = styled.div`
 `;
 
 export const Wrapper = styled.ul`
-  /* box-shadow: inset 0 0 0 10px red; */
   padding: 0 19px 0;
-  /* height: 95%; */
   display: flex;
   flex-direction: column;
   gap: 15px;
