@@ -1,0 +1,88 @@
+name: React App CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  setup-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build React App
+      run: npm run build
+
+  docker-build-and-push:
+    if: github.ref == 'refs/heads/main'
+    needs: setup-and-build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}   
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: todays-menu
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+    - name: Setup Kustomize
+      uses: imranismail/setup-kustomize@v1
+
+    - name: Checkout kustomize repository
+      uses: actions/checkout@v2
+      with:
+         repository: royroyee/todays-menu-gitops 
+         ref: main
+         token: ${{ secrets.ACTION_TOKEN }}
+         path: todays-menu-gitops 
+
+    - name: Update Kubernetes resources
+      env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: todays-menu
+          IMAGE_TAG: ${{ github.sha }}
+      run: |
+          cd todays-menu-gitops/frontend
+          sed -i "s|image:.*|image: $ECR_REGISTRY\/$ECR_REPOSITORY:$IMAGE_TAG|g" deployment.yaml 
+
+    - name: Commit files
+      env:
+          ECR_REPOSITORY: todays-menu
+          IMAGE_TAG: ${{ github.run_number }}
+      run: |
+          cd todays-menu-gitops
+          git config --global user.email "kim131325@naver.com"
+          git config --global user.name "royroyee"
+          git add deployment.yaml
+          git commit -m "Update image $ECR_REPOSITORY tag $IMAGE_TAG"
+          git push -u origin main
+      continue-on-error: true # TODO refactor
