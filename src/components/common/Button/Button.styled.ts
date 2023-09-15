@@ -5,7 +5,7 @@ type StyledButtonProps = {
 };
 
 export const StyledButton = styled.button<StyledButtonProps>`
-  padding: 21px 33px 20px 35px;
+  padding: 22px 0px 20px;
   border: 2px var(--color-main-orange) solid;
   background-color: ${(props) => (props.variant === 'orange' ? 'var(--color-main-orange)' : '#fff')};
   color: ${(props) => (props.variant === 'orange' ? '#fff' : 'var(--color-main-orange)')};

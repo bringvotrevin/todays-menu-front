@@ -9,10 +9,10 @@ export const Layout = styled.div`
 `;
 
 export const Wrapper = styled.ul`
-  padding: 0 19px 0;
+  padding: 4px 19px 0;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 13px;
 
   & li:first-child {
     margin-top: 10%;
@@ -22,6 +22,15 @@ export const Wrapper = styled.ul`
 export const BtnGroup = styled.div`
   display: flex;
   gap: 14px;
+  margin-top: 8px;
+
+  .renewList {
+    width: 150px;
+  }
+
+  .makeNewList {
+    width: 200px;
+  }
 `;
 
 export const VoteBottomSheet = styled(BottomSheet)`

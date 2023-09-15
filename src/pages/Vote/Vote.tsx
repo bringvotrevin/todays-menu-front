@@ -42,9 +42,11 @@ const Vote = (props: Props) => {
           <MenuCard />
           <MenuCard />
           <S.BtnGroup>
-            <Button variant="white">다시찾기</Button>
-            <Button variant="orange" onClick={handleShareClick}>
-              공유하기
+            <Button className="renewList" variant="white">
+              초기화
+            </Button>
+            <Button className="makeNewList" variant="orange" onClick={handleShareClick}>
+              투표 만들기
             </Button>
           </S.BtnGroup>
         </S.Wrapper>
