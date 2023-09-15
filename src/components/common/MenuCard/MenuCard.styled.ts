@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
 
-export const MenuList = styled.li`
+export const MenuList = styled.li<{ isSelected: boolean }>`
   padding: 16px 17px 17px;
-  background-color: #fff;
+  background: ${({ isSelected }) => (isSelected ? 'linear-gradient(rgba(239, 90, 57, 0.2), rgba(239, 90, 57, 0.2)), #FFFFFF' : '#FFFFFF')};
   border: 1px var(--color-sub-gray) solid;
   border-radius: 10px;
   display: flex;
