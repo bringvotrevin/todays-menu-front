@@ -19,6 +19,7 @@ export const GlobalStyle = createGlobalStyle`
     --font-bold: 700;
     --font-semi-bold: 600;
     --font-medium: 500;
+    --font-regular: 400;
 
     --xs: 12px;
     --sm: 15px;

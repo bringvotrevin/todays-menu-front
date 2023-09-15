@@ -1,53 +1,55 @@
 import { styled } from 'styled-components';
 
-const MenuList = styled.li`
-  padding: 15px 14px 9px 17px;
-  background-color: #fff;
+export const MenuList = styled.li<{ isSelected: boolean }>`
+  padding: 16px 17px 17px;
+  background: ${({ isSelected }) => (isSelected ? 'linear-gradient(rgba(239, 90, 57, 0.2), rgba(239, 90, 57, 0.2)), #FFFFFF' : '#FFFFFF')};
   border: 1px var(--color-sub-gray) solid;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
 `;
 
-const ButtonsDiv = styled.div`
+export const ButtonsDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: end;
 `;
 
-const RestaurantName = styled.strong`
+export const RestaurantName = styled.strong`
   font-weight: var(--font-semi-bold);
-  font-size: 15px;
+  font-size: var(--sm);
 `;
 
-const RestaurantTagsUl = styled.ul`
+export const RestaurantTagsUl = styled.ul`
   display: flex;
-  align-items: center;
   gap: 10px;
-  margin: 10px 0 26px;
+  align-items: center;
+  margin: 5px 0 17px;
 `;
 
-const RestaurantTag = styled.p`
-  padding: 3px 5px;
+export const RestaurantTag = styled.p`
+  padding: 3px 0;
+  margin-left: 2px;
   border-radius: 5px;
-  background-color: rgba(217, 217, 217, 0.24);
   color: var(--color-sub-gray);
-  font-size: 12px;
+  font-size: var(--xs);
   display: inline-block;
   vertical-align: bottom;
   line-height: normal;
+  color: var(--color-main-orange);
 `;
 
-const RestaurantDistance = styled.p`
+export const RestaurantDistance = styled.p`
   color: var(--color-sub-gray);
+  font-size: var(--xs);
 `;
 
-const RestaurantDetail = styled.button`
+export const RestaurantDetail = styled.button`
   color: var(--color-sub-gray);
-  font-weight: var(--font-bold);
-  text-decoration: underline;
-  text-underline-position: under;
+  font-weight: var(--font-medium);
+  font-weight: var(--font-regular);
+  border: 1px #dbdbdb solid;
+  padding: 4px 5px 3px;
+  border-radius: 5px;
 `;
-
-export { MenuList, ButtonsDiv, RestaurantName, RestaurantTagsUl, RestaurantTag, RestaurantDistance, RestaurantDetail };

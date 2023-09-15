@@ -1,4 +1,3 @@
-// Button.tsx
 import React from 'react';
 import * as S from './Button.styled';
 
