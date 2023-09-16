@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './Button.styled';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  $variant?: 'orange' | 'white';
+  variant?: 'orange' | 'white' | 'gray';
 };
 
 const Button: React.FC<ButtonProps> = ({ children, $variant = 'white', ...props }) => {
