@@ -3,15 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode';
 import BottomSheet from '../../components/common/modal/BottomSheet';
 import * as S from './Location.styled';
-import getAddressAPI from 'apis/api/getAddressAPI';
+import getAddressAPI from 'apis/api/getAddressApi';
 // import { useQuery } from 'react-query';
 
 const Location: React.FC = () => {
   const navigate = useNavigate();
   const [modalOn, setModalOn] = useState<boolean>(false);
   const [address, setAddress] = useState<string>('');
-  // const [latitude, setLatitude] = useState<number | null>(null);
-  // const [longitude, setLongitude] = useState<number | null>(null);
   const addressInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -54,10 +52,6 @@ const Location: React.FC = () => {
     console.log('in progress');
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(async ({ coords: { latitude, longitude } }) => {
-        // setLatitude(latitude);
-        // setLongitude(longitude);
-
-        // 카카오 역 지오코딩 요청 보내기
         try {
           const response = await getAddressAPI({ longitude, latitude });
           const formattedAddress = response.data.documents[0].address.address_name;
@@ -73,7 +67,7 @@ const Location: React.FC = () => {
 
   const handleSubmit = () => {
     sessionStorage.setItem('address', address);
-    navigate('/loading');
+    navigate('/random-menu');
   };
 
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -84,8 +78,6 @@ const Location: React.FC = () => {
 
   return (
     <>
-      {/* {isLoading && <div>Loading...</div>}
-      {isError && <div>Error fetching address: {isError}</div>} */}
       <S.Layout>
         <S.GetCurrentLocationButton onClick={getCurrentLocation}>현재 위치로 설정하기</S.GetCurrentLocationButton>
         <S.Title>입력하신 위치 기반으로 오늘의 메뉴를 추천해드려요</S.Title>
