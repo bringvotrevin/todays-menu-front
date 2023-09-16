@@ -1,5 +1,5 @@
-import getRandomListApi from 'apis/api/getRandomListAPI';
-import { QueryClient, QueryKey, useQuery } from 'react-query';
+import getRandomListApi from 'apis/api/getRandomListApi';
+import { QueryKey, useQuery } from 'react-query';
 
 export const useGetRandomList = () => {
   const queryKey: QueryKey = ['randomList'];

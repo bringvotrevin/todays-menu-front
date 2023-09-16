@@ -5,7 +5,7 @@ import { useQueryErrorResetBoundary } from 'react-query';
 type Props = {
   children: ReactNode;
   errorFallback: ReactElement<unknown, string | FunctionComponent | typeof Component> | null;
-  suspenseFallback: ReactNode;
+  suspenseFallback: ReactElement<unknown, string | FunctionComponent | typeof Component> | null;
 };
 
 function AsyncBoundary(props: Props) {
