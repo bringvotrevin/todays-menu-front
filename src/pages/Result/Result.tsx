@@ -1,44 +1,31 @@
 import React from 'react';
+import Slider from 'react-slick';
 import * as S from './Result.styled';
 import shareResult from 'assets/images/icon-share-result.svg';
-import toDetail from 'assets/images/icon-to-detail.svg';
-import soup from 'assets/images/icon-soup.svg';
-import pizza from 'assets/images/icon-pizza.svg';
-import hamburger from 'assets/images/icon-hamburger.svg';
-import noodle from 'assets/images/icon-noodle.svg';
+import ResultCard from 'components/common/ResultCard/ResultCard';
 
 type Props = {};
 
 const Result = (props: Props) => {
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+  };
+
+  // api 연결시 1세트당 1개의 ResultCard로하여 배열로 넣기
+  const restaurantDetails = [<ResultCard key="ResultCard1"></ResultCard>];
+
   return (
     <>
       <button style={{ position: 'absolute' }}>Result</button>
       <S.Wrapper>
         <S.ShareResult>n명이 투표했습니다!</S.ShareResult>
-        <S.RestaurantDetail>
-          <S.RankingWrapper>
-            <img src={soup} alt="soup icon" />
-            <img src={pizza} alt="pizza icon" />
-            <S.Ranking>1등</S.Ranking>
-            <img src={hamburger} alt="hamburger icon" />
-            <img src={noodle} alt="noodle icon" />
-          </S.RankingWrapper>
-          <span className="line"></span>
-          <S.RestaurantName>오제제 강남점</S.RestaurantName>
-          <S.RestaurantTags>
-            <S.RestaurantTag># 양식</S.RestaurantTag>
-            <S.RestaurantTag># 스테이크, 립</S.RestaurantTag>
-          </S.RestaurantTags>
-          <S.RestaurantDistance>120m</S.RestaurantDistance>
-          <S.VoteNumber>
-            <p>6</p>
-            /7명
-          </S.VoteNumber>
-          <S.toRestaurantDetail>
-            지도 앱에서 열기
-            <img src={toDetail} alt="to external link icon" />
-          </S.toRestaurantDetail>
-        </S.RestaurantDetail>
+        {/* <ResultCard></ResultCard> */}
+        {restaurantDetails.length > 1 ? <Slider {...settings}>{restaurantDetails}</Slider> : restaurantDetails[0]}
         <S.ButtonShare>
           <img src={shareResult} alt="share result icon" />
           공유하기
