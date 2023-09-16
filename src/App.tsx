@@ -5,7 +5,6 @@ import AppRoutes from 'router/AppRoutes';
 import { AppLayout } from 'styles/AppLayout';
 import { GlobalStyle } from 'styles/GlobalStyle.js';
 import AsyncBoundary from 'components/common/AsyncBoundary';
-import Loading from 'pages/Loading/Loading';
 
 function App() {
   const queryClient = new QueryClient({

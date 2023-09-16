@@ -2,9 +2,9 @@ import styled, { keyframes } from 'styled-components';
 import backgroundImg from 'assets/images/bg-loading.svg';
 
 type LoadingImgProps = {
-  left?: string;
+  $left?: string;
   top?: string;
-  delay?: string;
+  $delay?: string;
 };
 
 const foodFadeInOut = keyframes`
@@ -87,9 +87,9 @@ export const DotsIconsWrapper = styled.div`
 export const DotsIcons = styled.img<LoadingImgProps>`
   position: absolute;
   opacity: 1;
-  left: ${(props) => props.left || '0px'};
+  left: ${(props) => props.$left || '0px'};
   animation: ${dotsFadeInOut} 7s infinite;
-  animation-delay: ${(props) => props.delay || '0s'};
+  animation-delay: ${(props) => props.$delay || '0s'};
 `;
 
 export const FoodsIconsWrapper = styled.div`
@@ -98,8 +98,8 @@ export const FoodsIconsWrapper = styled.div`
 export const FoodsIcons = styled.img<LoadingImgProps>`
   position: absolute;
   top: -5px;
-  left: ${(props) => props.left || '0px'};
+  left: ${(props) => props.$left || '0px'};
   opacity: 0;
   animation: ${foodFadeInOut} 7s infinite;
-  animation-delay: ${(props) => props.delay || '0s'};
+  animation-delay: ${(props) => props.$delay || '0s'};
 `;

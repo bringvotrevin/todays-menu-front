@@ -18,12 +18,12 @@ const MenuCard = (props: MenuCardProps) => {
   const [isSelected, setIsSelected] = useState(false);
 
   return (
-    <S.MenuList isSelected={isSelected} onClick={() => setIsSelected(!isSelected)}>
+    <S.MenuList $isSelected={isSelected} onClick={() => setIsSelected(!isSelected)}>
       <div>
         <S.RestaurantName>{title}</S.RestaurantName>
         <S.RestaurantTagsUl>
-          {categories.map((category) => (
-            <S.RestaurantTag>{`# ${category}`}</S.RestaurantTag>
+          {categories.map((category, i) => (
+            <S.RestaurantTag key={i}>{`# ${category}`}</S.RestaurantTag>
           ))}
         </S.RestaurantTagsUl>
         <S.RestaurantDistance>{`${distance}m | 주소어쩌고저쩌고 `}</S.RestaurantDistance>

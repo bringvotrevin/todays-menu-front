@@ -1,5 +1,4 @@
 import axios from 'axios';
-import React from 'react';
 
 const getRandomListApi = async () => {
   const response = await axios.get('http://localhost:8080/create');
