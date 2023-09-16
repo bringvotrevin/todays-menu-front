@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode';
 import BottomSheet from '../../components/common/modal/BottomSheet';
 import * as S from './Location.styled';
+import getAddressAPI from 'apis/getAddressAPI';
+// import { useQuery } from 'react-query';
 
 const Location: React.FC = () => {
   const navigate = useNavigate();
   const [modalOn, setModalOn] = useState<boolean>(false);
   const [address, setAddress] = useState<string>('');
-  const [latitude, setLatitude] = useState<number | null>(null);
-  const [longitude, setLongitude] = useState<number | null>(null);
+  // const [latitude, setLatitude] = useState<number | null>(null);
+  // const [longitude, setLongitude] = useState<number | null>(null);
   const addressInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -29,32 +30,42 @@ const Location: React.FC = () => {
     setModalOn(false);
   };
 
+  const handleError = (error: GeolocationPositionError) => {
+    switch (error.code) {
+      case 1:
+        alert('위치 정보 엑세스가 거부되어 있습니다. 설정에서 위치정보 사용을 허용해주세요.');
+        break;
+      case 2:
+        alert('장치에서 위치 정보를 제공할 수 없습니다.');
+        break;
+      case 3:
+        alert('위치 정보를 가져오는 데 시간 초과가 발생했습니다.');
+        break;
+      default:
+        alert('알 수 없는 오류가 발생했습니다.');
+        break;
+    }
+  };
+
+  // const { data, isLoading, isError } = useQuery('address', () => getAddressAPI({ longitude, latitude }));
+
   // 현재 위치 정보 가져오기
-  const getCurrentLocation = () => {
+  const getCurrentLocation = async () => {
+    console.log('in progress');
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
+      navigator.geolocation.getCurrentPosition(async ({ coords: { latitude, longitude } }) => {
+        // setLatitude(latitude);
+        // setLongitude(longitude);
 
         // 카카오 역 지오코딩 요청 보내기
         try {
-          const response = await axios.get(
-            `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${position.coords.longitude}&y=${position.coords.latitude}`,
-            {
-              headers: {
-                Authorization: 'KakaoAK d03f46a44fe547b3fefe9bd42fc2310a', // 여기에 카카오 앱 키를 입력하세요.
-              },
-            },
-          );
-
-          if (response.data.documents.length > 0) {
-            const formattedAddress = response.data.documents[0].address.address_name;
-            setAddress(formattedAddress);
-          }
+          const response = await getAddressAPI({ longitude, latitude });
+          const formattedAddress = response.data.documents[0].address.address_name;
+          setAddress(formattedAddress);
         } catch (error) {
           console.error('Error fetching address:', error);
         }
-      });
+      }, handleError);
     } else {
       alert('Geolocation is not available in this browser.');
     }
@@ -72,6 +83,8 @@ const Location: React.FC = () => {
 
   return (
     <>
+      {/* {isLoading && <div>Loading...</div>}
+      {isError && <div>Error fetching address: {isError}</div>} */}
       <S.Layout>
         <S.GetCurrentLocationButton onClick={getCurrentLocation}>현재 위치로 설정하기</S.GetCurrentLocationButton>
         <S.Title>입력하신 위치 기반으로 오늘의 메뉴를 추천해드려요</S.Title>

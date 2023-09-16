@@ -8,9 +8,7 @@ import * as S from './Vote.styled';
 import shareViaLinkImg from 'assets/images/icon-share-link.svg';
 import shareViaKakaoImg from 'assets/images/icon-kakaotalk.svg';
 
-type Props = {};
-
-const Vote = (props: Props) => {
+const Vote = () => {
   const [modalOn, setModalOn] = useState<boolean>(false);
   const navigate = useNavigate();
 

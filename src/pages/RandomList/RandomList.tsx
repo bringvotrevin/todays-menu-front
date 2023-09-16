@@ -1,9 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-type Props = {};
-
-const RandomList = (props: Props) => {
+const RandomList = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {

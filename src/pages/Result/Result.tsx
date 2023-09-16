@@ -1,8 +1,6 @@
 import React from 'react';
 
-type Props = {};
-
-const Result = (props: Props) => {
+const Result = () => {
   return <div>Result</div>;
 };
 
