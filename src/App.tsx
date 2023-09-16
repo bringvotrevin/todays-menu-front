@@ -1,5 +1,6 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import AsyncBoundary from 'components/common/AsyncBoundary';
 import { useEffect } from 'react';
 import AppRoutes from './router/AppRoutes';
 import { AppLayout } from './styles/AppLayout';
@@ -20,11 +21,13 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      {/* <AsyncBoundary errorFallback={<>...error</>} suspenseFallback={<>...loading</>}> */}
       <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyle />
       <AppLayout>
         <AppRoutes />
       </AppLayout>
+      {/* </AsyncBoundary> */}
     </QueryClientProvider>
   );
 }

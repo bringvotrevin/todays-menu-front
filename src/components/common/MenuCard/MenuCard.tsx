@@ -1,31 +1,41 @@
 import { useState } from 'react';
 import * as S from './MenuCard.styled';
 import retrybtn from '../../../assets/images/btn-retry.svg';
+import splitCategory from 'util/splitCategory';
 
-interface MenuCardProps {}
+interface MenuCardProps {
+  information: {
+    title: string;
+    category: string;
+    link: string;
+    distance: string;
+  };
+}
 
-const MenuCard: React.FC<MenuCardProps> = () => {
+const MenuCard = (props: MenuCardProps) => {
+  const { title, category, link, distance } = props.information;
+  const categories = splitCategory(category);
   const [isSelected, setIsSelected] = useState(false);
-  const url = 'https://map.naver.com/p/entry/place/1274621934?lng=127.0298087&lat=37.4950692&placePath=%2Fhome&c=15.01,0,0,0,dh';
 
   return (
     <S.MenuList isSelected={isSelected} onClick={() => setIsSelected(!isSelected)}>
       <div>
-        <S.RestaurantName>오제제 강남점</S.RestaurantName>
+        <S.RestaurantName>{title}</S.RestaurantName>
         <S.RestaurantTagsUl>
-          <S.RestaurantTag># 양식</S.RestaurantTag>
-          <S.RestaurantTag># 스테이크, 립</S.RestaurantTag>
+          {categories.map((category) => (
+            <S.RestaurantTag>{`# ${category}`}</S.RestaurantTag>
+          ))}
         </S.RestaurantTagsUl>
-        <S.RestaurantDistance>120m | 서울 강남대로 385</S.RestaurantDistance>
+        <S.RestaurantDistance>{`${distance}m | 주소어쩌고저쩌고 `}</S.RestaurantDistance>
       </div>
       <S.ButtonsDiv>
         <button>
           <img src={retrybtn} alt="retry-btn" />
         </button>
         <S.RestaurantDetail
-          onClick={(e) => {
-            e.stopPropagation();
-            window.open(url);
+          onClick={(event) => {
+            event.stopPropagation();
+            window.open(link);
           }}
         >
           음식점 보기

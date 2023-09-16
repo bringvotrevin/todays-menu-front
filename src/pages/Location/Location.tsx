@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode';
 import BottomSheet from '../../components/common/modal/BottomSheet';
 import * as S from './Location.styled';
-import getAddressAPI from 'apis/getAddressAPI';
+import getAddressAPI from 'apis/api/getAddressAPI';
 // import { useQuery } from 'react-query';
 
 const Location: React.FC = () => {
@@ -72,6 +72,7 @@ const Location: React.FC = () => {
   };
 
   const handleSubmit = () => {
+    sessionStorage.setItem('address', address);
     navigate('/loading');
   };
 

@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Landing from '../pages/Landing/Landing';
 import Location from '../pages/Location/Location';
 import Loading from '../pages/Loading/Loading';
-import RandomList from '../pages/RandomList/RandomList';
+import RandomList from '../pages/RandomList';
 import Result from '../pages/Result/Result';
 import Vote from '../pages/Vote/Vote';
 
