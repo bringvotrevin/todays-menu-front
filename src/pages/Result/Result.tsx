@@ -31,7 +31,7 @@ const Result = (props: Props) => {
           공유하기
         </S.ButtonShare>
         <S.ResultButton>지도 앱에서 열기</S.ResultButton>
-        <S.ResultButton variant="retry">처음부터 다시하기</S.ResultButton>
+        <S.ResultButton $variant="retry">처음부터 다시하기</S.ResultButton>
       </S.Wrapper>
     </>
   );

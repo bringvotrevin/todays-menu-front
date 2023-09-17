@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { vars } from 'styles/GlobalStyle';
 
 type StyledButtonProps = {
-  variant: 'orange' | 'white' | 'gray' | 'retry';
+  $variant: 'orange' | 'white' | 'gray' | 'retry';
 };
 
 export const StyledButton = styled.button<StyledButtonProps>`
   padding: 22px 0px 20px;
   border: 2px var(--color-main-orange) solid;
   background-color: ${(props) => {
-    switch (props.variant) {
+    switch (props.$variant) {
       case 'orange':
         return vars.semantic.primrayOrange;
       case 'gray':
@@ -21,7 +21,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
     }
   }};
   color: ${(props) => {
-    switch (props.variant) {
+    switch (props.$variant) {
       case 'orange':
         return vars.semantic.primrayOrange;
       case 'gray':

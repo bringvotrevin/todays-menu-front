@@ -1,6 +1,6 @@
 import Button from 'components/common/Button/Button';
 import styled from 'styled-components';
-import { vars } from 'styles/GlobalStyle';
+// import { vars } from 'styles/GlobalStyle';
 
 export const Wrapper = styled.div`
   width: 100%;
