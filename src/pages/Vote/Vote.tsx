@@ -34,11 +34,11 @@ const Vote = () => {
           투표
         </button>
         <S.Wrapper>
+          {/* <MenuCard />
           <MenuCard />
           <MenuCard />
           <MenuCard />
-          <MenuCard />
-          <MenuCard />
+          <MenuCard /> */}
           <S.BtnGroup>
             <Button className="renewList" variant="white">
               초기화

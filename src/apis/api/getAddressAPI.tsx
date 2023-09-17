@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // null 지우기
-const getAddressAPI = async (location: { longitude: number; latitude: number }) => {
+const getAddressApi = async (location: { longitude: number; latitude: number }) => {
   const longitude = location.longitude;
   const latitude = location.latitude;
   const response = await axios.get(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`, {
@@ -16,4 +16,4 @@ const getAddressAPI = async (location: { longitude: number; latitude: number }) 
   }
 };
 
-export default getAddressAPI;
+export default getAddressApi;
