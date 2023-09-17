@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import icon_location from '../../assets/images/btn-getLocation.svg';
+import icon_location from 'assets/icons/btn-getLocation.svg';
 
 export const Layout = styled.div`
   width: 100%;
