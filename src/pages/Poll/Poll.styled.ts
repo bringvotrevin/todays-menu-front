@@ -60,7 +60,7 @@ export const ShareImg = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-export const VoteBottomSheet = styled(BottomSheet)`
+export const PollBottomSheet = styled(BottomSheet)`
   ul {
     padding: 17px 30px 117px;
   }

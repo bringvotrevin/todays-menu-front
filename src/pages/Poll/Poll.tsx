@@ -5,22 +5,22 @@ import AsyncBoundary from 'components/common/AsyncBoundary';
 import MenuCard from 'components/common/MenuCard/MenuCard';
 import Button from 'components/common/Button/Button';
 
-import * as S from './Vote.styled';
+import * as S from './Poll.styled';
 import shareViaLinkImg from 'assets/icons/icon-share-link.svg';
 import shareViaKakaoImg from 'assets/icons/icon-kakaotalk.svg';
 import icon_share from 'assets/icons/icon-share.svg';
 import Loading from 'pages/Loading/Loading';
 import { useGetRoom } from 'apis/query/useGetRoom';
 
-const VoteWrapper = () => {
+const PollWrapper = () => {
   return (
     <AsyncBoundary errorFallback={<>...error</>} suspenseFallback={<Loading />}>
-      <Vote />
+      <Poll />
     </AsyncBoundary>
   );
 };
 
-const Vote = () => {
+const Poll = () => {
   const [modalOn, setModalOn] = useState<boolean>(false);
   const navigate = useNavigate();
   const { data } = useGetRoom();
@@ -61,7 +61,7 @@ const Vote = () => {
       </S.Layout>
       {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}
       {modalOn && (
-        <S.VoteBottomSheet handleModalClose={handleModalClose}>
+        <S.PollBottomSheet handleModalClose={handleModalClose}>
           <ul>
             <li className="shareViaKaKao">
               <img src={shareViaKakaoImg} alt="share via kakaotalk icon" />
@@ -73,10 +73,10 @@ const Vote = () => {
               <p>링크 복사하기</p>
             </li>
           </ul>
-        </S.VoteBottomSheet>
+        </S.PollBottomSheet>
       )}
     </>
   );
 };
 
-export default VoteWrapper;
+export default PollWrapper;
