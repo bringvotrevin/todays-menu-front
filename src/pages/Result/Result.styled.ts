@@ -1,4 +1,3 @@
-import BottomSheet from 'components/common/modal/BottomSheet';
 import styled from 'styled-components';
 // import { vars } from 'styles/GlobalStyle';
 
@@ -111,31 +110,5 @@ export const ButtonShare = styled.button`
   img {
     margin-right: 10px;
     vertical-align: bottom;
-  }
-`;
-
-export const VoteBottomSheet = styled(BottomSheet)`
-  ul {
-    padding: 17px 30px 117px;
-  }
-
-  li {
-    padding: 30px;
-    display: flex;
-    align-items: center;
-
-    p {
-      margin: 0 auto;
-    }
-  }
-
-  .line {
-    display: block;
-    width: 100%;
-    border: 1px #d9d9d9 solid;
-  }
-
-  .shareViaLink {
-    padding-left: 40px;
   }
 `;
