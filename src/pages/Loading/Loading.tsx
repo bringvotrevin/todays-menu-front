@@ -7,11 +7,15 @@ import sushi from 'assets/icons/icon-sushi.svg';
 import soup from 'assets/icons/icon-soup.svg';
 import sandwich from 'assets/icons/icon-sandwich.svg';
 
-const Loading = () => {
+interface LoadingProps {
+  message: string; // message props의 타입을 string으로 정의
+}
+
+const Loading: React.FC<LoadingProps> = ({ message }) => {
   return (
     <S.Wrapper>
       <S.ContentsWrapper>
-        <S.LoadingH2>로딩중</S.LoadingH2>
+        <S.LoadingH2>{message}</S.LoadingH2>
         <S.ImgWrapper>
           <S.DotsIconsWrapper>
             <S.DotsIcons src={graydot} $left="0px" $delay="0s" />

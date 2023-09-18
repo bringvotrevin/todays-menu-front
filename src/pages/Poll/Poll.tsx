@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AsyncBoundary from 'components/common/AsyncBoundary';
-
+import * as S from './Poll.styled';
+import { useGetRoom } from 'apis/query/useGetRoom';
 import MenuCard from 'components/common/MenuCard/MenuCard';
 import Button from 'components/common/Button/Button';
-
-import * as S from './Poll.styled';
-import shareViaLinkImg from 'assets/icons/icon-share-link.svg';
-import shareViaKakaoImg from 'assets/icons/icon-kakaotalk.svg';
-import icon_share from 'assets/icons/icon-share.svg';
 import Loading from 'pages/Loading/Loading';
-import { useGetRoom } from 'apis/query/useGetRoom';
+import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
+import icon_share from 'assets/icons/icon-share.svg';
 
 const PollWrapper = () => {
   return (
-    <AsyncBoundary errorFallback={<>...error</>} suspenseFallback={<Loading />}>
+    <AsyncBoundary errorFallback={<>...error</>} suspenseFallback={<Loading message={'오늘의 메뉴 생성중'} />}>
       <Poll />
     </AsyncBoundary>
   );
 };
 
 const Poll = () => {
-  const [modalOn, setModalOn] = useState<boolean>(false);
+  const [isModalOn, setIsModalOn] = useState<boolean>(false);
   const navigate = useNavigate();
   const { data } = useGetRoom();
 
@@ -30,13 +27,13 @@ const Poll = () => {
   };
 
   const handleShareClick = () => {
-    setModalOn(true);
+    setIsModalOn(true);
   };
 
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     event.preventDefault();
-    setModalOn(false);
+    setIsModalOn(false);
   };
 
   return (
@@ -60,21 +57,7 @@ const Poll = () => {
         </S.ButtonLayout>
       </S.Layout>
       {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}
-      {modalOn && (
-        <S.PollBottomSheet handleModalClose={handleModalClose}>
-          <ul>
-            <li className="shareViaKaKao">
-              <img src={shareViaKakaoImg} alt="share via kakaotalk icon" />
-              <p>카카오톡으로 공유하기</p>
-            </li>
-            <S.Line />
-            <li className="shareViaLink">
-              <img src={shareViaLinkImg} alt="share via link icon" />
-              <p>링크 복사하기</p>
-            </li>
-          </ul>
-        </S.PollBottomSheet>
-      )}
+      {isModalOn && <ShareBottomSheet handleModalClose={handleModalClose} />}
     </>
   );
 };
