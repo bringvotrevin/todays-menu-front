@@ -4,7 +4,7 @@ import reset from 'styled-reset';
 export const GlobalStyle = createGlobalStyle`
    @font-face { 
     font-family: 'Noto Sans KR', sans-serif;
-    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;600;700&display=swap');
+    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
    } 
 
   ${reset}
@@ -14,12 +14,15 @@ export const GlobalStyle = createGlobalStyle`
     /* color */
     --color-main-orange: #EF5A39;
     --color-sub-gray: #7B7B7B;
+    --color-bg-gray: #F5F5F5;
 
     /* font weight */
     --font-bold: 700;
     --font-semi-bold: 600;
     --font-medium: 500;
     --font-regular: 400;
+    --font-light: 300;
+    
 
     --xs: 12px;
     --sm: 15px;

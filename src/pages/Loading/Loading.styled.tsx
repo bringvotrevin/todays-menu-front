@@ -50,7 +50,7 @@ const showDotIcons = keyframes`
 export const Wrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: url(${backgroundImg}) no-repeat;
   background-size: cover;
   background-position: center;

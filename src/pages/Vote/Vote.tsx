@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import MenuCard from '../../components/common/MenuCard/MenuCard';
-import Button from '../../components/common/Button/Button';
+// import MenuCard from 'components/common/MenuCard/MenuCard';
+import Button from 'components/common/Button/Button';
 
 import * as S from './Vote.styled';
-import shareViaLinkImg from 'assets/images/icon-share-link.svg';
-import shareViaKakaoImg from 'assets/images/icon-kakaotalk.svg';
+import shareViaLinkImg from 'assets/icons/icon-share-link.svg';
+import shareViaKakaoImg from 'assets/icons/icon-kakaotalk.svg';
 
 const Vote = () => {
   const [modalOn, setModalOn] = useState<boolean>(false);
@@ -40,10 +40,10 @@ const Vote = () => {
           <MenuCard />
           <MenuCard /> */}
           <S.BtnGroup>
-            <Button className="renewList" variant="white">
+            <Button className="renewList" $variant="white">
               초기화
             </Button>
-            <Button className="makeNewList" variant="orange" onClick={handleShareClick}>
+            <Button className="makeNewList" $variant="orange" onClick={handleShareClick}>
               투표 만들기
             </Button>
           </S.BtnGroup>

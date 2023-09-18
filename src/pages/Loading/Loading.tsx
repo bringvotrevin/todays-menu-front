@@ -1,11 +1,11 @@
 import React from 'react';
 import * as S from './Loading.styled';
-import graydot from 'assets/images/gray-dot.svg';
-import noodle from 'assets/images/icon-noodle.svg';
-import hamburger from 'assets/images/icon-hamburger.svg';
-import sushi from 'assets/images/icon-sushi.svg';
-import soup from 'assets/images/icon-soup.svg';
-import sandwich from 'assets/images/icon-sandwich.svg';
+import graydot from 'assets/icons/gray-dot.svg';
+import noodle from 'assets/icons/icon-noodle.svg';
+import hamburger from 'assets/icons/icon-hamburger.svg';
+import sushi from 'assets/icons/icon-sushi.svg';
+import soup from 'assets/icons/icon-soup.svg';
+import sandwich from 'assets/icons/icon-sandwich.svg';
 
 const Loading = () => {
   return (
