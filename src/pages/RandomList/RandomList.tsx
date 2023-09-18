@@ -17,7 +17,7 @@ const RandomListWrapper = () => {
 
 const RandomList = () => {
   const navigate = useNavigate();
-  const { data } = useGetRandomList();
+  const data = useGetRandomList();
 
   const handleSubmit = () => {
     navigate(`/random-menu/${data?.data[0].id}`);
