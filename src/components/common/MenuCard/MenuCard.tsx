@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import * as S from './MenuCard.styled';
-import retrybtn from 'assets/icons/btn-retry.svg';
 import icon_change from 'assets/icons/btn-change.svg';
+import icon_inactiveCheck from 'assets/icons/icon-inactiveCheck.svg';
+import icon_activeCheck from 'assets/icons/icon-activeCheck.svg';
 import splitCategory from 'util/splitCategory';
 import icon_link from 'assets/icons/btn-link.svg';
 
@@ -12,6 +13,7 @@ interface MenuCardProps {
     link: string;
     distance: string;
   };
+  isPoll?: boolean;
 }
 
 const MenuCard = (props: MenuCardProps) => {
@@ -19,17 +21,17 @@ const MenuCard = (props: MenuCardProps) => {
   const categories = splitCategory(category);
   const [isSelected, setIsSelected] = useState(false);
 
-  const handleCardClick = () => {
-    setIsSelected(!isSelected);
-  };
-
   const handleLinkClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     window.open(link);
   };
 
+  const handleIconClick = () => {
+    setIsSelected((prev) => !prev);
+  };
+
   return (
-    <S.MenuList $isSelected={isSelected} onClick={handleCardClick}>
+    <S.MenuList>
       <section>
         <S.TitleLayout onClick={handleLinkClick}>
           <S.RestaurantName>{title}</S.RestaurantName>
@@ -42,9 +44,13 @@ const MenuCard = (props: MenuCardProps) => {
         </S.RestaurantTagsUl>
         <S.RestaurantDistance>{`${distance}m | 주소어쩌고저쩌고 `}</S.RestaurantDistance>
       </section>
-      <S.ButtonsDiv>
+      <S.ButtonsDiv onClick={handleIconClick}>
         <button>
-          <img src={icon_change} alt="retry-btn" />
+          {props.isPoll ? (
+            <img src={isSelected ? icon_activeCheck : icon_inactiveCheck} alt={'check button'} />
+          ) : (
+            <img src={icon_change} alt={'retry button'} />
+          )}
         </button>
       </S.ButtonsDiv>
     </S.MenuList>

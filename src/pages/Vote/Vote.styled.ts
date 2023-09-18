@@ -1,36 +1,63 @@
-import { styled } from 'styled-components';
-import background from 'assets/images/bg-vote.svg';
-import BottomSheet from '../../components/common/modal/BottomSheet';
+import styled from 'styled-components';
+import bg_vote from 'assets/images/background-top.png';
+import icon_yummy from 'assets/icons/icon-yummy.svg';
+import BottomSheet from 'components/common/modal/BottomSheet';
 
 export const Layout = styled.div`
   width: 100%;
-  height: 100%;
-  background: url(${background}) no-repeat;
-`;
-
-export const Wrapper = styled.ul`
-  padding: 4px 19px 0;
+  height: 100vh;
+  background: url(${bg_vote}) 0 0 no-repeat;
+  background-color: var(--color-bg-gray);
+  padding: 50px 18px 30px;
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  justify-content: space-between;
+`;
 
-  & li:first-child {
-    margin-top: 10%;
+export const Title = styled.h1`
+  width: 90%;
+  margin: 0 auto 11px;
+  font-size: var(--xxl);
+  font-weight: var(--font-bold);
+  color: white;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    width: 27px;
+    height: 27px;
+    bottom: 2px;
+    right: -10px;
+    background: url(${icon_yummy}) 0 0 no-repeat;
   }
 `;
 
-export const BtnGroup = styled.div`
+export const CardUl = styled.ul`
   display: flex;
-  gap: 14px;
-  margin-top: 8px;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 22px;
+  flex-grow: 1;
+`;
 
-  .renewList {
-    width: 150px;
+export const ButtonLayout = styled.div`
+  height: 70px;
+  display: flex;
+  gap: 7px;
+  button:first-child {
+    position: relative;
+    flex-basis: 1;
   }
+`;
 
-  .makeNewList {
-    width: 200px;
-  }
+export const ShareImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const VoteBottomSheet = styled(BottomSheet)`

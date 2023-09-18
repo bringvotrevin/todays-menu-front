@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 type StyledButtonProps = {
   $variant: 'orange' | 'white';
+  $style?: {
+    [key: string]: string | undefined;
+  };
 };
 
 export const StyledButton = styled.button<StyledButtonProps>`
@@ -12,5 +15,5 @@ export const StyledButton = styled.button<StyledButtonProps>`
   border-radius: 20px;
   font-size: 20px;
   font-weight: var(--font-bold);
-  width: 100%;
+  width: ${(props) => (props.$style?.width ? props.$style.width : '100%')};
 `;
