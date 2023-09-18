@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './Loading.styled';
-import graydot from 'assets/icons/gray-dot.svg';
+import graydot from 'assets/icons/icon-gray-dot.svg';
 import noodle from 'assets/icons/icon-noodle.svg';
 import hamburger from 'assets/icons/icon-hamburger.svg';
 import sushi from 'assets/icons/icon-sushi.svg';

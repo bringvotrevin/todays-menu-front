@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { vars } from 'styles/GlobalStyle';
 
 type StyledButtonProps = {
-  $variant: 'orange' | 'white' | 'gray' | 'retry';
+  $variant?: 'white' | 'orange' | 'gray' | 'retry';
 };
 
 export const StyledButton = styled.button<StyledButtonProps>`
