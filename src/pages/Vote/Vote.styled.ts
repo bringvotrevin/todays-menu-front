@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import background from 'assets/images/bg-vote.svg';
+import background from 'assets/images/background-vote.svg';
 import BottomSheet from '../../components/common/modal/BottomSheet';
 
 export const Layout = styled.div`

@@ -78,3 +78,28 @@ export const GlobalStyle = createGlobalStyle`
   }
 
 `;
+
+export const vars = {
+  // static과 semantic에 들어가는 기준?
+  // 원래는 프로젝트 시작 전에 디자이너랑 협의해서 변수 전체를 정하고 프로젝트를 시작한다!
+
+  static: {
+    // gray100: 'var(--color-sub-gray)',
+    // gray200: 'var(--color-sub-gray)',
+    // orange100: 'var(--color-main-orange)',
+    font12: 'var(--xs)',
+    font15: 'var(--sm)',
+    font17: 'var(--md)',
+    font20: 'var(--lg)',
+    font25: 'var(--xl)',
+    font27: 'var(--xxl)',
+    font700: 'var(--font-bold)',
+    font600: 'var(--font-semi-bold)',
+    font500: 'var(--font-medium)',
+    font400: 'var(--font-regular)',
+  },
+  semantic: {
+    primrayOrange: 'var(--color-main-orange)',
+    subGray: 'var(--color-sub-gray)',
+  },
+};
