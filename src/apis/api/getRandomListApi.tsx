@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { axiosInstance } from 'apis/base/instance';
 
 const getRandomListApi = async () => {
-  const response = await axios.get('http://localhost:8080/create');
+  const response = await axiosInstance.get('/create');
   await new Promise((resolve) => setTimeout(resolve, 3000));
   return response;
 };
