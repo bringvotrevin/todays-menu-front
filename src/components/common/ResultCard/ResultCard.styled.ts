@@ -7,7 +7,7 @@ export const RestaurantDetail = styled.div`
   background-color: #fff;
   padding: 25px 30px 21px;
 
-  span {
+  .line {
     width: 100%;
     border: 1px solid #d9d9d9;
   }
@@ -62,7 +62,7 @@ export const VoteNumber = styled.p`
   font-size: 21px;
   text-align: center;
 
-  p {
+  span {
     color: rgba(239, 90, 57, 0.8);
     display: inline-block;
   }

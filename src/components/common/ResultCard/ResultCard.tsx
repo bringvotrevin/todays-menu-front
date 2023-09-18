@@ -1,10 +1,10 @@
 import React from 'react';
 import * as S from './ResultCard.styled';
-import toDetail from 'assets/images/icon-to-detail.svg';
-import soup from 'assets/images/icon-soup.svg';
-import pizza from 'assets/images/icon-pizza.svg';
-import hamburger from 'assets/images/icon-hamburger.svg';
-import noodle from 'assets/images/icon-noodle.svg';
+import toDetail from 'assets/icons/icon-to-detail.svg';
+import soup from 'assets/icons/icon-soup.svg';
+import pizza from 'assets/icons/icon-pizza.svg';
+import hamburger from 'assets/icons/icon-hamburger.svg';
+import noodle from 'assets/icons/icon-noodle.svg';
 
 const ResultCard = () => {
   // api 연결시 props를 사용해서 Result.tsx에서 배열로 여러개 받아옴
@@ -56,7 +56,7 @@ const ResultCard = () => {
       </S.RestaurantTags>
       <S.RestaurantDistance>120m</S.RestaurantDistance>
       <S.VoteNumber>
-        <p>6</p>
+        <span>6</span>
         /7명
       </S.VoteNumber>
       <S.toRestaurantDetail>
