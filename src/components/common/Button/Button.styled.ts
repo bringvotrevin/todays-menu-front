@@ -26,7 +26,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
   color: ${(props) => {
     switch (props.$variant) {
       case 'orange':
-        return vars.semantic.primrayOrange;
+        return '#fff';
       case 'gray':
         return vars.semantic.subGray;
       case 'retry':
