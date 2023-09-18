@@ -7,9 +7,6 @@ export const GlobalStyle = createGlobalStyle`
     src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
    } 
 
-   @import '~slick-carousel/slick/slick.css';
-   @import '~slick-carousel/slick/slick-theme.css';
-
   ${reset}
 
   :root {
