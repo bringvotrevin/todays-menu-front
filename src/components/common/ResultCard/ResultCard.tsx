@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './ResultCard.styled';
-import toDetail from 'assets/icons/icon-to-detail.svg';
+import toDetail from 'assets/icons/icon-to-detail-black.svg';
 import soup from 'assets/icons/icon-soup.svg';
 import pizza from 'assets/icons/icon-pizza.svg';
 import hamburger from 'assets/icons/icon-hamburger.svg';
@@ -49,7 +49,10 @@ const ResultCard = () => {
         <img src={noodle} alt="noodle icon" />
       </S.RankingWrapper>
       <span className="line"></span>
-      <S.RestaurantName>오제제 강남점</S.RestaurantName>
+      <S.RestaurantName>
+        오제제 강남점
+        <img src={toDetail} alt="to external link icon" />
+      </S.RestaurantName>
       <S.RestaurantTags>
         <S.RestaurantTag># 양식</S.RestaurantTag>
         <S.RestaurantTag># 스테이크, 립</S.RestaurantTag>
@@ -59,10 +62,7 @@ const ResultCard = () => {
         <span>6</span>
         /7명
       </S.VoteNumber>
-      <S.toRestaurantDetail>
-        지도 앱에서 열기
-        <img src={toDetail} alt="to external link icon" />
-      </S.toRestaurantDetail>
+      <S.ToOverallRanking to="/random-menu/:id/result/overall-ranking">전체 순위 보기</S.ToOverallRanking>
     </S.RestaurantDetail>
   );
 };

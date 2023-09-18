@@ -1,22 +1,31 @@
+import Button from 'components/common/Button/Button';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-// import { vars } from 'styles/GlobalStyle';
+
+interface ShareResultProps {
+  $isFirstText: boolean;
+}
 
 export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--color-main-orange);
+  padding: 110px 26px 0;
   position: relative;
-  padding: 173px 40px 0;
 `;
 
-export const ShareResult = styled.div`
-  color: #fff;
+export const ShareResult = styled.div<ShareResultProps>`
+  width: 100%;
   position: absolute;
+  left: 50%;
+  top: ${(props) => (props.$isFirstText ? '100px' : '70px')};
+  transform: translate(-50%, 0);
+  color: #fff;
   font-weight: var(--font-bold);
   font-size: var(--xxl);
-  line-height: 1.4;
-  top: 54px;
-  left: 18px;
+  text-align: center;
+  white-space: pre-line;
+  vertical-align: baseline;
 `;
 
 // export const RestaurantDetail = styled.div`
@@ -105,10 +114,18 @@ export const ButtonShare = styled.button`
   color: #fff;
   padding: 11px 48px;
   border-radius: 20px;
-  margin: 43px auto 69px;
+  margin: 23px auto 55px;
 
   img {
     margin-right: 10px;
     vertical-align: bottom;
+  }
+`;
+
+export const ReloadButton = styled(Button)`
+  img {
+    display: inline-block;
+    margin-left: 15px;
+    vertical-align: baseline;
   }
 `;
