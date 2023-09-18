@@ -1,14 +1,10 @@
+import { useQuery } from '@tanstack/react-query';
 import getRandomListApi from 'apis/api/getRandomListApi';
-import { QueryKey, useQuery } from 'react-query';
 
 export const useGetRandomList = () => {
-  const queryKey: QueryKey = ['randomList'];
-
-  const { data, isLoading, isError } = useQuery({ queryKey, queryFn: () => getRandomListApi() });
-
-  return {
-    data,
-    isLoading,
-    isError,
-  };
+  const { data: randomListData } = useQuery({
+    queryKey: ['randomList'],
+    queryFn: () => getRandomListApi(),
+  });
+  return randomListData;
 };
