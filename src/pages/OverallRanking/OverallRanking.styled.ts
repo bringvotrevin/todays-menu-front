@@ -49,7 +49,6 @@ export const Ranking = styled.div`
   }
 
   .ranking {
-    /* margin: 1px 0 5px; */
     display: block;
     font-size: 23px;
     font-weight: var(--font-bold);
@@ -59,7 +58,6 @@ export const Ranking = styled.div`
   .total-number {
     display: inline-block;
     color: #c2c2c2;
-    /* line-height: 1.7; */
   }
 `;
 

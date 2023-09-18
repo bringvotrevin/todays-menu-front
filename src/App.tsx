@@ -1,10 +1,10 @@
-import { QueryClient, QueryClientProvider } from 'react-query';
-// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useEffect } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import AsyncBoundary from 'components/common/AsyncBoundary';
 import AppRoutes from 'router/AppRoutes';
 import { AppLayout } from 'styles/AppLayout';
 import { GlobalStyle } from 'styles/GlobalStyle.js';
-import AsyncBoundary from 'components/common/AsyncBoundary';
 
 function App() {
   const queryClient = new QueryClient({
@@ -28,7 +28,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AsyncBoundary errorFallback={<>...error</>} suspenseFallback={<>...loading</>}>
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        <ReactQueryDevtools initialIsOpen={false} />
         <GlobalStyle />
         <AppLayout>
           <AppRoutes />
