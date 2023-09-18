@@ -4,10 +4,14 @@ import icon_yummy from 'assets/icons/icon-yummy.svg';
 
 export const Layout = styled.div`
   width: 100%;
+  min-height: 100vh;
   background: url(${bg_vote}) 0 0 no-repeat;
   background-color: var(--color-bg-gray);
   padding: 50px 18px 30px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const Title = styled.h1`
@@ -36,6 +40,7 @@ export const CardUl = styled.ul`
   flex-direction: column;
   gap: 15px;
   margin-bottom: 22px;
+  flex-grow: 1;
 `;
 
 export const ButtonLayout = styled.div`
