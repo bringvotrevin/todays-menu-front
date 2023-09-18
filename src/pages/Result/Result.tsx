@@ -37,7 +37,12 @@ const Result = (props: Props) => {
     <>
       <button style={{ position: 'absolute' }}>Result</button>
       <S.Wrapper>
-        <S.ShareResult>n명이 투표했습니다!</S.ShareResult>
+        <S.ShareResult>
+          <p>
+            6명이 투표하고 있어요 <br />
+            새로고침해서 확인해보세요!
+          </p>
+        </S.ShareResult>
         {/* <ResultCard></ResultCard> */}
         {restaurantDetails.length > 1 ? <Slider {...settings}>{restaurantDetails}</Slider> : restaurantDetails[0]}
         <S.ButtonShare onClick={handleShareClick}>

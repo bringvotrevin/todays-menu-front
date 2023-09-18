@@ -12,9 +12,10 @@ export const Wrapper = styled.div`
 
 export const ShareResult = styled.div`
   color: #fff;
+  position: absolute;
   font-weight: var(--font-bold);
   font-size: var(--xxl);
-  position: absolute;
+  line-height: 1.4;
   top: 54px;
   left: 18px;
 `;
