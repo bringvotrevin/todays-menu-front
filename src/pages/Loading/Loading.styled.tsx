@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import backgroundImg from 'assets/images/bg-loading.svg';
+import backgroundImg from 'assets/images/background-loading.svg';
 
 type LoadingImgProps = {
   $left?: string;
