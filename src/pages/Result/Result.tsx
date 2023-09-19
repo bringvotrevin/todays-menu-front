@@ -7,6 +7,7 @@ import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
 import shareResult from 'assets/icons/icon-share-result.svg';
 import retry from 'assets/icons/icon-retry-orange.svg';
 import { useNavigate } from 'react-router-dom';
+import { useGetWinnerResult } from 'apis/query/useGetResult';
 
 type Props = {};
 
@@ -15,6 +16,9 @@ const Result: React.FC = (props: Props) => {
   const [text, setText] = useState('1등 음식점을 확인해보세요 👀');
   const [opacity, setOpacity] = useState(1);
   const navigate = useNavigate();
+
+  const winnerData = useGetWinnerResult()?.data;
+  console.log('winnerData', winnerData);
 
   const settings = {
     dots: false,
@@ -56,7 +60,11 @@ const Result: React.FC = (props: Props) => {
   };
 
   // api 연결시 1세트당 1개의 ResultCard로하여 배열로 넣기
-  const restaurantDetails = [<ResultCard key="ResultCard1"></ResultCard>];
+  //   const restaurantDetails = [
+  //   {winnerData.map((item: any, i: number)=> {
+  // <ResultCard key={i}></ResultCard>
+  //   })}
+  // ];
 
   return (
     <>
@@ -65,14 +73,16 @@ const Result: React.FC = (props: Props) => {
         <S.ShareResult $isFirstText={text === '1등 음식점을 확인해보세요 👀'} $opacity={opacity}>
           {text}
         </S.ShareResult>
-        {/* <ResultCard></ResultCard> */}
-        {restaurantDetails.length > 1 ? <Slider {...settings}>{restaurantDetails}</Slider> : restaurantDetails[0]}
+        {winnerData.map((item: any, i: number) => (
+          <ResultCard key={i} rank={item.rank} name={item.title} distance={item.distance} pollNumber={item.count} />
+        ))}
+        {/* {restaurantDetails.length > 1 ? <Slider {...settings}>{restaurantDetails}</Slider> : restaurantDetails[0]} */}
         <S.ButtonShare onClick={handleModalClick}>
           <img src={shareResult} alt="share result icon" />
           공유하기
         </S.ButtonShare>
         <S.ReloadButton>
-          N명째 투표중
+          15명째 투표중
           <img src={retry} alt="retry icon" />
         </S.ReloadButton>
         <Button $variant="retry" onClick={handleClickFromScratch}>
