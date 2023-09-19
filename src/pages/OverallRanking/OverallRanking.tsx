@@ -50,7 +50,7 @@ export default function OverallRanking() {
                   <p className="distance">{item.distance}m</p>
                   <div className="tags">
                     <p># {item.category}</p>
-                    <p># 스테이크, 립</p>
+                    <p># {item.category}</p>
                   </div>
                 </S.RestaurantData>
                 <img src={toDetail} alt="more detail icon" />

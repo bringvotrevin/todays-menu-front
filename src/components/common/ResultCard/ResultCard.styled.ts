@@ -21,10 +21,19 @@ export const RankingWrapper = styled.div`
   margin-bottom: 22px;
 `;
 
-export const Ranking = styled.p`
+export const oneWinnerRanking = styled.p`
   color: #fff;
   background-color: rgba(239, 90, 57, 0.9);
-  padding: 9px 20px 5px;
+  padding: 10px 20px 7px;
+  border-radius: 10px;
+  font-weight: var(--font-bold);
+  font-size: var(--lg);
+`;
+
+export const multipleWinnerRanking = styled.p`
+  color: #fff;
+  background-color: rgba(239, 90, 57, 0.9);
+  padding: 11px 20px 9px;
   border-radius: 10px;
   font-weight: var(--font-bold);
   font-size: var(--lg);
