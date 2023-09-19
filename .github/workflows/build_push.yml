@@ -32,5 +32,5 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t your_dockerhub_username/your_frontend_app_name:latest .
-        docker push your_dockerhub_username/your_frontend_app_name:latest
+        docker build -t royroyee/todays-menu-fronted:latest .
+        docker push royroyee/todays-menu-fronted:latest
