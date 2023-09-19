@@ -19,18 +19,12 @@ const Result: React.FC = (props: Props) => {
   const [opacity, setOpacity] = useState(1);
   const navigate = useNavigate();
 
-  const winnerData = useGetWinnerResult()?.data;
-  console.log('winnerData', winnerData);
-  const winnerDataLength = winnerData.length;
-  console.log('winnerDataLength', winnerDataLength);
+  const { voteWinnerResultData, refetch } = useGetWinnerResult();
 
-  const settings = {
-    dots: false,
-    infinite: false,
-    slidesToShow: 1.2,
-    slidesToScroll: 1,
-    arrows: false,
-  };
+  const winnerData = voteWinnerResultData?.data;
+  // console.log('winnerData', winnerData);
+  const winnerDataLength = winnerData.length;
+  // console.log('winnerDataLength', winnerDataLength);
 
   const handleModalClick = () => {
     setIsModalOn(true);
@@ -40,6 +34,14 @@ const Result: React.FC = (props: Props) => {
     event.stopPropagation();
     event.preventDefault();
     setIsModalOn(false);
+  };
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    slidesToShow: 1.2,
+    slidesToScroll: 1,
+    arrows: false,
   };
 
   useEffect(() => {
@@ -100,7 +102,7 @@ const Result: React.FC = (props: Props) => {
           <img src={shareResult} alt="share result icon" />
           공유하기
         </S.ButtonShare>
-        <S.ReloadButton>
+        <S.ReloadButton onClick={() => refetch()}>
           15명째 투표중
           <img src={retry} alt="retry icon" />
         </S.ReloadButton>
