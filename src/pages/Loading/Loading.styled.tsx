@@ -60,7 +60,7 @@ export const Wrapper = styled.div`
 `;
 
 export const ContentsWrapper = styled.div`
-  width: 55%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   gap: 57px;
@@ -69,13 +69,13 @@ export const ContentsWrapper = styled.div`
 export const LoadingH2 = styled.h2`
   color: var(--color-main-orange);
   font-weight: var(--font-bold);
-  font-size: 27px;
+  font-size: 25px;
   text-align: center;
 `;
 
 export const ImgWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
   position: relative;
 `;
 
