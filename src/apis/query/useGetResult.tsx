@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getResult, getWinnerResult } from 'apis/api/getResult';
+import { useEffect } from 'react';
 
 type ResultItem = {
   // address: string;
@@ -14,11 +15,11 @@ type ResultItem = {
 };
 
 const useGetWinnerResult = () => {
-  const { data: voteWinnerResultData } = useQuery({
+  const { data: voteWinnerResultData, refetch } = useQuery({
     queryKey: ['voteWinnerResult'],
     queryFn: () => getWinnerResult(),
   });
-  return voteWinnerResultData;
+  return { voteWinnerResultData, refetch };
 };
 
 const useGetResult = () => {
