@@ -13,6 +13,7 @@ type Props = {};
 const Result: React.FC = (props: Props) => {
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
   const [text, setText] = useState('1등 음식점을 확인해보세요 👀');
+  const [opacity, setOpacity] = useState(1);
   const navigate = useNavigate();
 
   const settings = {
@@ -35,11 +36,19 @@ const Result: React.FC = (props: Props) => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setText('새로고침하면\n최신 투표 결과를 볼 수 있어요');
+    const fadeOutTimer = setTimeout(() => {
+      setOpacity(0);
     }, 3000);
 
-    return () => clearTimeout(timer);
+    const changeTextTimer = setTimeout(() => {
+      setText('새로고침하면\n최신 투표 결과를 볼 수 있어요');
+      setOpacity(1);
+    }, 3200);
+
+    return () => {
+      clearTimeout(fadeOutTimer);
+      clearTimeout(changeTextTimer);
+    };
   }, []);
 
   const handleClickFromScratch = () => {
@@ -53,7 +62,9 @@ const Result: React.FC = (props: Props) => {
     <>
       <button style={{ position: 'absolute' }}>Result</button>
       <S.Wrapper>
-        <S.ShareResult $isFirstText={text === '1등 음식점을 확인해보세요 👀'}>{text}</S.ShareResult>
+        <S.ShareResult $isFirstText={text === '1등 음식점을 확인해보세요 👀'} $opacity={opacity}>
+          {text}
+        </S.ShareResult>
         {/* <ResultCard></ResultCard> */}
         {restaurantDetails.length > 1 ? <Slider {...settings}>{restaurantDetails}</Slider> : restaurantDetails[0]}
         <S.ButtonShare onClick={handleModalClick}>

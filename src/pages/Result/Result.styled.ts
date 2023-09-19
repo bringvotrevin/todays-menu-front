@@ -1,9 +1,9 @@
 import Button from 'components/common/Button/Button';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface ShareResultProps {
   $isFirstText: boolean;
+  $opacity?: number;
 }
 
 export const Wrapper = styled.div`
@@ -26,6 +26,8 @@ export const ShareResult = styled.div<ShareResultProps>`
   text-align: center;
   white-space: pre-line;
   vertical-align: baseline;
+  opacity: ${(props) => props.$opacity};
+  transition: opacity 5ms;
 `;
 
 // export const RestaurantDetail = styled.div`
