@@ -6,11 +6,21 @@ import * as S from './Location.styled';
 import getAddressAPI from 'apis/api/getAddressApi';
 // import { useQuery } from 'react-query';
 
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+
 const Location: React.FC = () => {
   const navigate = useNavigate();
   const [modalOn, setModalOn] = useState<boolean>(false);
   const [address, setAddress] = useState<string>('');
   const addressInput = useRef<HTMLInputElement>(null);
+  const [buttonActive, setButtonActive] = useState<boolean>(false);
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
+  const geocoder = new window.kakao.maps.services.Geocoder();
 
   useEffect(() => {
     if (addressInput.current) {
@@ -18,14 +28,28 @@ const Location: React.FC = () => {
     }
   }, [address]);
 
-  const handlePostcodeModal = () => {
+  useEffect(() => {
+    if (latitude && longitude) {
+      setButtonActive(true);
+    }
+  }, [latitude, longitude]);
+
+  const handlePostcodeModal = (event: React.MouseEvent<HTMLInputElement>) => {
+    event.preventDefault();
     setModalOn(true);
   };
 
   const handleComplete = (data: Address) => {
-    const fullAddress = data.address;
-    setAddress(fullAddress);
+    const dataAddress = data.address;
+    setAddress(dataAddress);
     setModalOn(false);
+
+    geocoder.addressSearch(data.address, (result: any, status: any) => {
+      if (status === window.kakao.maps.services.Status.OK) {
+        setLatitude(result[0].y);
+        setLongitude(result[0].x);
+      }
+    });
   };
 
   const handleError = (error: GeolocationPositionError) => {
@@ -48,11 +72,13 @@ const Location: React.FC = () => {
   // const { data, isLoading, isError } = useQuery('address', () => getAddressAPI({ longitude, latitude }));
 
   // 현재 위치 정보 가져오기
-  const getCurrentLocation = async () => {
-    console.log('in progress');
+  const getCurrentLocation = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(async ({ coords: { latitude, longitude } }) => {
         try {
+          setLatitude(latitude);
+          setLongitude(longitude);
           const response = await getAddressAPI({ longitude, latitude });
           const formattedAddress = response.data.documents[0].address.address_name;
           setAddress(formattedAddress);
@@ -65,37 +91,35 @@ const Location: React.FC = () => {
     }
   };
 
-  const handleSubmit = () => {
-    sessionStorage.setItem('address', address);
-    navigate('/random-menu');
-  };
-
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     event.preventDefault();
     setModalOn(false);
   };
 
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (latitude && longitude) {
+      sessionStorage.setItem('latitude', latitude.toString());
+      sessionStorage.setItem('longitude', longitude?.toString());
+    }
+    navigate('/random-menu');
+  };
+
   return (
     <>
       <S.Layout>
-        <S.GetCurrentLocationButton onClick={getCurrentLocation}>현재 위치로 설정하기</S.GetCurrentLocationButton>
-        <S.Title>입력하신 위치 기반으로 오늘의 메뉴를 추천해드려요</S.Title>
+        <S.Title>
+          입력하신 위치 기반으로
+          <br />
+          오늘의 메뉴를 추천해드려요
+        </S.Title>
         <S.Form>
           <S.AddressInput placeholder="회사명, 근처 역 출구, 상세 주소 검색" readOnly onClick={handlePostcodeModal} ref={addressInput} />
-          {/* 아래 버튼은 임시로 넣어놓은거라 공통 컴포넌트로 교체 예정입니다! */}
-          <button
-            style={{
-              height: '70px',
-              borderRadius: '20px',
-              backgroundColor: 'var(--color-main-orange)',
-              color: 'white',
-              fontSize: 'var(--lg)',
-            }}
-            onClick={handleSubmit}
-          >
+          <S.GetCurrentLocationButton onClick={getCurrentLocation}>현재 위치로 설정하기</S.GetCurrentLocationButton>
+          <S.SubmitButton $isActive={buttonActive} onClick={handleSubmit} disabled={!buttonActive}>
             점심메뉴 같이 고르기
-          </button>
+          </S.SubmitButton>
         </S.Form>
       </S.Layout>
       {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}

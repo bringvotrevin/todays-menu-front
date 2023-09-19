@@ -1,5 +1,6 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 import icon_location from 'assets/icons/btn-getLocation.svg';
+import { vars } from 'styles/GlobalStyle';
 
 export const Layout = styled.div`
   width: 100%;
@@ -7,43 +8,63 @@ export const Layout = styled.div`
   padding: 176px 18px 25px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-`;
-
-export const GetCurrentLocationButton = styled.button`
-  width: 215px;
-  font-size: var(--lg);
-  font-weight: var(--font-semi-bold);
-  color: var(--color-main-orange);
-  background: url(${icon_location}) no-repeat 0 0/ 24px;
-  text-align: right;
-  line-height: 24px;
+  /* justify-content: space-between; */
 `;
 
 export const Title = styled.h1`
-  font-size: var(--sm);
-  color: var(--color-main-orange);
-  margin: 20px 0 0 0;
+  font-weight: ${vars.static.font700};
+  font-size: ${vars.static.font20};
+  line-height: 35px;
+  color: ${vars.semantic.primrayOrange};
+  margin: 20px 0 0 9px;
 `;
 
 export const Form = styled.form`
   flex-grow: 1;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 `;
 
 export const AddressInput = styled.input`
   width: 100%;
-  margin: 30px auto;
-  padding: 21px 0 22px 25px;
-  border: 2px solid var(--color-main-orange);
+  margin: 30px auto 22px;
+  padding: 21px 0 22px 12px;
+  background-color: #f3f3f3;
   border-radius: 10px;
   display: block;
   font-size: var(--md);
+  font-weight: ${vars.static.font600};
+  color: ${vars.semantic.subGray};
   cursor: pointer;
 
   &::placeholder {
     color: var(--color-sub-gray);
+    font-weight: ${vars.static.font500};
   }
+`;
+
+export const GetCurrentLocationButton = styled.button`
+  width: 160px;
+  font-size: ${vars.static.font15};
+  font-weight: ${vars.static.font600};
+  color: var(--color-main-orange);
+  background: url(${icon_location}) no-repeat 0 0/ 24px;
+  text-align: right;
+  line-height: 24px;
+  margin-bottom: auto;
+`;
+
+type StyledSubmitButtonProps = {
+  $isActive: boolean;
+};
+
+export const SubmitButton = styled.button<StyledSubmitButtonProps>`
+  height: 70px;
+  border-radius: 20px;
+  background-color: ${(props) => (props.$isActive ? 'var(--color-main-orange)' : '#F3F3F3')};
+  color: ${(props) => (props.$isActive ? 'white' : '#A8A8A8')};
+  font-size: var(--lg);
+  font-weight: var(--font-bold);
 `;
