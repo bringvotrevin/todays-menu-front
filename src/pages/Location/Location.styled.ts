@@ -3,7 +3,7 @@ import icon_location from 'assets/icons/btn-getLocation.svg';
 
 export const Layout = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding: 176px 18px 25px;
   display: flex;
   flex-direction: column;

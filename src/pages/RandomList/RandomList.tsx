@@ -9,7 +9,7 @@ import Button from 'components/common/Button/Button';
 
 const RandomListWrapper = () => {
   return (
-    <AsyncBoundary errorFallback={<>...error</>} suspenseFallback={<Loading />}>
+    <AsyncBoundary errorFallback={<>...error</>} suspenseFallback={<Loading message={'음식점을 추천 중이에요'} />}>
       <RandomList />
     </AsyncBoundary>
   );
