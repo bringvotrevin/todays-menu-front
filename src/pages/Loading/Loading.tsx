@@ -8,7 +8,7 @@ import soup from 'assets/icons/icon-soup.svg';
 import sandwich from 'assets/icons/icon-sandwich.svg';
 
 interface LoadingProps {
-  message: string; // message props의 타입을 string으로 정의
+  message?: string;
 }
 
 const Loading: React.FC<LoadingProps> = ({ message }) => {
