@@ -11,7 +11,7 @@ import { useGetWinnerResult } from 'apis/query/useGetResult';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const Result: React.FC = () => {
+const Result = () => {
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
   const [text, setText] = useState('1등 음식점을 확인해보세요 👀');
   const [opacity, setOpacity] = useState(1);
