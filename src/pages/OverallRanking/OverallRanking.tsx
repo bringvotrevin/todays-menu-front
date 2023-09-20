@@ -38,7 +38,7 @@ export default function OverallRanking() {
             {resultData?.slice(0, 5).map((item: any) => (
               <S.RestaurantItem key={item.id}>
                 <S.Ranking>
-                  <img src={winner} alt="winner icon" />
+                  {item.rank === 1 ? <img src={winner} alt="winner icon" /> : undefined}
                   <strong className="ranking">{item.rank}등</strong>
                   <p>
                     {item.count}
