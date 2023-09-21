@@ -7,6 +7,5 @@ export const postInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
-    'Content-Length': '60',
   },
 });
