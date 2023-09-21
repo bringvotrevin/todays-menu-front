@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { vars } from 'styles/GlobalStyle';
 
 type StyledButtonProps = {
-  $variant?: 'white' | 'orange' | 'gray' | 'retry';
+  $variant?: 'white' | 'orange' | 'gray' | 'retry' | 'errorRetry';
   $style?: {
     [key: string]: string | undefined;
   };
@@ -19,6 +19,8 @@ export const StyledButton = styled.button<StyledButtonProps>`
         return '#fff';
       case 'retry':
         return 'transparent';
+      case 'errorRetry':
+        return '#a8a8a8';
       default:
         return '#fff';
     }
@@ -31,6 +33,8 @@ export const StyledButton = styled.button<StyledButtonProps>`
         return vars.semantic.subGray;
       case 'retry':
         return 'rgba(250, 250, 250, 0.7)';
+      case 'errorRetry':
+        return '#fff';
       default:
         return vars.semantic.primrayOrange;
     }
