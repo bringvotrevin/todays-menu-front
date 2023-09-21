@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 import BottomSheet from './BottomSheet';
+import { vars } from 'styles/GlobalStyle';
 
 export const ShareBottomSheet = styled(BottomSheet)`
   ul {
-    padding: 17px 30px 117px;
+    padding: 0 30px;
   }
 
   li {
     padding: 30px;
     display: flex;
     align-items: center;
+    font-weight: ${vars.static.font600};
 
     p {
       margin: 0 auto;
