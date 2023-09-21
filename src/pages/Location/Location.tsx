@@ -18,8 +18,8 @@ const Location: React.FC = () => {
   const [address, setAddress] = useState<string>('');
   const addressInput = useRef<HTMLInputElement>(null);
   const [buttonActive, setButtonActive] = useState<boolean>(false);
-  const [latitude, setLatitude] = useState<number | null>(null);
-  const [longitude, setLongitude] = useState<number | null>(null);
+  const [latitude, setLatitude] = useState<string | null>(null);
+  const [longitude, setLongitude] = useState<string | null>(null);
   const geocoder = new window.kakao.maps.services.Geocoder();
 
   useEffect(() => {
@@ -41,15 +41,15 @@ const Location: React.FC = () => {
 
   const handleComplete = (data: Address) => {
     const dataAddress = data.address;
-    setAddress(dataAddress);
-    setModalOn(false);
 
     geocoder.addressSearch(data.address, (result: any, status: any) => {
       if (status === window.kakao.maps.services.Status.OK) {
-        setLatitude(result[0].y);
-        setLongitude(result[0].x);
+        setLatitude(result[0].y.slice(0, 9));
+        setLongitude(result[0].x.slice(0, 10));
       }
     });
+    setAddress(dataAddress);
+    setModalOn(false);
   };
 
   const handleError = (error: GeolocationPositionError) => {
@@ -77,8 +77,8 @@ const Location: React.FC = () => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(async ({ coords: { latitude, longitude } }) => {
         try {
-          setLatitude(latitude);
-          setLongitude(longitude);
+          setLatitude(latitude.toFixed(6));
+          setLongitude(longitude.toFixed(6));
           const response = await getAddressAPI({ longitude, latitude });
           const formattedAddress = response.data.documents[0].address.address_name;
           setAddress(formattedAddress);

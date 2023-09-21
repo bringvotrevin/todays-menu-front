@@ -16,14 +16,14 @@ export const Layout = styled.div`
 `;
 
 export const Title = styled.h1`
-  width: 90%;
+  /* width: 90%; */
   margin: 0 auto 11px;
   font-size: var(--xxl);
   font-weight: var(--font-bold);
   color: white;
   position: relative;
 
-  &::after {
+  /* &::after {
     content: '';
     display: inline-block;
     position: absolute;
@@ -32,7 +32,7 @@ export const Title = styled.h1`
     bottom: 2px;
     right: -10px;
     background: url(${icon_yummy}) 0 0 no-repeat;
-  }
+  } */
 `;
 
 export const CardUl = styled.ul`

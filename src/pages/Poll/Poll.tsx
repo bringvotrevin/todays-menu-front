@@ -18,7 +18,7 @@ const PollWrapper = () => {
 };
 
 const Poll = () => {
-  const [isModalOn, setIsModalOn] = useState<boolean>(false);
+  const [isModalOn, setIsModalOn] = useState<boolean>(true);
   const navigate = useNavigate();
   const { data } = useGetRoom();
 
@@ -39,7 +39,7 @@ const Poll = () => {
   return (
     <>
       <S.Layout>
-        <S.Title>오늘의 메뉴에 투표해보세요 </S.Title>
+        <S.Title>오늘 당기는 메뉴는? 🤤</S.Title>
         <S.CardUl>
           {data?.data[0].restaurantDtoList
             .slice(5)
