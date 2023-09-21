@@ -28,9 +28,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <GlobalStyle />
       <AsyncBoundary errorFallback={<Error />} suspenseFallback={<>...loading</>}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <GlobalStyle />
         <AppLayout>
           <AppRoutes />
         </AppLayout>

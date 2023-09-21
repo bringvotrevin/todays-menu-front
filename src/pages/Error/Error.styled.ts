@@ -1,13 +1,6 @@
 import styled from 'styled-components';
 import background from 'assets/images/background-error.svg';
 
-export const PreviousButton = styled.button`
-  border: 0;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
-`;
-
 export const Background = styled.div`
   background: url(${background}) no-repeat;
   max-width: 393px;

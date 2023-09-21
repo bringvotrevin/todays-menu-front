@@ -10,7 +10,9 @@ type StyledButtonProps = {
 
 export const StyledButton = styled.button<StyledButtonProps>`
   padding: 22px 0px 20px;
-  border: 2px var(--color-main-orange) solid;
+  border: ${(props) => {
+    return props.$variant === 'white' ? '2px var(--color-main-orange) solid' : 'none';
+  }};
   background-color: ${(props) => {
     switch (props.$variant) {
       case 'orange':
