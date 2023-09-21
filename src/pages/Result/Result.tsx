@@ -11,9 +11,7 @@ import { useGetWinnerResult } from 'apis/query/useGetResult';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-type Props = {};
-
-const Result: React.FC = (props: Props) => {
+const Result: React.FC = () => {
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
   const [text, setText] = useState('1등 음식점을 확인해보세요 👀');
   const [opacity, setOpacity] = useState(1);
@@ -22,9 +20,7 @@ const Result: React.FC = (props: Props) => {
   const { voteWinnerResultData, refetch } = useGetWinnerResult();
 
   const winnerData = voteWinnerResultData?.data;
-  // console.log('winnerData', winnerData);
   const winnerDataLength = winnerData.length;
-  // console.log('winnerDataLength', winnerDataLength);
 
   const handleModalClick = () => {
     setIsModalOn(true);

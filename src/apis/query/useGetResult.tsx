@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { getResult, getWinnerResult } from 'apis/api/getResult';
-import { useEffect } from 'react';
 
 type ResultItem = {
   // address: string;

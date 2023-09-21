@@ -1,5 +1,4 @@
 import { axiosInstance } from 'apis/base/instance';
-import axios from 'axios';
 
 const getWinnerResult = async () => {
   const response = await axiosInstance.get('/win');
