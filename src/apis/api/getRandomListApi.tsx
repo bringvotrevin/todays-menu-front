@@ -7,8 +7,8 @@ const getRandomListApi = async () => {
   const latitude = sessionStorage.getItem('latitude');
   const longitude = sessionStorage.getItem('longitude');
   const response = await postInstance.post('/create', {
-    latitude,
     longitude,
+    latitude,
   });
   // const response = await axiosInstance.get('/create');
   await new Promise((resolve) => setTimeout(resolve, 3000));
