@@ -7,6 +7,10 @@ import { useNavigate } from 'react-router-dom';
 export default function Error() {
   const navigate = useNavigate();
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   return (
     <S.Background>
       <S.Wrapper>
@@ -18,7 +22,7 @@ export default function Error() {
           <img className="toPreviousPageButton" src={toPreviousPage} alt="to previous icon" />
         </S.PreviousButton>
         <p className="description">화면을 불러오지 못했어요😓</p>
-        <Button className="errorRetry" $variant="errorRetry" type="button">
+        <Button className="errorRetry" $variant="errorRetry" type="button" onClick={() => refreshPage}>
           다시 시도하기
         </Button>
       </S.Wrapper>
