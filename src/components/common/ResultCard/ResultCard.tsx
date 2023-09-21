@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as S from './ResultCard.styled';
 import toDetail from 'assets/icons/icon-to-detail-black.svg';
 import soup from 'assets/icons/icon-soup.svg';

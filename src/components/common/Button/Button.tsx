@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './Button.styled';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  $variant?: 'white' | 'orange' | 'gray' | 'retry';
+  $variant?: 'white' | 'orange' | 'gray' | 'retry' | 'errorRetry';
   $style?: {
     [key: string]: string | undefined;
   };

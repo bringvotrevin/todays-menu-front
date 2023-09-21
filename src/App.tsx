@@ -5,6 +5,7 @@ import AsyncBoundary from 'components/common/AsyncBoundary';
 import AppRoutes from 'router/AppRoutes';
 import { AppLayout } from 'styles/AppLayout';
 import { GlobalStyle } from 'styles/GlobalStyle.js';
+import Error from 'pages/Error/Error';
 
 function App() {
   const queryClient = new QueryClient({
@@ -27,9 +28,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AsyncBoundary errorFallback={<>...error</>} suspenseFallback={<>...loading</>}>
+      <GlobalStyle />
+      <AsyncBoundary errorFallback={<Error />} suspenseFallback={<>...loading</>}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <GlobalStyle />
         <AppLayout>
           <AppRoutes />
         </AppLayout>
