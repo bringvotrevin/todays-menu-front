@@ -6,19 +6,10 @@ import { postInstance } from 'apis/base/postInstance';
 const getRandomListApi = async () => {
   const latitude = sessionStorage.getItem('latitude');
   const longitude = sessionStorage.getItem('longitude');
-  const response = await postInstance.post(
-    '/create',
-    {
-      latitude,
-      longitude,
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-        'Content-Length': '60',
-      },
-    },
-  );
+  const response = await postInstance.post('/create', {
+    latitude,
+    longitude,
+  });
   // const response = await axiosInstance.get('/create');
   await new Promise((resolve) => setTimeout(resolve, 3000));
   return response;
