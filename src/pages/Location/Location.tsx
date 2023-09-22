@@ -1,24 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode';
+import Loading from 'pages/Loading/Loading';
 import BottomSheet from 'components/common/modal/BottomSheet';
 import * as S from './Location.styled';
 import getAddressAPI from 'apis/api/getAddressApi';
-import { useMutation } from '@tanstack/react-query';
-import { postInstance } from 'apis/base/postInstance';
 import { randomListData } from 'recoil/randomListData';
 import { roomIdData } from 'recoil/roomIdData';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-// import { useQuery } from 'react-query';
-
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
+import { useRandomListMutation } from 'apis/query/useRandomListMutation';
 
 const Location: React.FC = () => {
   const navigate = useNavigate();
+  const geocoder = new window.kakao.maps.services.Geocoder();
   const [modalOn, setModalOn] = useState<boolean>(false);
   const [address, setAddress] = useState<string>('');
   const addressInput = useRef<HTMLInputElement>(null);
@@ -27,7 +21,7 @@ const Location: React.FC = () => {
   const [longitude, setLongitude] = useState<string | null>(null);
   const [randomList, setRandomList] = useRecoilState(randomListData);
   const setRoomId = useSetRecoilState(roomIdData);
-  const geocoder = new window.kakao.maps.services.Geocoder();
+  const { mutate, isLoading } = useRandomListMutation();
 
   useEffect(() => {
     if (addressInput.current) {
@@ -82,8 +76,6 @@ const Location: React.FC = () => {
     }
   };
 
-  // const { data, isLoading, isError } = useQuery('address', () => getAddressAPI({ longitude, latitude }));
-
   // 현재 위치 정보 가져오기
   const getCurrentLocation = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -110,46 +102,39 @@ const Location: React.FC = () => {
     setModalOn(false);
   };
 
-  const mutation = useMutation({
-    mutationFn: (props: { longitude: string | null; latitude: string | null }) => {
-      const latitude = props.latitude;
-      const longitude = props.longitude;
-      return postInstance.post('/create', {
-        longitude,
-        latitude,
-      });
-    },
-    onSuccess: async (data) => {
-      console.log('onSuccess');
-      setRandomList(data.data.restaurantResList);
-      setRoomId(data.data.id);
-      navigate('/random-menu');
-    },
-  });
+  const onSuccessFn = (data: any) => {
+    setRandomList(data.data.restaurantResList);
+    setRoomId(data.data.id);
+    navigate('/random-menu');
+  };
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (latitude && longitude) {
-      mutation.mutate({ longitude, latitude });
+      mutate({ longitude, latitude }, { onSuccess: onSuccessFn });
     }
   };
 
   return (
     <>
-      <S.Layout>
-        <S.Title>
-          입력하신 위치 기반으로
-          <br />
-          오늘의 메뉴를 추천해드려요
-        </S.Title>
-        <S.Form>
-          <S.AddressInput placeholder="회사명, 근처 역 출구, 상세 주소 검색" readOnly onClick={handlePostcodeModal} ref={addressInput} />
-          <S.GetCurrentLocationButton onClick={getCurrentLocation}>현재 위치로 설정하기</S.GetCurrentLocationButton>
-          <S.SubmitButton $isActive={buttonActive} onClick={handleSubmit} disabled={!buttonActive}>
-            점심메뉴 같이 고르기
-          </S.SubmitButton>
-        </S.Form>
-      </S.Layout>
+      {isLoading ? (
+        <Loading message={'음식점을 추천 중이에요'} />
+      ) : (
+        <S.Layout>
+          <S.Title>
+            입력하신 위치 기반으로
+            <br />
+            오늘의 메뉴를 추천해드려요
+          </S.Title>
+          <S.Form>
+            <S.AddressInput placeholder="회사명, 근처 역 출구, 상세 주소 검색" readOnly onClick={handlePostcodeModal} ref={addressInput} />
+            <S.GetCurrentLocationButton onClick={getCurrentLocation}>현재 위치로 설정하기</S.GetCurrentLocationButton>
+            <S.SubmitButton $isActive={buttonActive} onClick={handleSubmit} disabled={!buttonActive}>
+              점심메뉴 같이 고르기
+            </S.SubmitButton>
+          </S.Form>
+        </S.Layout>
+      )}
       {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}
       {modalOn && (
         <BottomSheet handleModalClose={handleModalClose}>
