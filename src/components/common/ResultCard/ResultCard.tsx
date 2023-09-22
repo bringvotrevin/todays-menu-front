@@ -49,12 +49,10 @@ const ResultCard = (props: ResultCardProps) => {
       {props.winnerNum === 1 ? oneWinner : multipleWinner}
       <span className="line"></span>
       <S.RestaurantName onClick={handleLinkClick}>
-        {props.name}
+        <strong className="name">{props.name}</strong>
         <img src={toDetail} alt="to external link icon" />
       </S.RestaurantName>
       <S.RestaurantTags>
-        {/* <S.RestaurantTag># {props.tag}</S.RestaurantTag>
-        <S.RestaurantTag># {props.tag}</S.RestaurantTag>*/}
         {categories.map((category, i) => (
           <S.RestaurantTag key={i}>{`# ${category}`}</S.RestaurantTag>
         ))}
