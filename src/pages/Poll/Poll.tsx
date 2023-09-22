@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AsyncBoundary from 'components/common/AsyncBoundary';
 import * as S from './Poll.styled';
@@ -8,6 +8,8 @@ import Button from 'components/common/Button/Button';
 import Loading from 'pages/Loading/Loading';
 import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
 import icon_share from 'assets/icons/icon-share.svg';
+import { roomIdData } from 'recoil/roomIdData';
+import { useRecoilValue } from 'recoil';
 
 const PollWrapper = () => {
   return (
@@ -18,12 +20,19 @@ const PollWrapper = () => {
 };
 
 const Poll = () => {
-  const [isModalOn, setIsModalOn] = useState<boolean>(true);
+  const isSharedPage = useRecoilValue(roomIdData);
+  const [isModalOn, setIsModalOn] = useState<boolean>(!!isSharedPage);
+  const [clickedIndexArray, setClickedIndexArray] = useState<number[]>([]);
   const navigate = useNavigate();
   const { data } = useGetRoom();
+  // console.log(data);
+
+  useEffect(() => {
+    console.log(clickedIndexArray);
+  }, [clickedIndexArray]);
 
   const handleSubmit = () => {
-    navigate(`/random-menu/${data?.data[0].id}/result`);
+    // navigate(`/random-menu/${data?.data[0].id}/result`);
   };
 
   const handleShareClick = () => {
@@ -36,21 +45,34 @@ const Poll = () => {
     setIsModalOn(false);
   };
 
+  const handleClick = (index: number) => {
+    setClickedIndexArray((prev) => {
+      const updatedList = [...prev];
+      const i = prev.findIndex((el) => el === index);
+      if (i === -1) {
+        updatedList.push(index);
+      } else {
+        updatedList.splice(i, 1);
+      }
+      return updatedList.sort((a, b) => a - b);
+    });
+  };
+
   return (
     <>
       <S.Layout>
         <S.Title>오늘 당기는 메뉴는? 🤤</S.Title>
         <S.CardUl>
-          {data?.data[0].restaurantDtoList.slice(5).map((el: any, i: number) => (
-            <MenuCard
-              key={i}
-              information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance }}
-              isPoll={true}
-              handleClick={(num: number) => {
-                console.log(num);
-              }}
-            ></MenuCard>
-          ))}
+          {data
+            ?.slice(0, 5)
+            .map((el: any, i: number) => (
+              <MenuCard
+                key={i}
+                information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance }}
+                isPoll={true}
+                handleClick={handleClick}
+              ></MenuCard>
+            ))}
         </S.CardUl>
         <S.ButtonLayout>
           <Button onClick={handleShareClick} $style={{ width: '25%' }}>
