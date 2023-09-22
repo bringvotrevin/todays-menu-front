@@ -9,6 +9,8 @@ export const RestaurantDetail = styled.div`
   padding: 25px 30px 36px;
   background-color: #fff;
   border-radius: 20px;
+  height: 380px;
+
   .line {
     width: 100%;
     border: 1px solid #d9d9d9;

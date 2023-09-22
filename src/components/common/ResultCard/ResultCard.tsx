@@ -5,19 +5,28 @@ import soup from 'assets/icons/icon-soup.svg';
 import pizza from 'assets/icons/icon-pizza.svg';
 import hamburger from 'assets/icons/icon-hamburger.svg';
 import noodle from 'assets/icons/icon-noodle.svg';
+import splitCategory from 'util/splitCategory';
 
 type ResultCardProps = {
   key: number;
   winnerNum: number;
   rank: number;
   name: string;
-  tag: string;
   distance: number;
   pollNumber: number;
+  categories: string;
+  link: string;
   totalPollNumber?: number;
 };
 
 const ResultCard = (props: ResultCardProps) => {
+  const categories = splitCategory(props.categories);
+
+  const handleLinkClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    window.open(props.link);
+  };
+
   const oneWinner = (
     <S.RankingWrapper>
       <img src={soup} alt="soup icon" />
@@ -39,13 +48,16 @@ const ResultCard = (props: ResultCardProps) => {
     <S.RestaurantDetail key={props.key}>
       {props.winnerNum === 1 ? oneWinner : multipleWinner}
       <span className="line"></span>
-      <S.RestaurantName>
+      <S.RestaurantName onClick={handleLinkClick}>
         {props.name}
         <img src={toDetail} alt="to external link icon" />
       </S.RestaurantName>
       <S.RestaurantTags>
-        <S.RestaurantTag># {props.tag}</S.RestaurantTag>
-        <S.RestaurantTag># {props.tag}</S.RestaurantTag>
+        {/* <S.RestaurantTag># {props.tag}</S.RestaurantTag>
+        <S.RestaurantTag># {props.tag}</S.RestaurantTag>*/}
+        {categories.map((category, i) => (
+          <S.RestaurantTag key={i}>{`# ${category}`}</S.RestaurantTag>
+        ))}
       </S.RestaurantTags>
       <S.RestaurantDistance>{props.distance}m</S.RestaurantDistance>
       <S.VoteNumber>

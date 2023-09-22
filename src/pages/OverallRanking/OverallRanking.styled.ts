@@ -29,6 +29,7 @@ export const RestaurantList = styled.ul`
 
 export const RestaurantItem = styled.li`
   width: 100%;
+  height: 92px;
   background-color: #fff;
   padding: 20px 22px;
   display: flex;

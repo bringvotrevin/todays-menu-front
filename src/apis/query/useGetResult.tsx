@@ -1,40 +1,26 @@
+import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getResult, getWinnerResult } from 'apis/api/getResult';
+import { getResult } from 'apis/api/getResult';
 
-type ResultItem = {
-  // address: string;
-  // category: string;
-  // count: number;
-  // distance: number;
-  // id: number;
-  // link: string;
-  // rank: number;
-  // roomId: string | number;
-  // title: string;
-};
+const useGetResult = (roomId: number | string) => {
+  const isFirstRun = useRef(true);
 
-const useGetWinnerResult = () => {
-  const { data: voteWinnerResultData, refetch } = useQuery({
-    queryKey: ['voteWinnerResult'],
-    queryFn: () => getWinnerResult(),
+  const queryFn = async () => {
+    if (isFirstRun.current) {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      isFirstRun.current = false;
+    }
+    return getResult(roomId);
+  };
+
+  const { data: voteOverallResultData, refetch } = useQuery({
+    queryKey: ['voteOverallResult', roomId],
+    queryFn,
+    staleTime: Infinity,
+    cacheTime: Infinity,
   });
-  return { voteWinnerResultData, refetch };
+
+  return { voteOverallResultData, refetch };
 };
 
-const useGetResult = () => {
-  const { data: voteOverallResultData } = useQuery({
-    queryKey: ['voteOverallResult'],
-    queryFn: async () => {
-      const winnerResultResponse = await getWinnerResult();
-      const restResultResponse = await getResult();
-
-      const winnerResult: ResultItem[] = winnerResultResponse.data;
-      const restResult: ResultItem[] = restResultResponse.data;
-
-      return [...winnerResult, ...restResult];
-    },
-  });
-  return voteOverallResultData;
-};
-
-export { useGetWinnerResult, useGetResult };
+export { useGetResult };
