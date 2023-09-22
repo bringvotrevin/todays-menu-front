@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from 'pages/Loading/Loading';
 import MenuCard from 'components/common/MenuCard/MenuCard';
-import { useGetRandomList } from 'apis/query/useGetRandomList';
+// import { useGetRandomList } from 'apis/query/useGetRandomList';
 import AsyncBoundary from 'components/common/AsyncBoundary';
 import * as S from './RandomList.styled';
 import Button from 'components/common/Button/Button';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { randomListData } from 'recoil/randomListData';
+import { roomIdData } from 'recoil/roomIdData';
 
 const RandomListWrapper = () => {
   return (
@@ -17,20 +20,30 @@ const RandomListWrapper = () => {
 
 const RandomList = () => {
   const navigate = useNavigate();
-  const data = useGetRandomList();
+  // const data = useGetRandomList();
+  const [randomList, setRandomList] = useRecoilState(randomListData);
+  console.log(randomList);
+  const roomId = useRecoilValue(roomIdData);
 
   const handleSubmit = () => {
-    navigate(`/random-menu/${data?.data[0].id}`);
+    navigate(`/random-menu/${roomId}`);
   };
+
+  const handleClick = (roomId: number, index: number) => {};
 
   return (
     <S.Layout>
       <S.Title>오늘의 메뉴 후보 </S.Title>
       <S.CardUl>
-        {data?.data[0].restaurantDtoList
-          .slice(5)
-          .map((el: any, i: number) => (
-            <MenuCard key={i} information={{ title: el.title, category: el.category, link: el.link, distance: el.distance }}></MenuCard>
+        {randomList &&
+          randomList.slice(0, 5).map((el: any, i: number) => (
+            <MenuCard
+              key={el.id}
+              information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance }}
+              handleClick={(num: number) => {
+                console.log(num);
+              }}
+            ></MenuCard>
           ))}
       </S.CardUl>
       <S.ButtonLayout>

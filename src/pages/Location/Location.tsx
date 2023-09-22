@@ -4,6 +4,11 @@ import DaumPostcodeEmbed, { Address } from 'react-daum-postcode';
 import BottomSheet from 'components/common/modal/BottomSheet';
 import * as S from './Location.styled';
 import getAddressAPI from 'apis/api/getAddressApi';
+import { useMutation } from '@tanstack/react-query';
+import { postInstance } from 'apis/base/postInstance';
+import { randomListData } from 'recoil/randomListData';
+import { roomIdData } from 'recoil/roomIdData';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 // import { useQuery } from 'react-query';
 
 declare global {
@@ -20,6 +25,8 @@ const Location: React.FC = () => {
   const [buttonActive, setButtonActive] = useState<boolean>(false);
   const [latitude, setLatitude] = useState<string | null>(null);
   const [longitude, setLongitude] = useState<string | null>(null);
+  const [randomList, setRandomList] = useRecoilState(randomListData);
+  const setRoomId = useSetRecoilState(roomIdData);
   const geocoder = new window.kakao.maps.services.Geocoder();
 
   useEffect(() => {
@@ -27,6 +34,10 @@ const Location: React.FC = () => {
       addressInput.current.value = address;
     }
   }, [address]);
+
+  useEffect(() => {
+    console.log(randomList);
+  }, [randomList]);
 
   useEffect(() => {
     if (latitude && longitude) {
@@ -43,12 +54,14 @@ const Location: React.FC = () => {
     const dataAddress = data.address;
 
     geocoder.addressSearch(data.address, (result: any, status: any) => {
-      if (status === window.kakao.maps.services.Status.OK) {
+      if (status === window.kakao?.maps.services.Status.OK) {
         setLatitude(result[0].y.slice(0, 9));
         setLongitude(result[0].x.slice(0, 10));
+      } else {
+        console.error('kakao get coordinate error');
       }
     });
-    setAddress(dataAddress);
+    setAddress(dataAddress); // 위치 if문 안쪽으로? 고려해보긴
     setModalOn(false);
   };
 
@@ -97,13 +110,28 @@ const Location: React.FC = () => {
     setModalOn(false);
   };
 
+  const mutation = useMutation({
+    mutationFn: (props: { longitude: string | null; latitude: string | null }) => {
+      const latitude = props.latitude;
+      const longitude = props.longitude;
+      return postInstance.post('/create', {
+        longitude,
+        latitude,
+      });
+    },
+    onSuccess: async (data) => {
+      console.log('onSuccess');
+      setRandomList(data.data.restaurantResList);
+      setRoomId(data.data.id);
+      navigate('/random-menu');
+    },
+  });
+
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (latitude && longitude) {
-      sessionStorage.setItem('latitude', latitude.toString());
-      sessionStorage.setItem('longitude', longitude?.toString());
+      mutation.mutate({ longitude, latitude });
     }
-    navigate('/random-menu');
   };
 
   return (

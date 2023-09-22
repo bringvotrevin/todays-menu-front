@@ -41,11 +41,16 @@ const Poll = () => {
       <S.Layout>
         <S.Title>오늘 당기는 메뉴는? 🤤</S.Title>
         <S.CardUl>
-          {data?.data[0].restaurantDtoList
-            .slice(5)
-            .map((el: any, i: number) => (
-              <MenuCard key={i} information={{ title: el.title, category: el.category, link: el.link, distance: el.distance }} isPoll={true}></MenuCard>
-            ))}
+          {data?.data[0].restaurantDtoList.slice(5).map((el: any, i: number) => (
+            <MenuCard
+              key={i}
+              information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance }}
+              isPoll={true}
+              handleClick={(num: number) => {
+                console.log(num);
+              }}
+            ></MenuCard>
+          ))}
         </S.CardUl>
         <S.ButtonLayout>
           <Button onClick={handleShareClick} $style={{ width: '25%' }}>
