@@ -31,7 +31,11 @@ const MenuCard = (props: MenuCardProps) => {
   };
 
   const handleIconClick = () => {
-    handleClick(restaurantId, index);
+    if (props.isPoll) {
+      handleClick(index);
+    } else {
+      handleClick(restaurantId, index);
+    }
     setIsSelected((prev) => !prev);
   };
 

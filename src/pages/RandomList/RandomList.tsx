@@ -20,29 +20,57 @@ const RandomListWrapper = () => {
 
 const RandomList = () => {
   const navigate = useNavigate();
-  // const data = useGetRandomList();
   const [randomList, setRandomList] = useRecoilState(randomListData);
-  console.log(randomList);
   const roomId = useRecoilValue(roomIdData);
 
   const handleSubmit = () => {
     navigate(`/random-menu/${roomId}`);
   };
 
-  const handleClick = (roomId: number, index: number) => {};
+  const handleClick = (roomId: number, index: number) => {
+    const newRestaurant = {
+      id: 4,
+      title: 'Test Food',
+      category: 'TestCategory',
+      count: 1,
+      link: 'www.test.com',
+      distance: 1,
+      address: 'TestAddress',
+      roomId: 1,
+      rank: 0,
+    };
+    setRandomList((prev) => {
+      // 바뀐자리에 추가
+      // if (prev && prev.length > index) {
+      //   const updatedList = [...prev];
+      //   updatedList[index] = newRestaurant;
+      //   return updatedList;
+      // }
+      // return prev;
+
+      // 맨마지막에 추가
+      if (!prev || prev.length <= index) {
+        return prev;
+      }
+      const updatedList = [...prev];
+      updatedList.splice(index, 1);
+      updatedList.push(newRestaurant);
+
+      return updatedList;
+    });
+  };
 
   return (
     <S.Layout>
       <S.Title>오늘의 메뉴 후보 </S.Title>
       <S.CardUl>
-        {randomList &&
-          randomList.slice(0, 5).map((el: any, i: number) => (
+        {randomList
+          ?.slice(0, 5)
+          .map((el: any, i: number) => (
             <MenuCard
               key={el.id}
               information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance }}
-              handleClick={(num: number) => {
-                console.log(num);
-              }}
+              handleClick={handleClick}
             ></MenuCard>
           ))}
       </S.CardUl>
