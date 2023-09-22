@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
+import { useGetResult } from 'apis/query/useGetResult';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import * as S from './Result.styled';
 import ResultCard from 'components/common/ResultCard/ResultCard';
 import Button from 'components/common/Button/Button';
 import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
 import shareResult from 'assets/icons/icon-share-result.svg';
 import retry from 'assets/icons/icon-retry-orange.svg';
-import { useNavigate } from 'react-router-dom';
-import { useGetWinnerResult } from 'apis/query/useGetResult';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 const Result = () => {
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
@@ -17,10 +17,17 @@ const Result = () => {
   const [opacity, setOpacity] = useState(1);
   const navigate = useNavigate();
 
-  const { voteWinnerResultData, refetch } = useGetWinnerResult();
+  // TODO: 세션에서 가져오기
+  const roomId = '2';
 
-  const winnerData = voteWinnerResultData?.data;
-  const winnerDataLength = winnerData.length;
+  const { voteOverallResultData, refetch } = useGetResult(roomId);
+
+  const voteResult = voteOverallResultData?.data;
+
+  const totalVote = voteResult.total;
+  const winnerData = voteResult.win;
+
+  console.log('winnerData', winnerData);
 
   const handleModalClick = () => {
     setIsModalOn(true);
@@ -35,7 +42,7 @@ const Result = () => {
   const settings = {
     dots: false,
     infinite: false,
-    slidesToShow: 1.2,
+    slidesToShow: 1.1,
     slidesToScroll: 1,
     arrows: false,
   };
@@ -57,7 +64,7 @@ const Result = () => {
   }, []);
 
   const handleClickFromScratch = () => {
-    navigate('/random-menu');
+    navigate('/location');
   };
 
   return (
@@ -67,7 +74,7 @@ const Result = () => {
         <S.ShareResult $isFirstText={text === '1등 음식점을 확인해보세요 👀'} $opacity={opacity}>
           {text}
         </S.ShareResult>
-        {winnerDataLength === 1 ? (
+        {winnerData.length === 1 ? (
           winnerData.map((item: any, i: number) => (
             <ResultCard
               key={i}
@@ -75,8 +82,9 @@ const Result = () => {
               name={item.title}
               distance={item.distance}
               pollNumber={item.count}
-              tag={item.category}
-              winnerNum={winnerDataLength}
+              winnerNum={winnerData.length}
+              categories={item.category}
+              link={item.link}
             />
           ))
         ) : (
@@ -88,8 +96,9 @@ const Result = () => {
                 name={item.title}
                 distance={item.distance}
                 pollNumber={item.count}
-                tag={item.category}
-                winnerNum={winnerDataLength}
+                winnerNum={winnerData.length}
+                categories={item.category}
+                link={item.link}
               />
             ))}
           </Slider>
@@ -98,8 +107,8 @@ const Result = () => {
           <img src={shareResult} alt="share result icon" />
           공유하기
         </S.ButtonShare>
-        <S.ReloadButton onClick={() => refetch()}>
-          15명째 투표중
+        <S.ReloadButton type="button" onClick={() => refetch()}>
+          {totalVote}명째 투표중
           <img src={retry} alt="retry icon" />
         </S.ReloadButton>
         <Button $variant="retry" onClick={handleClickFromScratch}>

@@ -12,7 +12,9 @@ export default function OverallRanking() {
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const resultData = useGetResult();
+  const roomId = '2';
+
+  const resultData = useGetResult(roomId);
   console.log('resultData', resultData);
 
   const handleModalClick = () => {
@@ -35,7 +37,7 @@ export default function OverallRanking() {
         <S.OverallRankingWrapper>
           <h3 className="page-title">전체 순위</h3>
           <S.RestaurantList>
-            {resultData?.slice(0, 5).map((item: any) => (
+            {/* {resultData?.slice(0, 5).map((item: any) => (
               <S.RestaurantItem key={item.id}>
                 <S.Ranking>
                   {item.rank === 1 ? <img src={winner} alt="winner icon" /> : undefined}
@@ -55,7 +57,7 @@ export default function OverallRanking() {
                 </S.RestaurantData>
                 <img src={toDetail} alt="more detail icon" />
               </S.RestaurantItem>
-            ))}
+            ))} */}
 
             <S.ButtonShare onClick={handleModalClick}>
               <img src={shareResult} alt="share result icon" />
