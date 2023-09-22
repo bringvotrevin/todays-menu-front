@@ -18,6 +18,7 @@ const Result = () => {
   const navigate = useNavigate();
 
   // TODO: 세션에서 가져오기
+  // const roomId = sessionStorage.getItem('roomId');
   const roomId = '2';
 
   const { voteOverallResultData, refetch } = useGetResult(roomId);
