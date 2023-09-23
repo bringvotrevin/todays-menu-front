@@ -2,14 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://todays-menu-front.vercel.app/">
+    <meta property="og:title" content="오늘의 메뉴">
+    <meta property="og:image" content="%PUBLIC_URL%/OGimage.jpg">
+    <meta property="og:description" content="메뉴 추천받고 오늘 당기는 음식을 골라봐요">
+    <meta property="og:site_name" content="오늘의 메뉴">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -25,14 +27,21 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f2c8bdbc7118db438196b2c121596518&libraries=services&"></script>
+    <!-- 카카오톡 공유하기 SDK  -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js"
+      integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH" 
+      crossorigin="anonymous"></script>
+    <script>
+      Kakao.init(process.env.REACT_APP_KAKAO_API_KEY); 
+      console.log('kakao init clear!');
+    </script>
     <style> 
       @import '~slick-carousel/slick/slick.css';
       @import '~slick-carousel/slick/slick-theme.css';
     </style>
-    <title>React App</title>
+    <title>오늘의 메뉴</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
       This HTML file is a template.

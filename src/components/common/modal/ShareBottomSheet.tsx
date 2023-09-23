@@ -3,17 +3,22 @@ import * as S from './ShareBottomSheet.styled';
 import shareViaKakaoImg from 'assets/icons/icon-kakaotalk.svg';
 import shareViaLinkImg from 'assets/icons/icon-share-link.svg';
 
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 type Props = {
   handleModalClose: React.MouseEventHandler<HTMLDivElement>;
 };
 
 export default function ShareBottomSheet(props: Props) {
   const [isCopied, setIsCopied] = useState<boolean>(false);
+  const urlToCopy: string = window.location.href;
 
   const handleCopyClick = async (): Promise<void> => {
     try {
-      const urlToCopy: string = window.location.href;
-
       await navigator.clipboard.writeText(urlToCopy);
       setIsCopied(true);
 
@@ -23,11 +28,35 @@ export default function ShareBottomSheet(props: Props) {
     }
   };
 
+  const shareKakao = () => {
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '오늘의 메뉴',
+        description: '메뉴 추천받고 오늘 당기는 음식을 골라봐요',
+        imageUrl: 'https://raw.githubusercontent.com/cho7778/1234/main/OGimage-kakao.png?token=GHSAT0AAAAAACG44GTYYHFVMIKZ7HSXSEQKZIOSPIA',
+        link: {
+          mobileWebUrl: `${urlToCopy}`,
+          webUrl: `${urlToCopy}`,
+        },
+      },
+      buttons: [
+        {
+          title: '오늘의 메뉴 확인하러 가기',
+          link: {
+            mobileWebUrl: `${urlToCopy}`,
+            webUrl: `${urlToCopy}`,
+          },
+        },
+      ],
+    });
+  };
+
   return (
     <S.ShareBottomSheet handleModalClose={props.handleModalClose}>
       <ul>
         <li className="shareViaKaKao">
-          <button type="button">
+          <button type="button" onClick={shareKakao}>
             <img src={shareViaKakaoImg} alt="share via kakaotalk icon" />
             <p>카카오톡으로 공유하기</p>
           </button>
