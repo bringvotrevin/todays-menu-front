@@ -13,7 +13,7 @@ import { useRandomListMutation } from 'apis/query/useRandomListMutation';
 const Location: React.FC = () => {
   const navigate = useNavigate();
   const geocoder = new window.kakao.maps.services.Geocoder();
-  const [modalOn, setModalOn] = useState<boolean>(false);
+  const [isModalOn, setIsModalOn] = useState<boolean>(false);
   const [address, setAddress] = useState<string>('');
   const addressInput = useRef<HTMLInputElement>(null);
   const [buttonActive, setButtonActive] = useState<boolean>(false);
@@ -41,7 +41,7 @@ const Location: React.FC = () => {
 
   const handlePostcodeModal = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
-    setModalOn(true);
+    setIsModalOn(true);
   };
 
   const handleComplete = (data: Address) => {
@@ -56,7 +56,7 @@ const Location: React.FC = () => {
       }
     });
     setAddress(dataAddress); // 위치 if문 안쪽으로? 고려해보긴
-    setModalOn(false);
+    setIsModalOn(false);
   };
 
   const handleError = (error: GeolocationPositionError) => {
@@ -99,7 +99,7 @@ const Location: React.FC = () => {
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     event.preventDefault();
-    setModalOn(false);
+    setIsModalOn(false);
   };
 
   const onSuccessFn = (data: any) => {
@@ -136,7 +136,7 @@ const Location: React.FC = () => {
         </S.Layout>
       )}
       {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}
-      {modalOn && (
+      {isModalOn && (
         <BottomSheet handleModalClose={handleModalClose}>
           <DaumPostcodeEmbed onComplete={handleComplete} autoClose style={{ width: '100%', height: 500 }} />
         </BottomSheet>

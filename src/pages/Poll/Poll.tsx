@@ -12,6 +12,7 @@ import { roomIdData } from 'recoil/roomIdData';
 import { useRecoilValue } from 'recoil';
 import BottomSheet from 'components/common/modal/BottomSheet';
 import EndOfListAlert from 'components/common/modal/children/EndOfListAlert';
+import { useVoteMutation } from 'apis/query/useVoteMutation';
 
 const PollWrapper = () => {
   return (
@@ -27,15 +28,23 @@ const Poll = () => {
   const [isAlertModalOn, setIsAlertModalOn] = useState<boolean>(false);
   const [clickedIndexArray, setClickedIndexArray] = useState<number[]>([]);
   const navigate = useNavigate();
-  const { id } = useParams();
-  const { data } = useGetRoom(id);
+  const { id: roomId } = useParams();
+  const { data } = useGetRoom(roomId);
+  const { mutate, isLoading } = useVoteMutation();
 
   useEffect(() => {
     console.log(clickedIndexArray);
   }, [clickedIndexArray]);
 
+  const onSuccessFn = (data: any) => {
+    // navigate(`/random-menu/${data?.data.id}/result`);
+    console.log(data);
+  };
+
   const handleSubmit = () => {
-    // navigate(`/random-menu/${data?.data[0].id}/result`);
+    if (clickedIndexArray && roomId) {
+      mutate({ roomId, voteList: clickedIndexArray }, { onSuccess: onSuccessFn });
+    }
   };
 
   const handleShareClick = () => {
@@ -49,12 +58,12 @@ const Poll = () => {
     setIsAlertModalOn(false);
   };
 
-  const handleClick = (index: number) => {
+  const handleClick = (restaurantId: number) => {
     setClickedIndexArray((prev) => {
       const updatedList = [...prev];
-      const i = prev.findIndex((el) => el === index);
+      const i = prev.findIndex((el) => el === restaurantId);
       if (i === -1) {
-        updatedList.push(index);
+        updatedList.push(restaurantId);
       } else {
         updatedList.splice(i, 1);
       }
