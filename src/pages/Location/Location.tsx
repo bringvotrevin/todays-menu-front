@@ -1,32 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode';
+import Loading from 'pages/Loading/Loading';
 import BottomSheet from 'components/common/modal/BottomSheet';
 import * as S from './Location.styled';
 import getAddressAPI from 'apis/api/getAddressApi';
-// import { useQuery } from 'react-query';
-
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
+import { randomListData } from 'recoil/randomListData';
+import { roomIdData } from 'recoil/roomIdData';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRandomListMutation } from 'apis/query/useRandomListMutation';
 
 const Location: React.FC = () => {
   const navigate = useNavigate();
-  const [modalOn, setModalOn] = useState<boolean>(false);
+  const geocoder = new window.kakao.maps.services.Geocoder();
+  const [isModalOn, setIsModalOn] = useState<boolean>(false);
   const [address, setAddress] = useState<string>('');
   const addressInput = useRef<HTMLInputElement>(null);
   const [buttonActive, setButtonActive] = useState<boolean>(false);
   const [latitude, setLatitude] = useState<string | null>(null);
   const [longitude, setLongitude] = useState<string | null>(null);
-  const geocoder = new window.kakao.maps.services.Geocoder();
+  const [randomList, setRandomList] = useRecoilState(randomListData);
+  const setRoomId = useSetRecoilState(roomIdData);
+  const { mutate, isLoading } = useRandomListMutation();
 
   useEffect(() => {
     if (addressInput.current) {
       addressInput.current.value = address;
     }
   }, [address]);
+
+  useEffect(() => {
+    console.log(randomList);
+  }, [randomList]);
 
   useEffect(() => {
     if (latitude && longitude) {
@@ -36,20 +41,22 @@ const Location: React.FC = () => {
 
   const handlePostcodeModal = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
-    setModalOn(true);
+    setIsModalOn(true);
   };
 
   const handleComplete = (data: Address) => {
     const dataAddress = data.address;
 
     geocoder.addressSearch(data.address, (result: any, status: any) => {
-      if (status === window.kakao.maps.services.Status.OK) {
+      if (status === window.kakao?.maps.services.Status.OK) {
         setLatitude(result[0].y.slice(0, 9));
         setLongitude(result[0].x.slice(0, 10));
+      } else {
+        console.error('kakao get coordinate error');
       }
     });
-    setAddress(dataAddress);
-    setModalOn(false);
+    setAddress(dataAddress); // 위치 if문 안쪽으로? 고려해보긴
+    setIsModalOn(false);
   };
 
   const handleError = (error: GeolocationPositionError) => {
@@ -68,8 +75,6 @@ const Location: React.FC = () => {
         break;
     }
   };
-
-  // const { data, isLoading, isError } = useQuery('address', () => getAddressAPI({ longitude, latitude }));
 
   // 현재 위치 정보 가져오기
   const getCurrentLocation = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -94,36 +99,44 @@ const Location: React.FC = () => {
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     event.preventDefault();
-    setModalOn(false);
+    setIsModalOn(false);
+  };
+
+  const onSuccessFn = (data: any) => {
+    setRandomList(data.data.restaurantResList);
+    setRoomId(data.data.id);
+    navigate('/random-menu');
   };
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (latitude && longitude) {
-      sessionStorage.setItem('latitude', latitude.toString());
-      sessionStorage.setItem('longitude', longitude?.toString());
+      mutate({ longitude, latitude }, { onSuccess: onSuccessFn });
     }
-    navigate('/random-menu');
   };
 
   return (
     <>
-      <S.Layout>
-        <S.Title>
-          입력하신 위치 기반으로
-          <br />
-          오늘의 메뉴를 추천해드려요
-        </S.Title>
-        <S.Form>
-          <S.AddressInput placeholder="회사명, 근처 역 출구, 상세 주소 검색" readOnly onClick={handlePostcodeModal} ref={addressInput} />
-          <S.GetCurrentLocationButton onClick={getCurrentLocation}>현재 위치로 설정하기</S.GetCurrentLocationButton>
-          <S.SubmitButton $isActive={buttonActive} onClick={handleSubmit} disabled={!buttonActive}>
-            점심메뉴 같이 고르기
-          </S.SubmitButton>
-        </S.Form>
-      </S.Layout>
+      {isLoading ? (
+        <Loading message={'음식점을 추천 중이에요'} />
+      ) : (
+        <S.Layout>
+          <S.Title>
+            입력하신 위치 기반으로
+            <br />
+            오늘의 메뉴를 추천해드려요
+          </S.Title>
+          <S.Form>
+            <S.AddressInput placeholder="회사명, 근처 역 출구, 상세 주소 검색" readOnly onClick={handlePostcodeModal} ref={addressInput} />
+            <S.GetCurrentLocationButton onClick={getCurrentLocation}>현재 위치로 설정하기</S.GetCurrentLocationButton>
+            <S.SubmitButton $isActive={buttonActive} onClick={handleSubmit} disabled={!buttonActive}>
+              점심메뉴 같이 고르기
+            </S.SubmitButton>
+          </S.Form>
+        </S.Layout>
+      )}
       {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}
-      {modalOn && (
+      {isModalOn && (
         <BottomSheet handleModalClose={handleModalClose}>
           <DaumPostcodeEmbed onComplete={handleComplete} autoClose style={{ width: '100%', height: 500 }} />
         </BottomSheet>

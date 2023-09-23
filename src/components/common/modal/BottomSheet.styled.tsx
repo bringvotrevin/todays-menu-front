@@ -28,7 +28,7 @@ export const ModalLayout = styled.div`
   background-color: #fff;
   box-shadow: 0px -2px 2px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  border-radius: 10px 10px 0 0;
+  border-radius: 20px 20px 0 0;
   animation: fadeInModal 0.5s ease;
 
   @keyframes fadeInModal {

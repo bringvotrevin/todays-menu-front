@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import AsyncBoundary from 'components/common/AsyncBoundary';
 import * as S from './Poll.styled';
 import { useGetRoom } from 'apis/query/useGetRoom';
@@ -8,6 +8,11 @@ import Button from 'components/common/Button/Button';
 import Loading from 'pages/Loading/Loading';
 import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
 import icon_share from 'assets/icons/icon-share.svg';
+import { roomIdData } from 'recoil/roomIdData';
+import { useRecoilValue } from 'recoil';
+import BottomSheet from 'components/common/modal/BottomSheet';
+import EndOfListAlert from 'components/common/modal/children/EndOfListAlert';
+import { useVoteMutation } from 'apis/query/useVoteMutation';
 
 const PollWrapper = () => {
   return (
@@ -18,22 +23,52 @@ const PollWrapper = () => {
 };
 
 const Poll = () => {
-  const [isModalOn, setIsModalOn] = useState<boolean>(true);
+  const isSharedPage = useRecoilValue(roomIdData);
+  const [isShareModalOn, setIsShareModalOn] = useState<boolean>(!!isSharedPage);
+  const [isAlertModalOn, setIsAlertModalOn] = useState<boolean>(false);
+  const [clickedIndexArray, setClickedIndexArray] = useState<number[]>([]);
   const navigate = useNavigate();
-  const { data } = useGetRoom();
+  const { id: roomId } = useParams();
+  const { data } = useGetRoom(roomId);
+  const { mutate, isLoading } = useVoteMutation();
+
+  useEffect(() => {
+    console.log(clickedIndexArray);
+  }, [clickedIndexArray]);
+
+  const onSuccessFn = (data: any) => {
+    // navigate(`/random-menu/${data?.data.id}/result`);
+    console.log(data);
+  };
 
   const handleSubmit = () => {
-    navigate(`/random-menu/${data?.data[0].id}/result`);
+    if (clickedIndexArray && roomId) {
+      mutate({ roomId, voteList: clickedIndexArray }, { onSuccess: onSuccessFn });
+    }
   };
 
   const handleShareClick = () => {
-    setIsModalOn(true);
+    setIsShareModalOn(true);
   };
 
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     event.preventDefault();
-    setIsModalOn(false);
+    setIsShareModalOn(false);
+    setIsAlertModalOn(false);
+  };
+
+  const handleClick = (restaurantId: number) => {
+    setClickedIndexArray((prev) => {
+      const updatedList = [...prev];
+      const i = prev.findIndex((el) => el === restaurantId);
+      if (i === -1) {
+        updatedList.push(restaurantId);
+      } else {
+        updatedList.splice(i, 1);
+      }
+      return updatedList.sort((a, b) => a - b);
+    });
   };
 
   return (
@@ -41,11 +76,14 @@ const Poll = () => {
       <S.Layout>
         <S.Title>오늘 당기는 메뉴는? 🤤</S.Title>
         <S.CardUl>
-          {data?.data[0].restaurantDtoList
-            .slice(5)
-            .map((el: any, i: number) => (
-              <MenuCard key={i} information={{ title: el.title, category: el.category, link: el.link, distance: el.distance }} isPoll={true}></MenuCard>
-            ))}
+          {data?.data.restaurantResList.map((el: any, i: number) => (
+            <MenuCard
+              key={i}
+              information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance }}
+              isPoll={true}
+              handleClick={handleClick}
+            ></MenuCard>
+          ))}
         </S.CardUl>
         <S.ButtonLayout>
           <Button onClick={handleShareClick} $style={{ width: '25%' }}>
@@ -57,7 +95,12 @@ const Poll = () => {
         </S.ButtonLayout>
       </S.Layout>
       {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}
-      {isModalOn && <ShareBottomSheet handleModalClose={handleModalClose} />}
+      {isShareModalOn && <ShareBottomSheet handleModalClose={handleModalClose} />}
+      {isAlertModalOn && (
+        <BottomSheet handleModalClose={handleModalClose}>
+          <EndOfListAlert />
+        </BottomSheet>
+      )}
     </>
   );
 };

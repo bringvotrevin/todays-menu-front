@@ -1,8 +1,8 @@
-import getRandomListApi from 'apis/api/getRandomListApi';
 import { useQuery } from '@tanstack/react-query';
+import getPoll from 'apis/api/getPoll';
 
-export const useGetRoom = () => {
-  const { data, isLoading, isError } = useQuery({ queryKey: ['room'], queryFn: () => getRandomListApi() });
+export const useGetRoom = (roomId: string | undefined) => {
+  const { data, isLoading, isError } = useQuery({ queryKey: ['room', roomId], queryFn: () => getPoll(roomId) });
 
   return {
     data,

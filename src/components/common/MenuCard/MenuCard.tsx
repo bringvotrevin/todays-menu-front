@@ -8,16 +8,20 @@ import icon_link from 'assets/icons/btn-link.svg';
 
 interface MenuCardProps {
   information: {
+    restaurantId: number;
+    index: number;
     title: string;
     category: string;
     link: string;
-    distance: string;
+    distance: number;
   };
   isPoll?: boolean;
+  handleClick: any;
 }
 
 const MenuCard = (props: MenuCardProps) => {
-  const { title, category, link, distance } = props.information;
+  const { restaurantId, index, title, category, link, distance } = props.information;
+  const handleClick = props.handleClick;
   const categories = splitCategory(category);
   const [isSelected, setIsSelected] = useState(false);
 
@@ -27,6 +31,11 @@ const MenuCard = (props: MenuCardProps) => {
   };
 
   const handleIconClick = () => {
+    if (props.isPoll) {
+      handleClick(restaurantId);
+    } else {
+      handleClick(restaurantId, index);
+    }
     setIsSelected((prev) => !prev);
   };
 
