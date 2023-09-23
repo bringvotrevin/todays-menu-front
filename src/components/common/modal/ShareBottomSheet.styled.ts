@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import BottomSheet from './BottomSheet';
-import { vars } from 'styles/GlobalStyle';
 
 export const ShareBottomSheet = styled(BottomSheet)`
   ul {
@@ -15,9 +14,15 @@ export const ShareBottomSheet = styled(BottomSheet)`
       align-items: center;
     }
 
+    img {
+      display: inline-block;
+      margin-right: 26px;
+    }
+
     p {
-      margin: 0 auto;
+      /* margin: 0 auto; */
       font-size: var(--sm);
+      font-weight: var(--font-bold);
     }
   }
 
