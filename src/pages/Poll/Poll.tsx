@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import AsyncBoundary from 'components/common/AsyncBoundary';
 import * as S from './Poll.styled';
 import { useGetRoom } from 'apis/query/useGetRoom';
@@ -10,6 +10,8 @@ import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
 import icon_share from 'assets/icons/icon-share.svg';
 import { roomIdData } from 'recoil/roomIdData';
 import { useRecoilValue } from 'recoil';
+import BottomSheet from 'components/common/modal/BottomSheet';
+import EndOfListAlert from 'components/common/modal/children/EndOfListAlert';
 
 const PollWrapper = () => {
   return (
@@ -21,11 +23,12 @@ const PollWrapper = () => {
 
 const Poll = () => {
   const isSharedPage = useRecoilValue(roomIdData);
-  const [isModalOn, setIsModalOn] = useState<boolean>(!!isSharedPage);
+  const [isShareModalOn, setIsShareModalOn] = useState<boolean>(!!isSharedPage);
+  const [isAlertModalOn, setIsAlertModalOn] = useState<boolean>(false);
   const [clickedIndexArray, setClickedIndexArray] = useState<number[]>([]);
   const navigate = useNavigate();
-  const { data } = useGetRoom();
-  // console.log(data);
+  const { id } = useParams();
+  const { data } = useGetRoom(id);
 
   useEffect(() => {
     console.log(clickedIndexArray);
@@ -36,13 +39,14 @@ const Poll = () => {
   };
 
   const handleShareClick = () => {
-    setIsModalOn(true);
+    setIsShareModalOn(true);
   };
 
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     event.preventDefault();
-    setIsModalOn(false);
+    setIsShareModalOn(false);
+    setIsAlertModalOn(false);
   };
 
   const handleClick = (index: number) => {
@@ -63,16 +67,14 @@ const Poll = () => {
       <S.Layout>
         <S.Title>오늘 당기는 메뉴는? 🤤</S.Title>
         <S.CardUl>
-          {data
-            ?.slice(0, 5)
-            .map((el: any, i: number) => (
-              <MenuCard
-                key={i}
-                information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance }}
-                isPoll={true}
-                handleClick={handleClick}
-              ></MenuCard>
-            ))}
+          {data?.data.restaurantResList.map((el: any, i: number) => (
+            <MenuCard
+              key={i}
+              information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance }}
+              isPoll={true}
+              handleClick={handleClick}
+            ></MenuCard>
+          ))}
         </S.CardUl>
         <S.ButtonLayout>
           <Button onClick={handleShareClick} $style={{ width: '25%' }}>
@@ -84,7 +86,12 @@ const Poll = () => {
         </S.ButtonLayout>
       </S.Layout>
       {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}
-      {isModalOn && <ShareBottomSheet handleModalClose={handleModalClose} />}
+      {isShareModalOn && <ShareBottomSheet handleModalClose={handleModalClose} />}
+      {isAlertModalOn && (
+        <BottomSheet handleModalClose={handleModalClose}>
+          <EndOfListAlert />
+        </BottomSheet>
+      )}
     </>
   );
 };
