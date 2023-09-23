@@ -15,7 +15,7 @@ export default function OverallRanking() {
 
   // TODO: 세션에서 가져오기
   // const roomId = sessionStorage.getItem('roomId');
-  const roomId = '2';
+  const roomId = '1';
 
   const resultData = useGetResult(roomId).voteOverallResultData?.data;
   console.log('resultData', resultData);
@@ -59,11 +59,13 @@ export default function OverallRanking() {
                   </p>
                 </S.Ranking>
                 <S.RestaurantData>
-                  <strong className="name">{item.title}</strong>
-                  <p className="distance">{item.distance}m</p>
+                  <div className="name-and-distance">
+                    <strong className="name">{item.title}</strong>
+                    <p className="distance">{item.distance}m</p>
+                  </div>
                   <div className="tags">{`# ${splitCategory(item.category)}`}</div>
                 </S.RestaurantData>
-                <button type="button" onClick={(event) => handleLinkClick(event, item.link)}>
+                <button className="detailbutton" type="button" onClick={(event) => handleLinkClick(event, item.link)}>
                   <img src={toDetail} alt="more detail icon" />
                 </button>
               </S.RestaurantItem>
