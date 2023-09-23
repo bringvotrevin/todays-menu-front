@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from 'pages/Loading/Loading';
 import MenuCard from 'components/common/MenuCard/MenuCard';
-// import { useGetRandomList } from 'apis/query/useGetRandomList';
 import AsyncBoundary from 'components/common/AsyncBoundary';
 import * as S from './RandomList.styled';
 import Button from 'components/common/Button/Button';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { randomListData } from 'recoil/randomListData';
 import { roomIdData } from 'recoil/roomIdData';
+import { useRetryMutation } from 'apis/query/useRetryMutation';
 
 const RandomListWrapper = () => {
   return (
@@ -22,6 +22,7 @@ const RandomList = () => {
   const navigate = useNavigate();
   const [randomList, setRandomList] = useRecoilState(randomListData);
   const roomId = useRecoilValue(roomIdData);
+  const { mutate } = useRetryMutation();
 
   const handleSubmit = () => {
     navigate(`/random-menu/${roomId}`);
@@ -60,22 +61,30 @@ const RandomList = () => {
     });
   };
 
+  const retryOnSuccess = (data: any) => {
+    setRandomList(data.restaurantResList);
+  };
+
+  const handleRetry = () => {
+    if (roomId) {
+      mutate(roomId, { onSuccess: retryOnSuccess });
+    }
+  };
+
   return (
     <S.Layout>
       <S.Title>오늘의 메뉴 후보 </S.Title>
       <S.CardUl>
-        {randomList
-          ?.slice(0, 5)
-          .map((el: any, i: number) => (
-            <MenuCard
-              key={el.id}
-              information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance }}
-              handleClick={handleClick}
-            ></MenuCard>
-          ))}
+        {randomList?.map((el: any, i: number) => (
+          <MenuCard
+            key={el.id}
+            information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance }}
+            handleClick={handleClick}
+          ></MenuCard>
+        ))}
       </S.CardUl>
       <S.ButtonLayout>
-        <Button>다시 추천</Button>
+        <Button onClick={handleRetry}>다시 추천</Button>
         <Button $variant={'orange'} onClick={handleSubmit}>
           투표 공유하기
         </Button>
