@@ -32,7 +32,7 @@ const MenuCard = (props: MenuCardProps) => {
 
   const handleIconClick = () => {
     if (props.isPoll) {
-      handleClick(index);
+      handleClick(restaurantId);
     } else {
       handleClick(restaurantId, index);
     }

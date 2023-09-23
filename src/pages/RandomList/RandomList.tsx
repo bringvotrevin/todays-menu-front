@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from 'pages/Loading/Loading';
 import MenuCard from 'components/common/MenuCard/MenuCard';
@@ -9,6 +9,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { randomListData } from 'recoil/randomListData';
 import { roomIdData } from 'recoil/roomIdData';
 import { useRetryMutation } from 'apis/query/useRetryMutation';
+import { useResuggestOneMutation } from 'apis/query/useResuggestOneMutation';
 
 const RandomListWrapper = () => {
   return (
@@ -22,43 +23,28 @@ const RandomList = () => {
   const navigate = useNavigate();
   const [randomList, setRandomList] = useRecoilState(randomListData);
   const roomId = useRecoilValue(roomIdData);
-  const { mutate } = useRetryMutation();
+  const { mutate: retryMutate } = useRetryMutation();
+  const { mutate: resuggestOneMutate } = useResuggestOneMutation();
 
   const handleSubmit = () => {
     navigate(`/random-menu/${roomId}`);
   };
 
-  const handleClick = (roomId: number, index: number) => {
-    const newRestaurant = {
-      id: 4,
-      title: 'Test Food',
-      category: 'TestCategory',
-      count: 1,
-      link: 'www.test.com',
-      distance: 1,
-      address: 'TestAddress',
-      roomId: 1,
-      rank: 0,
-    };
-    setRandomList((prev) => {
-      // 바뀐자리에 추가
-      // if (prev && prev.length > index) {
-      //   const updatedList = [...prev];
-      //   updatedList[index] = newRestaurant;
-      //   return updatedList;
-      // }
-      // return prev;
-
-      // 맨마지막에 추가
-      if (!prev || prev.length <= index) {
+  const handleClick = (restaurantId: number, index: number) => {
+    const resuggestOneOnSuccess = (data: any) => {
+      setRandomList((prev) => {
+        if (prev) {
+          const updatedList = [...prev];
+          updatedList.splice(index, 1);
+          updatedList.push(data);
+          return updatedList;
+        }
         return prev;
-      }
-      const updatedList = [...prev];
-      updatedList.splice(index, 1);
-      updatedList.push(newRestaurant);
-
-      return updatedList;
-    });
+      });
+    };
+    if (roomId && restaurantId) {
+      resuggestOneMutate({ roomId, restaurantId }, { onSuccess: resuggestOneOnSuccess });
+    }
   };
 
   const retryOnSuccess = (data: any) => {
@@ -67,7 +53,7 @@ const RandomList = () => {
 
   const handleRetry = () => {
     if (roomId) {
-      mutate(roomId, { onSuccess: retryOnSuccess });
+      retryMutate(roomId, { onSuccess: retryOnSuccess });
     }
   };
 
