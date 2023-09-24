@@ -127,8 +127,13 @@ export const ButtonShare = styled.button`
   border-radius: 20px;
   margin: 0 auto;
   margin-bottom: auto;
+
   img {
     margin-right: 10px;
     vertical-align: bottom;
   }
+`;
+
+export const RetryButtonLayout = styled.div`
+  margin-top: 12px;
 `;

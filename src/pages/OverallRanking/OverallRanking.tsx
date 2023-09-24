@@ -91,7 +91,9 @@ function OverallRanking() {
                 <img src={shareResult} alt="share result icon" />
                 공유하기
               </S.ButtonShare>
-              <Button onClick={handleRetry}>다시하기</Button>
+              <S.RetryButtonLayout>
+                <Button onClick={handleRetry}>다시하기</Button>
+              </S.RetryButtonLayout>
             </S.ButtonLayout>
           </S.RestaurantList>
         </S.OverallRankingWrapper>
