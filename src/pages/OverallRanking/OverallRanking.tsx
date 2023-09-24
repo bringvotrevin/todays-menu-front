@@ -8,8 +8,19 @@ import shareResult from 'assets/icons/icon-share-resut.svg';
 import winner from 'assets/icons/icon-winner.svg';
 import { useGetResult } from 'apis/query/useGetResult';
 import splitCategory from 'util/splitCategory';
+import AsyncBoundary from 'components/common/AsyncBoundary';
+import Loading from 'pages/Loading/Loading';
+import Error from 'pages/Error/Error';
 
-export default function OverallRanking() {
+const OverallRankingWrapper = () => {
+  return (
+    <AsyncBoundary errorFallback={<Error />} suspenseFallback={<Loading message={'투표 결과 가져오는 중'} />}>
+      <OverallRanking />
+    </AsyncBoundary>
+  );
+};
+
+function OverallRanking() {
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
   const navigate = useNavigate();
   const { id: roomId } = useParams();
@@ -79,3 +90,5 @@ export default function OverallRanking() {
     </>
   );
 }
+
+export default OverallRankingWrapper;

@@ -10,6 +10,17 @@ import Button from 'components/common/Button/Button';
 import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
 import shareResult from 'assets/icons/icon-share-result.svg';
 import retry from 'assets/icons/icon-retry-orange.svg';
+import AsyncBoundary from 'components/common/AsyncBoundary';
+import Loading from 'pages/Loading/Loading';
+import Error from 'pages/Error/Error';
+
+const ResultWrapper = () => {
+  return (
+    <AsyncBoundary errorFallback={<Error />} suspenseFallback={<Loading message={'투표 결과 가져오는 중'} />}>
+      <Result />
+    </AsyncBoundary>
+  );
+};
 
 const Result = () => {
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
@@ -119,4 +130,4 @@ const Result = () => {
   );
 };
 
-export default Result;
+export default ResultWrapper;
