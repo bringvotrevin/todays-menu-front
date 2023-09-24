@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 import { useGetResult } from 'apis/query/useGetResult';
 import 'slick-carousel/slick/slick.css';
@@ -16,10 +16,7 @@ const Result = () => {
   const [text, setText] = useState('1등 음식점을 확인해보세요 👀');
   const [opacity, setOpacity] = useState(1);
   const navigate = useNavigate();
-
-  // TODO: 세션에서 가져오기
-  // const roomId = sessionStorage.getItem('roomId');
-  const roomId = '1';
+  const { id: roomId } = useParams();
 
   const { voteOverallResultData, refetch } = useGetResult(roomId);
 
@@ -65,7 +62,7 @@ const Result = () => {
   }, []);
 
   const handleClickFromScratch = () => {
-    navigate('/location');
+    navigate('/');
   };
 
   return (

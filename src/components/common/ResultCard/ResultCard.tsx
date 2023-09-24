@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import * as S from './ResultCard.styled';
 import toDetail from 'assets/icons/icon-to-detail-black.svg';
 import soup from 'assets/icons/icon-soup.svg';
@@ -21,6 +22,7 @@ type ResultCardProps = {
 
 const ResultCard = (props: ResultCardProps) => {
   const categories = splitCategory(props.categories);
+  const { id: roomId } = useParams();
 
   const handleLinkClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -61,7 +63,7 @@ const ResultCard = (props: ResultCardProps) => {
       <S.VoteNumber>
         <span>{props.pollNumber}</span>/15명
       </S.VoteNumber>
-      <S.ToOverallRanking to="/random-menu/:id/result/overall-ranking">전체 순위 보기</S.ToOverallRanking>
+      <S.ToOverallRanking to={`/random-menu/${roomId}/result/overall-ranking`}>전체 순위 보기</S.ToOverallRanking>
     </S.RestaurantDetail>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './OverallRanking.styled';
 import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
 import Button from 'components/common/Button/Button';
@@ -12,10 +12,7 @@ import splitCategory from 'util/splitCategory';
 export default function OverallRanking() {
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
   const navigate = useNavigate();
-
-  // TODO: 세션에서 가져오기
-  // const roomId = sessionStorage.getItem('roomId');
-  const roomId = '1';
+  const { id: roomId } = useParams();
 
   const resultData = useGetResult(roomId).voteOverallResultData?.data;
   console.log('resultData', resultData);
@@ -34,7 +31,7 @@ export default function OverallRanking() {
   };
 
   const handleRetry = () => {
-    navigate('/location');
+    navigate('/');
   };
 
   const handleLinkClick = (event: React.MouseEvent<HTMLButtonElement>, link: string) => {
@@ -59,10 +56,7 @@ export default function OverallRanking() {
                   </p>
                 </S.Ranking>
                 <S.RestaurantData>
-                  <div className="name-and-distance">
                   <strong className="name">{item.title}</strong>
-                    <p className="distance">{item.distance}m</p>
-                  </div>
                   <div className="tags">{`# ${splitCategory(item.category)}`}</div>
                 </S.RestaurantData>
                 <S.Distance className="distance">{item.distance}m</S.Distance>
