@@ -127,7 +127,7 @@ export const ButtonShare = styled.button`
   border-radius: 20px;
   margin: 0 auto;
   margin-bottom: auto;
-  s img {
+  img {
     margin-right: 10px;
     vertical-align: bottom;
   }
