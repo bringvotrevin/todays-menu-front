@@ -60,11 +60,12 @@ export default function OverallRanking() {
                 </S.Ranking>
                 <S.RestaurantData>
                   <div className="name-and-distance">
-                    <strong className="name">{item.title}</strong>
+                  <strong className="name">{item.title}</strong>
                     <p className="distance">{item.distance}m</p>
                   </div>
                   <div className="tags">{`# ${splitCategory(item.category)}`}</div>
                 </S.RestaurantData>
+                <S.Distance className="distance">{item.distance}m</S.Distance>
                 <button className="detailbutton" type="button" onClick={(event) => handleLinkClick(event, item.link)}>
                   <img src={toDetail} alt="more detail icon" />
                 </button>
