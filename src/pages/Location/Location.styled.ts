@@ -8,7 +8,6 @@ export const Layout = styled.div`
   padding: 176px 18px 25px;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
 `;
 
 export const Title = styled.h1`
@@ -24,7 +23,6 @@ export const Form = styled.form`
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
 `;
 
 export const AddressInput = styled.input`

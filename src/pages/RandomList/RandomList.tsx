@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from 'pages/Loading/Loading';
 import MenuCard from 'components/common/MenuCard/MenuCard';
@@ -10,6 +10,8 @@ import { randomListData } from 'recoil/randomListData';
 import { roomIdData } from 'recoil/roomIdData';
 import { useRetryMutation } from 'apis/query/useRetryMutation';
 import { useResuggestOneMutation } from 'apis/query/useResuggestOneMutation';
+import BottomSheet from 'components/common/modal/BottomSheet';
+import EndOfListAlert from 'components/common/modal/children/EndOfListAlert';
 
 const RandomListWrapper = () => {
   return (
@@ -22,6 +24,8 @@ const RandomListWrapper = () => {
 const RandomList = () => {
   const navigate = useNavigate();
   const [randomList, setRandomList] = useRecoilState(randomListData);
+  const [isAlertModalOn, setIsAlertModalOn] = useState<boolean>(false);
+
   const roomId = useRecoilValue(roomIdData);
   const { mutate: retryMutate } = useRetryMutation();
   const { mutate: resuggestOneMutate } = useResuggestOneMutation();
@@ -29,7 +33,11 @@ const RandomList = () => {
   const handleSubmit = () => {
     navigate(`/random-menu/${roomId}`);
   };
-
+  const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    setIsAlertModalOn(false);
+  };
   const handleClick = (restaurantId: number, index: number) => {
     const resuggestOneOnSuccess = (data: any) => {
       setRandomList((prev) => {
@@ -58,24 +66,31 @@ const RandomList = () => {
   };
 
   return (
-    <S.Layout>
-      <S.Title>오늘의 메뉴 후보 </S.Title>
-      <S.CardUl>
-        {randomList?.map((el: any, i: number) => (
-          <MenuCard
-            key={el.id}
-            information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance }}
-            handleClick={handleClick}
-          ></MenuCard>
-        ))}
-      </S.CardUl>
-      <S.ButtonLayout>
-        <Button onClick={handleRetry}>다시 추천</Button>
-        <Button $variant={'orange'} onClick={handleSubmit}>
-          투표 공유하기
-        </Button>
-      </S.ButtonLayout>
-    </S.Layout>
+    <>
+      <S.Layout>
+        <S.Title>오늘의 메뉴 후보 </S.Title>
+        <S.CardUl>
+          {randomList?.map((el: any, i: number) => (
+            <MenuCard
+              key={el.id}
+              information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance, address: el.address }}
+              handleClick={handleClick}
+            ></MenuCard>
+          ))}
+        </S.CardUl>
+        <S.ButtonLayout>
+          <Button onClick={handleRetry}>다시 추천</Button>
+          <Button $variant={'orange'} onClick={handleSubmit}>
+            투표 공유하기
+          </Button>
+        </S.ButtonLayout>
+      </S.Layout>
+      {isAlertModalOn && (
+        <BottomSheet handleModalClose={handleModalClose}>
+          <EndOfListAlert />
+        </BottomSheet>
+      )}
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import { AppLayout } from 'styles/AppLayout';
 import { GlobalStyle } from 'styles/GlobalStyle.js';
 import Error from 'pages/Error/Error';
 import { RecoilRoot } from 'recoil';
+import Loading from 'pages/Loading/Loading';
 
 function App() {
   const queryClient = new QueryClient({
@@ -30,14 +31,14 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <GlobalStyle />
-      <RecoilRoot>
-        <AsyncBoundary errorFallback={<Error />} suspenseFallback={<>...loading</>}>
-          <ReactQueryDevtools initialIsOpen={false} />
-          <AppLayout>
+      <AppLayout>
+        <RecoilRoot>
+          <AsyncBoundary errorFallback={<Error />} suspenseFallback={<Loading message="로딩중" />}>
+            <ReactQueryDevtools initialIsOpen={false} />
             <AppRoutes />
-          </AppLayout>
-        </AsyncBoundary>
-      </RecoilRoot>
+          </AsyncBoundary>
+        </RecoilRoot>
+      </AppLayout>
     </QueryClientProvider>
   );
 }

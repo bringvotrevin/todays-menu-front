@@ -7,7 +7,7 @@ import * as S from './Location.styled';
 import getAddressAPI from 'apis/api/getAddressApi';
 import { randomListData } from 'recoil/randomListData';
 import { roomIdData } from 'recoil/roomIdData';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { useRandomListMutation } from 'apis/query/useRandomListMutation';
 
 const Location: React.FC = () => {
@@ -19,7 +19,7 @@ const Location: React.FC = () => {
   const [buttonActive, setButtonActive] = useState<boolean>(false);
   const [latitude, setLatitude] = useState<string | null>(null);
   const [longitude, setLongitude] = useState<string | null>(null);
-  const [randomList, setRandomList] = useRecoilState(randomListData);
+  const setRandomList = useSetRecoilState(randomListData);
   const setRoomId = useSetRecoilState(roomIdData);
   const { mutate, isLoading } = useRandomListMutation();
 
@@ -28,10 +28,6 @@ const Location: React.FC = () => {
       addressInput.current.value = address;
     }
   }, [address]);
-
-  useEffect(() => {
-    console.log(randomList);
-  }, [randomList]);
 
   useEffect(() => {
     if (latitude && longitude) {

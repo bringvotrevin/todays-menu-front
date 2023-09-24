@@ -10,8 +10,6 @@ import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
 import icon_share from 'assets/icons/icon-share.svg';
 import { roomIdData } from 'recoil/roomIdData';
 import { useRecoilValue } from 'recoil';
-import BottomSheet from 'components/common/modal/BottomSheet';
-import EndOfListAlert from 'components/common/modal/children/EndOfListAlert';
 import { useVoteMutation } from 'apis/query/useVoteMutation';
 
 const PollWrapper = () => {
@@ -25,8 +23,8 @@ const PollWrapper = () => {
 const Poll = () => {
   const isSharedPage = useRecoilValue(roomIdData);
   const [isShareModalOn, setIsShareModalOn] = useState<boolean>(!!isSharedPage);
-  const [isAlertModalOn, setIsAlertModalOn] = useState<boolean>(false);
   const [clickedIndexArray, setClickedIndexArray] = useState<number[]>([]);
+  const [buttonActive, setButtonActive] = useState<boolean>(false);
   const navigate = useNavigate();
   const { id: roomId } = useParams();
   const { data } = useGetRoom(roomId);
@@ -34,16 +32,19 @@ const Poll = () => {
 
   useEffect(() => {
     console.log(clickedIndexArray);
+    // if (clickedIndexArray.length) {
+    //   setButtonActive(true);
+    // }
   }, [clickedIndexArray]);
 
-  const onSuccessFn = (data: any) => {
-    // navigate(`/random-menu/${data?.data.id}/result`);
-    console.log(data);
+  const onSuccessFn = () => {
+    // navigate(`/random-menu/${roomId}/result`);
   };
 
   const handleSubmit = () => {
     if (clickedIndexArray && roomId) {
       mutate({ roomId, voteList: clickedIndexArray }, { onSuccess: onSuccessFn });
+      navigate(`/random-menu/${roomId}/result`);
     }
   };
 
@@ -53,9 +54,7 @@ const Poll = () => {
 
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
-    event.preventDefault();
     setIsShareModalOn(false);
-    setIsAlertModalOn(false);
   };
 
   const handleClick = (restaurantId: number) => {
@@ -67,40 +66,51 @@ const Poll = () => {
       } else {
         updatedList.splice(i, 1);
       }
+      if (updatedList.length) {
+        setButtonActive(true);
+      } else {
+        setButtonActive(false);
+      }
       return updatedList.sort((a, b) => a - b);
     });
   };
 
   return (
     <>
-      <S.Layout>
-        <S.Title>오늘 당기는 메뉴는? 🤤</S.Title>
-        <S.CardUl>
-          {data?.data.restaurantResList.map((el: any, i: number) => (
-            <MenuCard
-              key={i}
-              information={{ restaurantId: el.id, index: i, title: el.title, category: el.category, link: el.link, distance: el.distance }}
-              isPoll={true}
-              handleClick={handleClick}
-            ></MenuCard>
-          ))}
-        </S.CardUl>
-        <S.ButtonLayout>
-          <Button onClick={handleShareClick} $style={{ width: '25%' }}>
-            <S.ShareImg src={icon_share} alt="공유하기 버튼" />
-          </Button>
-          <Button $variant={'orange'} onClick={handleSubmit}>
-            투표 공유하기
-          </Button>
-        </S.ButtonLayout>
-      </S.Layout>
-      {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}
-      {isShareModalOn && <ShareBottomSheet handleModalClose={handleModalClose} />}
-      {isAlertModalOn && (
-        <BottomSheet handleModalClose={handleModalClose}>
-          <EndOfListAlert />
-        </BottomSheet>
+      {isLoading ? (
+        <Loading message={'투표 결과 가져오는중'} />
+      ) : (
+        <S.Layout>
+          <S.Title>오늘 당기는 메뉴는? 🤤</S.Title>
+          <S.CardUl>
+            {data?.data.restaurantResList.map((el: any, i: number) => (
+              <MenuCard
+                key={i}
+                information={{
+                  restaurantId: el.id,
+                  index: i,
+                  title: el.title,
+                  category: el.category,
+                  link: el.link,
+                  distance: el.distance,
+                  address: el.address,
+                }}
+                isPoll={true}
+                handleClick={handleClick}
+              ></MenuCard>
+            ))}
+          </S.CardUl>
+          <S.ButtonLayout>
+            <Button onClick={handleShareClick} $style={{ width: '25%' }}>
+              <S.ShareImg src={icon_share} alt="공유하기 버튼" />
+            </Button>
+            <Button $variant={buttonActive ? 'orange' : 'gray'} onClick={handleSubmit} disabled={!buttonActive}>
+              투표하고 결과보기
+            </Button>
+          </S.ButtonLayout>
+        </S.Layout>
       )}
+      {isShareModalOn && <ShareBottomSheet handleModalClose={handleModalClose} />}
     </>
   );
 };

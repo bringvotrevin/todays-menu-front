@@ -14,13 +14,14 @@ interface MenuCardProps {
     category: string;
     link: string;
     distance: number;
+    address: string;
   };
   isPoll?: boolean;
   handleClick: any;
 }
 
 const MenuCard = (props: MenuCardProps) => {
-  const { restaurantId, index, title, category, link, distance } = props.information;
+  const { restaurantId, index, title, category, link, distance, address } = props.information;
   const handleClick = props.handleClick;
   const categories = splitCategory(category);
   const [isSelected, setIsSelected] = useState(false);
@@ -51,7 +52,7 @@ const MenuCard = (props: MenuCardProps) => {
             <S.RestaurantTag key={i}>{`# ${category}`}</S.RestaurantTag>
           ))}
         </S.RestaurantTagsUl>
-        <S.RestaurantDistance>{`${distance}m | 주소어쩌고저쩌고 `}</S.RestaurantDistance>
+        <S.RestaurantDistance>{`${distance}m | ${address} `}</S.RestaurantDistance>
       </section>
       <S.ButtonsDiv onClick={handleIconClick}>
         <button>

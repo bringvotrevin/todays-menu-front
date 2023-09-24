@@ -8,10 +8,12 @@ interface ShareResultProps {
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: var(--color-main-orange);
-  padding: 110px 26px 0;
+  padding: 110px 26px 25px;
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ShareResult = styled.div<ShareResultProps>`
@@ -30,6 +32,13 @@ export const ShareResult = styled.div<ShareResultProps>`
   transition: opacity 5ms;
 `;
 
+export const ButtonLayout = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
 export const ButtonShare = styled.button`
   display: block;
   background-color: rgba(255, 255, 255, 0.2);
@@ -37,6 +46,7 @@ export const ButtonShare = styled.button`
   padding: 11px 48px;
   border-radius: 20px;
   margin: 23px auto 55px;
+  margin-bottom: auto;
 
   img {
     margin-right: 10px;

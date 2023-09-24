@@ -2,8 +2,7 @@ import { axiosInstance } from 'apis/base/instance';
 
 const getPoll = async (roomId: string | undefined) => {
   const response = await axiosInstance.get(`/${roomId}`);
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-  console.log('axios return@@@@ : ', response);
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
   return response;
 };
 

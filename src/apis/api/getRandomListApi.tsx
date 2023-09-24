@@ -10,7 +10,6 @@ const getRandomListApi = async () => {
     longitude,
     latitude,
   });
-  // const response = await axiosInstance.get('/create');
   await new Promise((resolve) => setTimeout(resolve, 3000));
   return response;
 };

@@ -6,8 +6,8 @@ interface VoteApiParams {
 }
 
 const postVoteApi = async ({ roomId, voteList }: VoteApiParams) => {
-  console.log(roomId, voteList);
   const response = await postInstance.post(`${roomId}/vote`, { restaurantIdList: voteList });
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   return response.data;
 };
 
