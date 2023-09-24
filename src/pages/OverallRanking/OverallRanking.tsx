@@ -11,6 +11,9 @@ import splitCategory from 'util/splitCategory';
 import AsyncBoundary from 'components/common/AsyncBoundary';
 import Loading from 'pages/Loading/Loading';
 import Error from 'pages/Error/Error';
+import { useRecoilState } from 'recoil';
+import { roomIdData } from 'recoil/roomIdData';
+import { randomListData } from 'recoil/randomListData';
 
 const OverallRankingWrapper = () => {
   return (
@@ -24,7 +27,8 @@ function OverallRanking() {
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
   const navigate = useNavigate();
   const { id: roomId } = useParams();
-
+  const [recoilRoomId, setRecoilRoomId] = useRecoilState(roomIdData);
+  const [randomList, setRandomList] = useRecoilState(randomListData);
   const resultData = useGetResult(roomId).voteOverallResultData?.data;
   console.log('resultData', resultData);
   const totalVote = resultData.total;
@@ -42,6 +46,12 @@ function OverallRanking() {
   };
 
   const handleRetry = () => {
+    if (recoilRoomId !== null) {
+      setRecoilRoomId(null);
+    }
+    if (randomList !== null) {
+      setRandomList([]);
+    }
     navigate('/');
   };
 
@@ -76,7 +86,6 @@ function OverallRanking() {
                 </button>
               </S.RestaurantItem>
             ))}
-
             <S.ButtonShare onClick={handleModalClick}>
               <img src={shareResult} alt="share result icon" />
               공유하기

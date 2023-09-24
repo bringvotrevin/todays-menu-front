@@ -10,6 +10,7 @@ import splitCategory from 'util/splitCategory';
 
 type ResultCardProps = {
   key: number;
+  roomId: string | undefined;
   winnerNum: number;
   rank: number;
   name: string;
