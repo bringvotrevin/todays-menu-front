@@ -3,9 +3,7 @@ import logo from 'assets/images/logo.svg';
 import Button from 'components/common/Button/Button';
 import * as S from './EndOfListAlert.styled';
 
-type Props = {};
-
-const EndOfListAlert = (props: Props) => {
+const EndOfListAlert = () => {
   return (
     <S.Layout>
       <S.Logo src={logo} alt="오늘의 메뉴 로고" />

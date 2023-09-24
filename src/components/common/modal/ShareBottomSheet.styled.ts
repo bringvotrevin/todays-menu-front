@@ -3,7 +3,9 @@ import BottomSheet from './BottomSheet';
 
 export const ShareBottomSheet = styled(BottomSheet)`
   ul {
-    padding: 5px 30px 16px;
+    padding: 5px 40px 35px;
+    display: flex;
+    flex-direction: column;
   }
 
   li {
