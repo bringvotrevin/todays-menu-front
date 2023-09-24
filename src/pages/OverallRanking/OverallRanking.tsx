@@ -92,7 +92,7 @@ function OverallRanking() {
                 공유하기
               </S.ButtonShare>
               <S.RetryButtonLayout>
-                <Button onClick={handleRetry}>다시하기</Button>
+                <Button onClick={handleRetry}>처음부터 다시하기</Button>
               </S.RetryButtonLayout>
             </S.ButtonLayout>
           </S.RestaurantList>
