@@ -30,10 +30,8 @@ function OverallRanking() {
   const [recoilRoomId, setRecoilRoomId] = useRecoilState(roomIdData);
   const [randomList, setRandomList] = useRecoilState(randomListData);
   const resultData = useGetResult(roomId).voteOverallResultData?.data;
-  console.log('resultData', resultData);
   const totalVote = resultData.total;
   const overallRankingData = [...resultData.win, ...resultData.voteResultRes];
-  console.log('overallRankingData', overallRankingData);
 
   const handleModalClick = () => {
     setIsModalOn(true);

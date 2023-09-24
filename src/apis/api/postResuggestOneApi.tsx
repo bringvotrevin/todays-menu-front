@@ -7,7 +7,6 @@ interface ResuggestProps {
 
 const postResuggestOneApi = async ({ roomId, restaurantId }: ResuggestProps) => {
   const response = await postInstance.post(`/${roomId}/resuggest/${restaurantId}`);
-  console.log(response);
   return response.data;
 };
 

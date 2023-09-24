@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AsyncBoundary from 'components/common/AsyncBoundary';
 import * as S from './Poll.styled';
@@ -31,16 +31,8 @@ const Poll = () => {
   const { data } = useGetRoom(roomId);
   const { mutate, isLoading } = useVoteMutation();
 
-  useEffect(() => {
-    console.log(clickedIndexArray);
-    // if (clickedIndexArray.length) {
-    //   setButtonActive(true);
-    // }
-  }, [clickedIndexArray]);
-
   const onSuccessFn = (data: any) => {
     navigate(`/random-menu/${roomId}/result`);
-    console.log(data);
   };
 
   const handleSubmit = () => {
