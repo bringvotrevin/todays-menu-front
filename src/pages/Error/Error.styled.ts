@@ -4,7 +4,7 @@ import background from 'assets/images/background-error.svg';
 export const Background = styled.div`
   background: url(${background}) no-repeat;
   max-width: 393px;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
 `;
 

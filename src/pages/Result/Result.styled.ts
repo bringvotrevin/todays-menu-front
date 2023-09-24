@@ -8,7 +8,7 @@ interface ShareResultProps {
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--color-main-orange);
   padding: 110px 26px 25px;
   position: relative;
@@ -25,6 +25,7 @@ export const ShareResult = styled.div<ShareResultProps>`
   color: #fff;
   font-weight: var(--font-bold);
   font-size: var(--xxl);
+  line-height: 35px;
   text-align: center;
   white-space: pre-line;
   vertical-align: baseline;
@@ -55,6 +56,7 @@ export const ButtonShare = styled.button`
 `;
 
 export const ReloadButton = styled(Button)`
+  margin-top: 15px;
   img {
     display: inline-block;
     margin-left: 15px;

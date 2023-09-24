@@ -5,7 +5,7 @@ import BottomSheet from 'components/common/modal/BottomSheet';
 
 export const Layout = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background: url(${bg_vote}) 0 0 no-repeat;
   background-color: var(--color-bg-gray);
   padding: 50px 18px 30px;

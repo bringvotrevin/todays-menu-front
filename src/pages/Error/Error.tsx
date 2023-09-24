@@ -8,7 +8,6 @@ export default function Error() {
   const navigate = useNavigate();
 
   const refreshPage = () => {
-    console.log('새로고침');
     window.location.reload();
   };
 

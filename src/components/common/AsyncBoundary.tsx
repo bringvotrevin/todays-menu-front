@@ -1,7 +1,6 @@
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import { Component, FunctionComponent, ReactElement, ReactNode, Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-// import { useQueryErrorResetBoundary } from 'react-query';
 
 type Props = {
   children: ReactNode;

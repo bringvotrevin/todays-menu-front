@@ -30,10 +30,8 @@ function OverallRanking() {
   const [recoilRoomId, setRecoilRoomId] = useRecoilState(roomIdData);
   const [randomList, setRandomList] = useRecoilState(randomListData);
   const resultData = useGetResult(roomId).voteOverallResultData?.data;
-  console.log('resultData', resultData);
   const totalVote = resultData.total;
   const overallRankingData = [...resultData.win, ...resultData.voteResultRes];
-  console.log('overallRankingData', overallRankingData);
 
   const handleModalClick = () => {
     setIsModalOn(true);
@@ -92,7 +90,7 @@ function OverallRanking() {
                 공유하기
               </S.ButtonShare>
               <S.RetryButtonLayout>
-                <Button onClick={handleRetry}>다시하기</Button>
+                <Button onClick={handleRetry}>처음부터 다시하기</Button>
               </S.RetryButtonLayout>
             </S.ButtonLayout>
           </S.RestaurantList>
