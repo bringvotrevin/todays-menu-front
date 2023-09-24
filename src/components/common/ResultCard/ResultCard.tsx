@@ -9,7 +9,6 @@ import noodle from 'assets/icons/icon-noodle.svg';
 import splitCategory from 'util/splitCategory';
 
 type ResultCardProps = {
-  key: number;
   roomId: string | undefined;
   winnerNum: number;
   rank: number;
@@ -48,7 +47,7 @@ const ResultCard = (props: ResultCardProps) => {
     </S.RankingWrapper>
   );
   return (
-    <S.RestaurantDetail key={props.key}>
+    <S.RestaurantDetail>
       {props.winnerNum === 1 ? oneWinner : multipleWinner}
       <span className="line"></span>
       <S.RestaurantName onClick={handleLinkClick}>

@@ -10,6 +10,7 @@ export const OverallRankingWrapper = styled.div`
   padding: 45px 19px 43px;
   display: flex;
   flex-direction: column;
+  height: 100%;
   gap: 25px;
 
   .page-title {
@@ -24,12 +25,13 @@ export const OverallRankingWrapper = styled.div`
 export const RestaurantList = styled.ul`
   display: flex;
   flex-direction: column;
+  height: 100%;
   gap: 18px;
 `;
 
 export const RestaurantItem = styled.li`
   width: 100%;
-  height: 92px;
+  min-height: 92px;
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -110,6 +112,13 @@ export const Distance = styled.p`
   color: var(--color-sub-gray);
 `;
 
+export const ButtonLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-grow: 1;
+`;
+
 export const ButtonShare = styled.button`
   display: block;
   background-color: rgba(255, 255, 255, 0.2);
@@ -117,8 +126,8 @@ export const ButtonShare = styled.button`
   padding: 11px 48px;
   border-radius: 20px;
   margin: 0 auto;
-
-  img {
+  margin-bottom: auto;
+  s img {
     margin-right: 10px;
     vertical-align: bottom;
   }

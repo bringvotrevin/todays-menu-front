@@ -86,11 +86,13 @@ function OverallRanking() {
                 </button>
               </S.RestaurantItem>
             ))}
-            <S.ButtonShare onClick={handleModalClick}>
-              <img src={shareResult} alt="share result icon" />
-              공유하기
-            </S.ButtonShare>
-            <Button onClick={handleRetry}>다시하기</Button>
+            <S.ButtonLayout>
+              <S.ButtonShare onClick={handleModalClick}>
+                <img src={shareResult} alt="share result icon" />
+                공유하기
+              </S.ButtonShare>
+              <Button onClick={handleRetry}>다시하기</Button>
+            </S.ButtonLayout>
           </S.RestaurantList>
         </S.OverallRankingWrapper>
       </S.Wrapper>
