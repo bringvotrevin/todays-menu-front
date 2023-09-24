@@ -9,7 +9,7 @@ const postRandomListApi = async ({ longitude, latitude }: RandomListApiParams) =
     longitude,
     latitude,
   });
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   return response;
 };
 
