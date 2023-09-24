@@ -31,7 +31,7 @@ const Poll = () => {
   const { data } = useGetRoom(roomId);
   const { mutate, isLoading } = useVoteMutation();
 
-  const onSuccessFn = (data: any) => {
+  const onSuccessFn = () => {
     navigate(`/random-menu/${roomId}/result`);
   };
 
