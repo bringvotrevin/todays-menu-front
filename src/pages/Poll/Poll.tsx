@@ -11,10 +11,11 @@ import icon_share from 'assets/icons/icon-share.svg';
 import { roomIdData } from 'recoil/roomIdData';
 import { useRecoilValue } from 'recoil';
 import { useVoteMutation } from 'apis/query/useVoteMutation';
+import Error from 'pages/Error/Error';
 
 const PollWrapper = () => {
   return (
-    <AsyncBoundary errorFallback={<>...error</>} suspenseFallback={<Loading message={'오늘의 메뉴 생성중'} />}>
+    <AsyncBoundary errorFallback={<Error />} suspenseFallback={<Loading message={'오늘의 메뉴 생성중'} />}>
       <Poll />
     </AsyncBoundary>
   );
@@ -37,8 +38,9 @@ const Poll = () => {
     // }
   }, [clickedIndexArray]);
 
-  const onSuccessFn = () => {
-    // navigate(`/random-menu/${roomId}/result`);
+  const onSuccessFn = (data: any) => {
+    navigate(`/random-menu/${roomId}/result`);
+    console.log(data);
   };
 
   const handleSubmit = () => {

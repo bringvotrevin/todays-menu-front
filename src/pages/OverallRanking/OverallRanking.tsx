@@ -8,11 +8,22 @@ import shareResult from 'assets/icons/icon-share-resut.svg';
 import winner from 'assets/icons/icon-winner.svg';
 import { useGetResult } from 'apis/query/useGetResult';
 import splitCategory from 'util/splitCategory';
+import AsyncBoundary from 'components/common/AsyncBoundary';
+import Loading from 'pages/Loading/Loading';
+import Error from 'pages/Error/Error';
 import { useRecoilState } from 'recoil';
 import { roomIdData } from 'recoil/roomIdData';
 import { randomListData } from 'recoil/randomListData';
 
-export default function OverallRanking() {
+const OverallRankingWrapper = () => {
+  return (
+    <AsyncBoundary errorFallback={<Error />} suspenseFallback={<Loading message={'투표 결과 가져오는 중'} />}>
+      <OverallRanking />
+    </AsyncBoundary>
+  );
+};
+
+function OverallRanking() {
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
   const navigate = useNavigate();
   const { id: roomId } = useParams();
@@ -66,10 +77,7 @@ export default function OverallRanking() {
                   </p>
                 </S.Ranking>
                 <S.RestaurantData>
-                  <div className="name-and-distance">
-                    <strong className="name">{item.title}</strong>
-                    <p className="distance">{item.distance}m</p>
-                  </div>
+                  <strong className="name">{item.title}</strong>
                   <div className="tags">{`# ${splitCategory(item.category)}`}</div>
                 </S.RestaurantData>
                 <S.Distance className="distance">{item.distance}m</S.Distance>
@@ -91,3 +99,5 @@ export default function OverallRanking() {
     </>
   );
 }
+
+export default OverallRankingWrapper;
