@@ -1,11 +1,12 @@
-import { postInstance } from 'apis/base/postInstance';
+import { axiosInstance } from 'apis/base/instance';
+
 interface RandomListApiParams {
   longitude: string;
   latitude: string;
 }
 
 const postRandomListApi = async ({ longitude, latitude }: RandomListApiParams) => {
-  const response = await postInstance.post('/create', {
+  const response = await axiosInstance.post('/create', {
     longitude,
     latitude,
   });

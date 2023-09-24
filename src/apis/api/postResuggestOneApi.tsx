@@ -1,4 +1,4 @@
-import { postInstance } from 'apis/base/postInstance';
+import { axiosInstance } from 'apis/base/instance';
 
 interface ResuggestProps {
   roomId: number;
@@ -6,7 +6,7 @@ interface ResuggestProps {
 }
 
 const postResuggestOneApi = async ({ roomId, restaurantId }: ResuggestProps) => {
-  const response = await postInstance.post(`/${roomId}/resuggest/${restaurantId}`);
+  const response = await axiosInstance.post(`/${roomId}/resuggest/${restaurantId}`);
   return response.data;
 };
 

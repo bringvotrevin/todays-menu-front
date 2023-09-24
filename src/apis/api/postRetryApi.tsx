@@ -1,7 +1,7 @@
-import { postInstance } from 'apis/base/postInstance';
+import { axiosInstance } from 'apis/base/instance';
 
 const postRetryApi = async (roomId: number) => {
-  const response = await postInstance.post(`/retry/${roomId}`);
+  const response = await axiosInstance.post(`/retry/${roomId}`);
   return response.data;
 };
 
