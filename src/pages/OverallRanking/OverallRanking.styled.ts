@@ -32,6 +32,7 @@ export const RestaurantItem = styled.li`
   height: 92px;
   background-color: #fff;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   border-radius: 10px;
 
@@ -74,36 +75,39 @@ export const RestaurantData = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  .name-and-distance {
+  /* .name-and-distance {
     width: 100%;
     display: flex;
     overflow: hidden;
     align-items: center;
-  }
+  } */
 
   .name {
+    width: 177px;
     font-size: var(--md);
     font-weight: var(--font-bold);
     margin-right: 10px;
-    flex-basis: 50%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    flex-shrink: 1;
-    flex-grow: 1;
-    min-width: 0;
   }
-  .distance {
+  /* .distance {
     display: inline;
     color: var(--color-sub-gray);
     flex-shrink: 0;
-  }
+  } */
 
   .tags {
     display: flex;
     gap: 5px;
     color: var(--color-main-orange);
   }
+`;
+
+export const Distance = styled.p`
+  /* height: 100%; */
+  /* vertical-align: center; */
+  color: var(--color-sub-gray);
 `;
 
 export const ButtonShare = styled.button`

@@ -42,14 +42,27 @@ export const multipleWinnerRanking = styled.p`
 `;
 
 export const RestaurantName = styled.button`
+  display: flex;
+  align-items: center;
   margin: 23px 0 15px;
-  font-size: 30px;
-  font-weight: var(--font-bold);
-  text-align: center;
+
+  .name {
+    font-size: 30px;
+    font-weight: var(--font-bold);
+    flex-grow: 1;
+    white-space: normal;
+    word-break: keep-all;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 
   img {
     display: inline-block;
     margin-left: 9px;
+    flex-shrink: 0;
   }
 `;
 
@@ -70,7 +83,7 @@ export const RestaurantTag = styled.p`
 `;
 
 export const RestaurantDistance = styled.div`
-  margin: 20px auto 44px;
+  margin: 20px auto auto;
   color: var(--color-sub-gray);
   font-size: 22px;
 `;
