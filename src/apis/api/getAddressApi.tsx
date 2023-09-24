@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// null 지우기
 const getAddressApi = async (location: { longitude: number; latitude: number }) => {
   const longitude = location.longitude;
   const latitude = location.latitude;

@@ -51,7 +51,7 @@ const Location: React.FC = () => {
         console.error('kakao get coordinate error');
       }
     });
-    setAddress(dataAddress); // 위치 if문 안쪽으로? 고려해보긴
+    setAddress(dataAddress);
     setIsModalOn(false);
   };
 

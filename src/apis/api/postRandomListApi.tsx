@@ -14,4 +14,3 @@ const postRandomListApi = async ({ longitude, latitude }: RandomListApiParams) =
 };
 
 export default postRandomListApi;
-// 에러페이지 센트리 추가 (공부하기)
