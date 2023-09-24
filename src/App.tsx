@@ -8,6 +8,12 @@ import { GlobalStyle } from 'styles/GlobalStyle.js';
 import Error from 'pages/Error/Error';
 import { RecoilRoot } from 'recoil';
 import Loading from 'pages/Loading/Loading';
+import ReactGA from 'react-ga4';
+import RouteChangeTracker from 'util/RouteChangeTracker';
+
+if (process.env.REACT_APP_GOOGLE_ANALYTICS) {
+  ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS);
+}
 
 function App() {
   const queryClient = new QueryClient({
@@ -17,6 +23,8 @@ function App() {
       },
     },
   });
+
+  RouteChangeTracker();
 
   useEffect(() => {
     //debounce추가
