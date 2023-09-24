@@ -10,10 +10,11 @@ import { randomListData } from 'recoil/randomListData';
 import { roomIdData } from 'recoil/roomIdData';
 import { useRetryMutation } from 'apis/query/useRetryMutation';
 import { useResuggestOneMutation } from 'apis/query/useResuggestOneMutation';
+import Error from 'pages/Error/Error';
 
 const RandomListWrapper = () => {
   return (
-    <AsyncBoundary errorFallback={<>...error</>} suspenseFallback={<Loading message={'음식점을 추천 중이에요'} />}>
+    <AsyncBoundary errorFallback={<Error />} suspenseFallback={<Loading message={'음식점을 추천 중이에요'} />}>
       <RandomList />
     </AsyncBoundary>
   );

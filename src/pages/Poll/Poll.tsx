@@ -13,10 +13,11 @@ import { useRecoilValue } from 'recoil';
 import BottomSheet from 'components/common/modal/BottomSheet';
 import EndOfListAlert from 'components/common/modal/children/EndOfListAlert';
 import { useVoteMutation } from 'apis/query/useVoteMutation';
+import Error from 'pages/Error/Error';
 
 const PollWrapper = () => {
   return (
-    <AsyncBoundary errorFallback={<>...error</>} suspenseFallback={<Loading message={'오늘의 메뉴 생성중'} />}>
+    <AsyncBoundary errorFallback={<Error />} suspenseFallback={<Loading message={'오늘의 메뉴 생성중'} />}>
       <Poll />
     </AsyncBoundary>
   );
@@ -37,7 +38,7 @@ const Poll = () => {
   }, [clickedIndexArray]);
 
   const onSuccessFn = (data: any) => {
-    // navigate(`/random-menu/${data?.data.id}/result`);
+    navigate(`/random-menu/${roomId}/result`);
     console.log(data);
   };
 
