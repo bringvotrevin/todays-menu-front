@@ -77,13 +77,6 @@ export const RestaurantData = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  /* .name-and-distance {
-    width: 100%;
-    display: flex;
-    overflow: hidden;
-    align-items: center;
-  } */
-
   .name {
     width: 177px;
     font-size: var(--md);
@@ -93,11 +86,6 @@ export const RestaurantData = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  /* .distance {
-    display: inline;
-    color: var(--color-sub-gray);
-    flex-shrink: 0;
-  } */
 
   .tags {
     display: flex;
@@ -107,8 +95,6 @@ export const RestaurantData = styled.div`
 `;
 
 export const Distance = styled.p`
-  /* height: 100%; */
-  /* vertical-align: center; */
   color: var(--color-sub-gray);
 `;
 
