@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getResult } from 'apis/api/getResult';
 
-const useGetResult = (roomId: number | string) => {
+const useGetResult = (roomId: string | undefined) => {
   const isFirstRun = useRef(true);
 
   const queryFn = async () => {

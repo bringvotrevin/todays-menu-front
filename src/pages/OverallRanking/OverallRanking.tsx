@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './OverallRanking.styled';
 import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
 import Button from 'components/common/Button/Button';
@@ -8,15 +8,16 @@ import shareResult from 'assets/icons/icon-share-resut.svg';
 import winner from 'assets/icons/icon-winner.svg';
 import { useGetResult } from 'apis/query/useGetResult';
 import splitCategory from 'util/splitCategory';
+import { useRecoilState } from 'recoil';
+import { roomIdData } from 'recoil/roomIdData';
+import { randomListData } from 'recoil/randomListData';
 
 export default function OverallRanking() {
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
   const navigate = useNavigate();
-
-  // TODO: 세션에서 가져오기
-  // const roomId = sessionStorage.getItem('roomId');
-  const roomId = '1';
-
+  const { id: roomId } = useParams();
+  const [recoilRoomId, setRecoilRoomId] = useRecoilState(roomIdData);
+  const [randomList, setRandomList] = useRecoilState(randomListData);
   const resultData = useGetResult(roomId).voteOverallResultData?.data;
   console.log('resultData', resultData);
   const totalVote = resultData.total;
@@ -34,7 +35,13 @@ export default function OverallRanking() {
   };
 
   const handleRetry = () => {
-    navigate('/location');
+    if (recoilRoomId !== null) {
+      setRecoilRoomId(null);
+    }
+    if (randomList !== null) {
+      setRandomList([]);
+    }
+    navigate('/');
   };
 
   const handleLinkClick = (event: React.MouseEvent<HTMLButtonElement>, link: string) => {
@@ -60,7 +67,7 @@ export default function OverallRanking() {
                 </S.Ranking>
                 <S.RestaurantData>
                   <div className="name-and-distance">
-                  <strong className="name">{item.title}</strong>
+                    <strong className="name">{item.title}</strong>
                     <p className="distance">{item.distance}m</p>
                   </div>
                   <div className="tags">{`# ${splitCategory(item.category)}`}</div>
@@ -71,7 +78,6 @@ export default function OverallRanking() {
                 </button>
               </S.RestaurantItem>
             ))}
-
             <S.ButtonShare onClick={handleModalClick}>
               <img src={shareResult} alt="share result icon" />
               공유하기

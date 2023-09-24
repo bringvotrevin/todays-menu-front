@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 import { useGetResult } from 'apis/query/useGetResult';
 import 'slick-carousel/slick/slick.css';
@@ -10,16 +10,18 @@ import Button from 'components/common/Button/Button';
 import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
 import shareResult from 'assets/icons/icon-share-result.svg';
 import retry from 'assets/icons/icon-retry-orange.svg';
+import { useRecoilState } from 'recoil';
+import { randomListData } from 'recoil/randomListData';
+import { roomIdData } from 'recoil/roomIdData';
 
 const Result = () => {
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
   const [text, setText] = useState('1등 음식점을 확인해보세요 👀');
   const [opacity, setOpacity] = useState(1);
   const navigate = useNavigate();
-
-  // TODO: 세션에서 가져오기
-  // const roomId = sessionStorage.getItem('roomId');
-  const roomId = '1';
+  const { id: roomId } = useParams();
+  const [recoilRoomId, setRecoilRoomId] = useRecoilState(roomIdData);
+  const [randomList, setRandomList] = useRecoilState(randomListData);
 
   const { voteOverallResultData, refetch } = useGetResult(roomId);
 
@@ -28,15 +30,12 @@ const Result = () => {
   const totalVote = voteResult.total;
   const winnerData = voteResult.win;
 
-  console.log('winnerData', winnerData);
-
   const handleModalClick = () => {
     setIsModalOn(true);
   };
 
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
-    event.preventDefault();
     setIsModalOn(false);
   };
 
@@ -65,7 +64,13 @@ const Result = () => {
   }, []);
 
   const handleClickFromScratch = () => {
-    navigate('/location');
+    if (recoilRoomId !== null) {
+      setRecoilRoomId(null);
+    }
+    if (randomList !== null) {
+      setRandomList([]);
+    }
+    navigate('/');
   };
 
   return (
@@ -79,6 +84,7 @@ const Result = () => {
           winnerData.map((item: any, i: number) => (
             <ResultCard
               key={i}
+              roomId={roomId}
               rank={item.rank}
               name={item.title}
               distance={item.distance}
@@ -93,6 +99,7 @@ const Result = () => {
             {winnerData.map((item: any, i: number) => (
               <ResultCard
                 key={i}
+                roomId={roomId}
                 rank={item.rank}
                 name={item.title}
                 distance={item.distance}
@@ -104,19 +111,20 @@ const Result = () => {
             ))}
           </Slider>
         )}
-        <S.ButtonShare onClick={handleModalClick}>
-          <img src={shareResult} alt="share result icon" />
-          공유하기
-        </S.ButtonShare>
-        <S.ReloadButton type="button" onClick={() => refetch()}>
-          {totalVote}명째 투표중
-          <img src={retry} alt="retry icon" />
-        </S.ReloadButton>
-        <Button $variant="retry" onClick={handleClickFromScratch}>
-          처음부터 다시하기
-        </Button>
+        <S.ButtonLayout>
+          <S.ButtonShare onClick={handleModalClick}>
+            <img src={shareResult} alt="share result icon" />
+            공유하기
+          </S.ButtonShare>
+          <S.ReloadButton type="button" onClick={() => refetch()}>
+            {totalVote}명째 투표중
+            <img src={retry} alt="retry icon" />
+          </S.ReloadButton>
+          <Button $variant="retry" onClick={handleClickFromScratch}>
+            처음부터 다시하기
+          </Button>
+        </S.ButtonLayout>
       </S.Wrapper>
-      {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!!  */}
       {IsModalOn && <ShareBottomSheet handleModalClose={handleModalClose} />}
     </>
   );

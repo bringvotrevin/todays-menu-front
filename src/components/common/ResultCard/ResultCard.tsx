@@ -9,6 +9,7 @@ import splitCategory from 'util/splitCategory';
 
 type ResultCardProps = {
   key: number;
+  roomId: string | undefined;
   winnerNum: number;
   rank: number;
   name: string;
@@ -61,7 +62,7 @@ const ResultCard = (props: ResultCardProps) => {
       <S.VoteNumber>
         <span>{props.pollNumber}</span>/15명
       </S.VoteNumber>
-      <S.ToOverallRanking to="/random-menu/:id/result/overall-ranking">전체 순위 보기</S.ToOverallRanking>
+      <S.ToOverallRanking to={`/random-menu/${props.roomId}/result/overall-ranking`}>전체 순위 보기</S.ToOverallRanking>
     </S.RestaurantDetail>
   );
 };
