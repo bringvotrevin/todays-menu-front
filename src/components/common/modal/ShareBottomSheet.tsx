@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as S from './ShareBottomSheet.styled';
 import shareViaKakaoImg from 'assets/icons/icon-kakaotalk.svg';
 import shareViaLinkImg from 'assets/icons/icon-share-link.svg';
+import ReactGA from 'react-ga4';
 
 declare global {
   interface Window {
@@ -11,6 +12,7 @@ declare global {
 
 type Props = {
   handleModalClose: React.MouseEventHandler<HTMLDivElement>;
+  isPollPage?: boolean;
 };
 
 export default function ShareBottomSheet(props: Props) {
@@ -18,6 +20,19 @@ export default function ShareBottomSheet(props: Props) {
   const urlToCopy: string = window.location.href;
 
   const handleCopyClick = async (): Promise<void> => {
+    if (props.isPollPage) {
+      ReactGA.event({
+        category: 'click',
+        action: '모달_url_공유',
+        label: '투표하기 화면',
+      });
+    } else {
+      ReactGA.event({
+        category: 'click',
+        action: '모달_url_공유',
+        label: '투표 결과 화면',
+      });
+    }
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(urlToCopy);
@@ -37,6 +52,19 @@ export default function ShareBottomSheet(props: Props) {
   };
 
   const shareKakao = () => {
+    if (props.isPollPage) {
+      ReactGA.event({
+        category: 'click',
+        action: '모달_카카오톡_공유',
+        label: '투표하기 화면',
+      });
+    } else {
+      ReactGA.event({
+        category: 'click',
+        action: '모달_카카오톡_공유',
+        label: '투표 결과 화면',
+      });
+    }
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {

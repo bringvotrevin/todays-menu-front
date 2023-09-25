@@ -3,11 +3,17 @@ import * as S from './Error.styled';
 import toPreviousPage from 'assets/icons/btn-to-previoud-page.svg';
 import Button from 'components/common/Button/Button';
 import { useNavigate } from 'react-router-dom';
+import ReactGA from 'react-ga4';
 
 export default function Error() {
   const navigate = useNavigate();
 
   const refreshPage = () => {
+    ReactGA.event({
+      category: 'click',
+      action: '다시_시도하기_버튼',
+      label: '에러 화면',
+    });
     window.location.reload();
   };
 

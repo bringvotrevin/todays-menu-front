@@ -12,6 +12,7 @@ import { roomIdData } from 'recoil/roomIdData';
 import { useRecoilValue } from 'recoil';
 import { useVoteMutation } from 'apis/query/useVoteMutation';
 import Error from 'pages/Error/Error';
+import ReactGA from 'react-ga4';
 
 const PollWrapper = () => {
   return (
@@ -36,6 +37,14 @@ const Poll = () => {
   };
 
   const handleSubmit = () => {
+    if (roomId) {
+      ReactGA.event({
+        category: 'click',
+        action: '투표하고_결과보기_버튼',
+        label: '투표하기 화면',
+        value: parseInt(roomId),
+      });
+    }
     if (clickedIndexArray && roomId) {
       mutate({ roomId, voteList: clickedIndexArray }, { onSuccess: onSuccessFn });
       navigate(`/random-menu/${roomId}/result`);
@@ -43,6 +52,11 @@ const Poll = () => {
   };
 
   const handleShareClick = () => {
+    ReactGA.event({
+      category: 'click',
+      action: '투표화면_공유하기_버튼',
+      label: '투표하기 화면',
+    });
     setIsShareModalOn(true);
   };
 
@@ -52,6 +66,11 @@ const Poll = () => {
   };
 
   const handleClick = (restaurantId: number) => {
+    ReactGA.event({
+      category: 'click',
+      action: '체크박스_버튼',
+      label: '투표하기 화면',
+    });
     setClickedIndexArray((prev) => {
       const updatedList = [...prev];
       const i = prev.findIndex((el) => el === restaurantId);
@@ -104,7 +123,7 @@ const Poll = () => {
           </S.ButtonLayout>
         </S.Layout>
       )}
-      {isShareModalOn && <ShareBottomSheet handleModalClose={handleModalClose} />}
+      {isShareModalOn && <ShareBottomSheet isPollPage={true} handleModalClose={handleModalClose} />}
     </>
   );
 };
