@@ -15,7 +15,7 @@ import Error from 'pages/Error/Error';
 
 const PollWrapper = () => {
   return (
-    <AsyncBoundary errorFallback={<Error />} suspenseFallback={<Loading message={'오늘의 메뉴 생성중'} />}>
+    <AsyncBoundary errorFallback={<Error />} suspenseFallback={<></>}>
       <Poll />
     </AsyncBoundary>
   );
