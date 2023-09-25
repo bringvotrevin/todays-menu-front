@@ -34,27 +34,24 @@ export const RestaurantItem = styled.li`
   min-height: 92px;
   background-color: #fff;
   display: flex;
+  gap: 10px;
   align-items: center;
   justify-content: space-between;
   border-radius: 10px;
 
   .detailbutton {
-    margin: 0 22px;
+    margin: 0 15px 0 10px;
   }
 `;
 
 export const Ranking = styled.div`
-  margin: auto 22px;
+  margin: 0 10px 0 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   flex-shrink: 0;
-
-  img {
-    width: 16px;
-  }
 
   .ranking {
     display: block;
@@ -70,18 +67,17 @@ export const Ranking = styled.div`
 `;
 
 export const RestaurantData = styled.div`
-  width: 60%;
   line-height: 1.7;
   padding-top: 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex-grow: 1;
+  min-width: 40%;
 
   .name {
-    width: 177px;
     font-size: var(--md);
     font-weight: var(--font-bold);
-    margin-right: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
