@@ -19,9 +19,17 @@ export default function ShareBottomSheet(props: Props) {
 
   const handleCopyClick = async (): Promise<void> => {
     try {
-      await navigator.clipboard.writeText(urlToCopy);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(urlToCopy);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = urlToCopy;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
       setIsCopied(true);
-
       setTimeout(() => setIsCopied(false), 3000);
     } catch (err) {
       console.error('Failed to copy: ', err);
