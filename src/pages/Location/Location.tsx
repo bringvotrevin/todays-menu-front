@@ -40,9 +40,9 @@ const Location: React.FC = () => {
     event.preventDefault();
     setIsModalOn(true);
     ReactGA.event({
-      category: 'Button',
-      action: 'search address',
-      label: 'location',
+      category: 'click',
+      action: '위치_검색',
+      label: '메인 화면',
     });
   };
 
@@ -82,9 +82,9 @@ const Location: React.FC = () => {
   const getCurrentLocation = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     ReactGA.event({
-      category: 'Button',
-      action: 'find current location',
-      label: 'location',
+      category: 'click',
+      action: '현재_위치',
+      label: '메인 화면',
     });
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(async ({ coords: { latitude, longitude } }) => {
@@ -118,9 +118,9 @@ const Location: React.FC = () => {
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     ReactGA.event({
-      category: 'Button',
-      action: 'submit location',
-      label: 'location',
+      category: 'click',
+      action: '점심메뉴_고르기_버튼',
+      label: '메인 화면',
     });
     if (latitude && longitude) {
       mutate({ longitude, latitude }, { onSuccess: onSuccessFn });

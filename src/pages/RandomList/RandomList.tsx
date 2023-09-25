@@ -13,6 +13,7 @@ import { useResuggestOneMutation } from 'apis/query/useResuggestOneMutation';
 import Error from 'pages/Error/Error';
 import BottomSheet from 'components/common/modal/BottomSheet';
 import EndOfListAlert from 'components/common/modal/children/EndOfListAlert';
+import ReactGA from 'react-ga4';
 
 const RandomListWrapper = () => {
   return (
@@ -32,14 +33,29 @@ const RandomList = () => {
   const { mutate: resuggestOneMutate } = useResuggestOneMutation();
 
   const handleSubmit = () => {
+    if (roomId) {
+      ReactGA.event({
+        category: 'click',
+        action: '투표공유하기_버튼',
+        label: '음식점 추천 화면',
+        value: roomId,
+      });
+    }
     navigate(`/random-menu/${roomId}`);
   };
+
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     event.preventDefault();
     setIsAlertModalOn(false);
   };
+
   const handleClick = (restaurantId: number, index: number) => {
+    ReactGA.event({
+      category: 'click',
+      action: '마이너스_버튼',
+      label: '음식점 추천 화면',
+    });
     const resuggestOneOnSuccess = (data: any) => {
       setRandomList((prev) => {
         if (prev) {
@@ -61,6 +77,11 @@ const RandomList = () => {
   };
 
   const handleRetry = () => {
+    ReactGA.event({
+      category: 'click',
+      action: '다시_추천_버튼',
+      label: '음식점 추천 화면',
+    });
     if (roomId) {
       retryMutate(roomId, { onSuccess: retryOnSuccess });
     }

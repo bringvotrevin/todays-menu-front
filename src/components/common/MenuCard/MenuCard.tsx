@@ -5,6 +5,7 @@ import icon_inactiveCheck from 'assets/icons/icon-inactiveCheck.svg';
 import icon_activeCheck from 'assets/icons/icon-activeCheck.svg';
 import splitCategory from 'util/splitCategory';
 import icon_link from 'assets/icons/btn-link.svg';
+import ReactGA from 'react-ga4';
 
 interface MenuCardProps {
   information: {
@@ -29,6 +30,19 @@ const MenuCard = (props: MenuCardProps) => {
   const handleLinkClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     window.open(link);
+    if (props.isPoll) {
+      ReactGA.event({
+        category: 'click',
+        action: '음식점_정보',
+        label: '투표하기 화면',
+      });
+    } else {
+      ReactGA.event({
+        category: 'click',
+        action: '음식점_정보',
+        label: '음식점 추천 화면',
+      });
+    }
   };
 
   const handleIconClick = () => {
