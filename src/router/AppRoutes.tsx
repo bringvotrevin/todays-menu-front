@@ -5,6 +5,7 @@ import RandomList from 'pages/RandomList/RandomList';
 import Result from 'pages/Result/Result';
 import Poll from 'pages/Poll/Poll';
 import OverallRanking from 'pages/OverallRanking/OverallRanking';
+import Error from 'pages/Error/Error';
 
 const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
       <Route path="/random-menu/:id" element={<Poll />} />
       <Route path="/random-menu/:id/result" element={<Result />} />
       <Route path="/random-menu/:id/result/overall-ranking" element={<OverallRanking />} />
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 };
