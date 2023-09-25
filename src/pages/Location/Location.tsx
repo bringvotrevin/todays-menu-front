@@ -9,6 +9,7 @@ import { randomListData } from 'recoil/randomListData';
 import { roomIdData } from 'recoil/roomIdData';
 import { useSetRecoilState } from 'recoil';
 import { useRandomListMutation } from 'apis/query/useRandomListMutation';
+import ReactGA from 'react-ga4';
 
 const Location: React.FC = () => {
   const navigate = useNavigate();
@@ -38,6 +39,11 @@ const Location: React.FC = () => {
   const handlePostcodeModal = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
     setIsModalOn(true);
+    ReactGA.event({
+      category: 'Button',
+      action: 'search address',
+      label: 'location',
+    });
   };
 
   const handleComplete = (data: Address) => {
@@ -75,6 +81,11 @@ const Location: React.FC = () => {
   // 현재 위치 정보 가져오기
   const getCurrentLocation = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    ReactGA.event({
+      category: 'Button',
+      action: 'find current location',
+      label: 'location',
+    });
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(async ({ coords: { latitude, longitude } }) => {
         try {
@@ -106,6 +117,11 @@ const Location: React.FC = () => {
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    ReactGA.event({
+      category: 'Button',
+      action: 'submit location',
+      label: 'location',
+    });
     if (latitude && longitude) {
       mutate({ longitude, latitude }, { onSuccess: onSuccessFn });
     }
