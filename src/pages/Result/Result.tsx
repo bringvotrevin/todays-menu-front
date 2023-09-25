@@ -157,7 +157,7 @@ const Result = () => {
           </Button>
         </S.ButtonLayout>
       </S.Wrapper>
-      {IsModalOn && <ShareBottomSheet handleModalClose={handleModalClose} />}
+      {IsModalOn && <ShareBottomSheet handleModalClose={handleModalClose} isPollPage={false} isFirstPlace={true} />}
     </>
   );
 };

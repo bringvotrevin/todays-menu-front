@@ -13,6 +13,7 @@ declare global {
 type Props = {
   handleModalClose: React.MouseEventHandler<HTMLDivElement>;
   isPollPage?: boolean;
+  isFirstPlace?: boolean;
 };
 
 export default function ShareBottomSheet(props: Props) {
@@ -20,19 +21,22 @@ export default function ShareBottomSheet(props: Props) {
   const urlToCopy: string = window.location.href;
 
   const handleCopyClick = async (): Promise<void> => {
+    let labelValue: string;
+
     if (props.isPollPage) {
-      ReactGA.event({
-        category: 'click',
-        action: '모달_url_공유',
-        label: '투표하기 화면',
-      });
+      labelValue = '투표하기 화면';
+    } else if (props.isFirstPlace) {
+      labelValue = '투표 결과 화면(1등)';
     } else {
-      ReactGA.event({
-        category: 'click',
-        action: '모달_url_공유',
-        label: '투표 결과 화면',
-      });
+      labelValue = '투표 결과 화면(전체)';
     }
+
+    ReactGA.event({
+      category: 'click',
+      action: '모달_url_공유',
+      label: labelValue,
+    });
+
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(urlToCopy);

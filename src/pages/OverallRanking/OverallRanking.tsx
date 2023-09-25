@@ -108,7 +108,7 @@ function OverallRanking() {
         </S.OverallRankingWrapper>
       </S.Wrapper>
       {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}
-      {IsModalOn && <ShareBottomSheet handleModalClose={handleModalClose} />}
+      {IsModalOn && <ShareBottomSheet handleModalClose={handleModalClose} isPollPage={false} isFirstPlace={false} />}
     </>
   );
 }
