@@ -8,12 +8,6 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    env:
-      REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
-      REACT_APP_KAKAO_JS_KEY:  ${{ secrets.REACT_APP_KAKAO_JS_KEY }}
-      REACT_APP_KAKAO_REST_API_KEY: ${{ secrets.REACT_APP_KAKAO_REST_API_KEY }}
-      REACT_APP_GOOGLE_ANALYTICS: ${{ secrets.REACT_APP_GOOGLE_ANALYTICS }}
-      REACT_APP_GOOGLE_TAG: ${{ secrets.REACT_APP_GOOGLE_TAG }}
 
     steps:
     - name: Checkout repository
@@ -23,6 +17,14 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '18'
+
+    - name: Generate .env file
+      run: |
+        echo "REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }}" >> .env
+        echo "REACT_APP_KAKAO_JS_KEY=${{ secrets.REACT_APP_KAKAO_JS_KEY }}" >> .env
+        echo "REACT_APP_KAKAO_REST_API_KEY=${{ secrets.REACT_APP_KAKAO_REST_API_KEY }}" >> .env
+        echo "REACT_APP_GOOGLE_ANALYTICS=${{ secrets.REACT_APP_GOOGLE_ANALYTICS }}" >> .env
+        echo "REACT_APP_GOOGLE_TAG=${{ secrets.REACT_APP_GOOGLE_TAG }}" >> .env
 
     - name: Install dependencies
       run: yarn install
