@@ -14,6 +14,7 @@ import Error from 'pages/Error/Error';
 import { useRecoilState } from 'recoil';
 import { roomIdData } from 'recoil/roomIdData';
 import { randomListData } from 'recoil/randomListData';
+import ReactGA from 'react-ga4';
 
 const OverallRankingWrapper = () => {
   return (
@@ -34,6 +35,11 @@ function OverallRanking() {
   const overallRankingData = [...resultData.win, ...resultData.voteResultRes];
 
   const handleModalClick = () => {
+    ReactGA.event({
+      category: 'click',
+      action: '투표결과_공유하기_버튼',
+      label: '투표 결과 화면(전체)',
+    });
     setIsModalOn(true);
   };
 
@@ -44,6 +50,11 @@ function OverallRanking() {
   };
 
   const handleRetry = () => {
+    ReactGA.event({
+      category: 'click',
+      action: '처음부터_다시하기_버튼',
+      label: '투표 결과 화면(전체)',
+    });
     if (recoilRoomId !== null) {
       setRecoilRoomId(null);
     }
