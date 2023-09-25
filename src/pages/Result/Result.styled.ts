@@ -48,6 +48,7 @@ export const ButtonShare = styled.button`
   border-radius: 20px;
   margin: 23px auto 55px;
   margin-bottom: auto;
+  line-height: 1.4;
 
   img {
     margin-right: 10px;
