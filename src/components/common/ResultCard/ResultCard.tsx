@@ -7,6 +7,7 @@ import pizza from 'assets/icons/icon-pizza.svg';
 import hamburger from 'assets/icons/icon-hamburger.svg';
 import noodle from 'assets/icons/icon-noodle.svg';
 import splitCategory from 'util/splitCategory';
+import ReactGA from 'react-ga4';
 
 type ResultCardProps = {
   roomId: string | undefined;
@@ -29,6 +30,22 @@ const ResultCard = (props: ResultCardProps) => {
     window.open(props.link);
   };
 
+  const handleClickResultCard = () => {
+    ReactGA.event({
+      category: 'click',
+      action: '1등_카드',
+      label: '투표 결과 화면(1등)',
+    });
+  };
+
+  const handleClickOverallRanking = () => {
+    ReactGA.event({
+      category: 'click',
+      action: '전체순위_버튼',
+      label: '투표 결과 화면(1등)',
+    });
+  };
+
   const oneWinner = (
     <S.RankingWrapper>
       <img src={soup} alt="soup icon" />
@@ -47,7 +64,7 @@ const ResultCard = (props: ResultCardProps) => {
     </S.RankingWrapper>
   );
   return (
-    <S.RestaurantDetail>
+    <S.RestaurantDetail onClick={handleClickResultCard}>
       {props.winnerNum === 1 ? oneWinner : multipleWinner}
       <span className="line"></span>
       <S.RestaurantName onClick={handleLinkClick}>
@@ -63,7 +80,9 @@ const ResultCard = (props: ResultCardProps) => {
       <S.VoteNumber>
         <span>{props.pollNumber}</span>/15명
       </S.VoteNumber>
-      <S.ToOverallRanking to={`/random-menu/${roomId}/result/overall-ranking`}>전체 순위 보기</S.ToOverallRanking>
+      <S.ToOverallRanking to={`/random-menu/${roomId}/result/overall-ranking`} onClick={handleClickOverallRanking}>
+        전체 순위 보기
+      </S.ToOverallRanking>
     </S.RestaurantDetail>
   );
 };

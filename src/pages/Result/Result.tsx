@@ -16,6 +16,7 @@ import Error from 'pages/Error/Error';
 import { useRecoilState } from 'recoil';
 import { randomListData } from 'recoil/randomListData';
 import { roomIdData } from 'recoil/roomIdData';
+import ReactGA from 'react-ga4';
 
 const ResultWrapper = () => {
   return (
@@ -43,6 +44,11 @@ const Result = () => {
 
   const handleModalClick = () => {
     setIsModalOn(true);
+    ReactGA.event({
+      category: 'click',
+      action: '투표결과_공유하기_버튼',
+      label: '투표 결과 화면(1등)',
+    });
   };
 
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -75,6 +81,11 @@ const Result = () => {
   }, []);
 
   const handleClickFromScratch = () => {
+    ReactGA.event({
+      category: 'click',
+      action: '처음부터_다시하기_버튼',
+      label: '투표 결과 화면(1등)',
+    });
     if (recoilRoomId !== null) {
       setRecoilRoomId(null);
     }
@@ -127,7 +138,17 @@ const Result = () => {
             <img src={shareResult} alt="share result icon" />
             공유하기
           </S.ButtonShare>
-          <S.ReloadButton type="button" onClick={() => refetch()}>
+          <S.ReloadButton
+            type="button"
+            onClick={() => {
+              refetch();
+              ReactGA.event({
+                category: 'click',
+                action: '새로고침_버튼',
+                label: '투표 결과 화면(1등)',
+              });
+            }}
+          >
             {totalVote}명째 투표중
             <img src={retry} alt="retry icon" />
           </S.ReloadButton>
@@ -136,7 +157,7 @@ const Result = () => {
           </Button>
         </S.ButtonLayout>
       </S.Wrapper>
-      {IsModalOn && <ShareBottomSheet handleModalClose={handleModalClose} />}
+      {IsModalOn && <ShareBottomSheet handleModalClose={handleModalClose} isPollPage={false} isFirstPlace={true} />}
     </>
   );
 };
