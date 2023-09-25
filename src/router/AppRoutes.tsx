@@ -19,18 +19,3 @@ const AppRoutes = () => {
 };
 
 export default AppRoutes;
-
-// 원했던 Routes 구조인데 '/random-menu'에서 axios error가 있어 연결된 하위페이지들이 안열려서 일단 전체 동일선상에서 진행
-/* 
-<Routes>
-  <Route path="/" element={<Landing />} />
-  <Route path="/location" element={<Location />} />
-  <Route path="/random-menu" element={<RandomList />}>
-    <Route path=":id" element={<Vote />}>
-      <Route path="result" element={<Result />}>
-        <Route path="overall-ranking" element={<OverallRanking />} />
-      </Route>
-    </Route>
-  </Route>
-</Routes>; 
-*/
