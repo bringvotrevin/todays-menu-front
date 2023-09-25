@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import background from 'assets/images/background-error.svg';
+import background from 'assets/images/background-error.png';
 
 export const Background = styled.div`
   background: url(${background}) no-repeat;
@@ -9,13 +9,13 @@ export const Background = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  padding: 54px 20px 0;
+  padding: 54px 20px 20px;
 
   .description {
     display: block;
     font-size: 20px;
     font-weight: var(--font-bold);
-    margin: 539px 0 0;
+    margin: 450px 0 0;
     text-align: center;
     color: #828282;
   }
