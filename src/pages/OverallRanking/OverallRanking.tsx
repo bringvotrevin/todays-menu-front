@@ -36,7 +36,7 @@ function OverallRanking() {
 
   useEffect(() => {
     ReactGA.send({
-      hitType: 'view',
+      hitType: 'pageview',
       page: '투표 결과 화면(전체)',
       title: '투표결과_화면(전체)',
     });

@@ -34,7 +34,7 @@ const RandomList = () => {
 
   useEffect(() => {
     ReactGA.send({
-      hitType: 'view',
+      hitType: 'pageview',
       page: '음식점 추천 화면',
       title: '음식점_추천_리스트',
     });

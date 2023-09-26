@@ -34,7 +34,7 @@ const Poll = () => {
 
   useEffect(() => {
     ReactGA.send({
-      hitType: 'view',
+      hitType: 'pageview',
       page: '투표하기 화면',
       title: '투표하기_화면',
     });
