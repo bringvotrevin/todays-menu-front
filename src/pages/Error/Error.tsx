@@ -10,7 +10,7 @@ export default function Error() {
 
   useEffect(() => {
     ReactGA.send({
-      hitType: 'view',
+      hitType: 'pageview',
       page: '에러 화면',
       title: '에러_화면',
     });
