@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './OverallRanking.styled';
 import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
@@ -33,6 +33,14 @@ function OverallRanking() {
   const resultData = useGetResult(roomId).voteOverallResultData?.data;
   const totalVote = resultData.total;
   const overallRankingData = [...resultData.win, ...resultData.voteResultRes];
+
+  useEffect(() => {
+    ReactGA.send({
+      hitType: 'view',
+      page: '투표 결과 화면(전체)',
+      title: '투표결과_화면(전체)',
+    });
+  }, []);
 
   const handleModalClick = () => {
     ReactGA.event({

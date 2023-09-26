@@ -65,6 +65,12 @@ const Result = () => {
   };
 
   useEffect(() => {
+    ReactGA.send({
+      hitType: 'view',
+      page: '투표 결과 화면(1등)',
+      title: '투표결과_화면(1등)',
+    });
+
     const fadeOutTimer = setTimeout(() => {
       setOpacity(0);
     }, 3000);
