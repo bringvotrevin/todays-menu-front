@@ -75,7 +75,7 @@ const ResultCard = (props: ResultCardProps) => {
       </S.RestaurantTags>
       <S.RestaurantDistance>{props.distance}m</S.RestaurantDistance>
       <S.VoteNumber>
-        <span>{props.pollNumber}</span>/15명
+        <span>{props.pollNumber}</span>/{props.totalPollNumber}명
       </S.VoteNumber>
       <S.ToOverallRanking to={`/random-menu/${roomId}/result/overall-ranking`} onClick={handleClickOverallRanking}>
         전체 순위 보기

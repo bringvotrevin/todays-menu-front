@@ -120,6 +120,7 @@ const Result = () => {
               winnerNum={winnerData.length}
               categories={item.category}
               link={item.link}
+              totalPollNumber={totalVote}
             />
           ))
         ) : (
@@ -135,6 +136,7 @@ const Result = () => {
                 winnerNum={winnerData.length}
                 categories={item.category}
                 link={item.link}
+                totalPollNumber={totalVote}
               />
             ))}
           </Slider>
