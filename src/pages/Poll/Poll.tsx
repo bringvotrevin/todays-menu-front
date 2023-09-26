@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AsyncBoundary from 'components/common/AsyncBoundary';
 import * as S from './Poll.styled';
@@ -31,6 +31,14 @@ const Poll = () => {
   const { id: roomId } = useParams();
   const { data } = useGetRoom(roomId);
   const { mutate, isLoading } = useVoteMutation();
+
+  useEffect(() => {
+    ReactGA.send({
+      hitType: 'view',
+      page: '투표하기 화면',
+      title: '투표하기_화면',
+    });
+  }, []);
 
   const onSuccessFn = () => {
     navigate(`/random-menu/${roomId}/result`);

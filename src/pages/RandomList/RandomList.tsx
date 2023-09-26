@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from 'pages/Loading/Loading';
 import MenuCard from 'components/common/MenuCard/MenuCard';
@@ -31,6 +31,14 @@ const RandomList = () => {
   const roomId = useRecoilValue(roomIdData);
   const { mutate: retryMutate } = useRetryMutation();
   const { mutate: resuggestOneMutate } = useResuggestOneMutation();
+
+  useEffect(() => {
+    ReactGA.send({
+      hitType: 'view',
+      page: '음식점 추천 화면',
+      title: '음식점_추천_리스트',
+    });
+  }, []);
 
   const handleSubmit = () => {
     if (roomId) {

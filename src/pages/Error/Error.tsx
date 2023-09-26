@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as S from './Error.styled';
 import toPreviousPage from 'assets/icons/btn-to-previoud-page.svg';
 import Button from 'components/common/Button/Button';
@@ -7,6 +7,14 @@ import ReactGA from 'react-ga4';
 
 export default function Error() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    ReactGA.send({
+      hitType: 'view',
+      page: '에러 화면',
+      title: '에러_화면',
+    });
+  }, []);
 
   const refreshPage = () => {
     ReactGA.event({
