@@ -26,16 +26,13 @@ const ResultCard = (props: ResultCardProps) => {
   const { id: roomId } = useParams();
 
   const handleLinkClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    window.open(props.link);
-  };
-
-  const handleClickResultCard = () => {
     ReactGA.event({
       category: 'click',
       action: '1등_카드',
       label: '투표 결과 화면(1등)',
     });
+    event.stopPropagation();
+    window.open(props.link);
   };
 
   const handleClickOverallRanking = () => {
@@ -64,7 +61,7 @@ const ResultCard = (props: ResultCardProps) => {
     </S.RankingWrapper>
   );
   return (
-    <S.RestaurantDetail onClick={handleClickResultCard}>
+    <S.RestaurantDetail>
       {props.winnerNum === 1 ? oneWinner : multipleWinner}
       <span className="line"></span>
       <S.RestaurantName onClick={handleLinkClick}>
