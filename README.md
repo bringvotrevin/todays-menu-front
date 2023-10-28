@@ -4,8 +4,6 @@
 입력받은 위치를 기반으로 주변 음식점을 랜덤으로 추천해주고, 
 추천받은 리스트를 지인들과 공유해서 가고싶은 맛집을 투표까지 해볼 수 있는 서비스 입니다.
 
-
-
 ## 2. 🗓️ 개발 기간 
 23년 9월 11일 ~ 23년 9월 26일
 
@@ -13,8 +11,11 @@
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+
+![Recoil](https://img.shields.io/badge/Recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white)
 ![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
 ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+
 
 ## 4. 🎨 서비스 기능 소개
 |               입력받은 위치로 랜덤 메뉴 후보 생성            |                 후보 교체 및 재생성         | 투표하기 |
