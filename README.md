@@ -25,7 +25,7 @@
 
 |          카카오톡 공유,링크 복사         |            링크 이동             |
 | :---------------------------------: | :---------------------------------: |
-| <img src="https://github.com/bringvotrevin/todays-menu-front/assets/81025416/69bacbf6-f2bb-44c7-becb-c5c67ac562a6" width="380"/> | <img src="https://github.com/bringvotrevin/todays-menu-front/assets/81025416/f310151a-61a9-4753-b557-94ea120f3c96" width="380"/> |
+| <img src="https://github.com/bringvotrevin/todays-menu-front/assets/81025416/69bacbf6-f2bb-44c7-becb-c5c67ac562a6" width="390"/> | <img src="https://github.com/bringvotrevin/todays-menu-front/assets/81025416/f310151a-61a9-4753-b557-94ea120f3c96" width="390"/> |
 
 
 ## 5. 📁 폴더 구조
