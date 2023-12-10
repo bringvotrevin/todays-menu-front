@@ -11,15 +11,18 @@
 
 </br>
 
-## 3. 🛠️ 기술스택
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+## 3. 👥 6인 프로젝트 (PM-1, Designer-1, Backend-2, Frontend-2)
+
+</br>
+
+## 4. 🛠️ 기술스택
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 
 </br>
 
 ![Recoil](https://img.shields.io/badge/Recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white)
-</br> recoil을 통해 복잡한 상태 관리 로직을 단순화하여 코드의 가독성을 향상시키고 유지 보수를 용이하게 만들었습니다.
+</br> Recoil-persist를 이용하여 sessionStorage에 전역으로 관리해야 할 정보를 저장해서 브라우저 탭을 닫기 전까지 저장되게 만들었으며 상태 관리 로직을 단순화하고 코드의 유지 보수를 용이하게 만들었습니다.
 
 </br>
 
@@ -30,7 +33,7 @@
 </br>
 
 ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
-</br> styled-components를 사용하여 컴포넌트의 상태나 프롭스에 따라 스타일을 변경하고 상태에 따라 다른 스타일을 적용했습니다.
+</br> styled-components를 사용하여 직관적이고 간결한 코드로 스타일의 재사용성과 유지보수성을 높였으며 컴포넌트의 상태나 props에 따라 조건부 스타일링을 적용했습니다.
 
 
 </br>
@@ -45,7 +48,7 @@
 </br>
 
 
-## 4. 🎨 서비스 기능 소개
+## 5. 🎨 서비스 기능 소개
 |               입력받은 위치로 랜덤 메뉴 후보 생성            |                 후보 교체 및 재생성         | 투표하기 |
 | :---------------------------------: | :---------------------------------: | :---------------------------------: |
 | ![random](https://github.com/bringvotrevin/todays-menu-front/assets/81025416/3902bde0-3d48-49eb-a418-01b1ea5582c3) |  ![resuggest](https://github.com/bringvotrevin/todays-menu-front/assets/81025416/d6ce2b0f-2270-4155-aef3-30ce74176179) | ![vote](https://github.com/bringvotrevin/todays-menu-front/assets/81025416/83cdc5dd-fc73-48df-8aee-f48012267354) |
@@ -56,7 +59,7 @@
 | <img src="https://github.com/bringvotrevin/todays-menu-front/assets/81025416/69bacbf6-f2bb-44c7-becb-c5c67ac562a6" width="385"/> | <img src="https://github.com/bringvotrevin/todays-menu-front/assets/81025416/f310151a-61a9-4753-b557-94ea120f3c96" width="385"/> |
 
 
-## 5. 📁 폴더 구조
+## 6. 📁 폴더 구조
 
 ```
 .
